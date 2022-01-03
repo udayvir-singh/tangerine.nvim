@@ -31,6 +31,9 @@ clean:
 	@rm -rf $(INSTALL_DIR)
 	@echo ":: CLEANED INSTALL DIR"
 
+loc:
+	@.scripts/loc.sh "$(FNL_FILES)"
+
 help:
 	@echo 'GNU Make Targets'
 	@echo '  :fnl       compiles fennel files.'
