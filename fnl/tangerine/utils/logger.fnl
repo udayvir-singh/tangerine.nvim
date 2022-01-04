@@ -22,7 +22,7 @@
       (= false env-verbose) true))
 
 ;; -------------------- ;;
-;;     Compile Logs     ;;
+;;     Compile Msgs     ;;
 ;; -------------------- ;;
 (lambda log.compiled [files ?verbose]
   "prints compiled message for arr:'files'."
@@ -38,5 +38,23 @@
         qt "\""]
        (vim.cmd :redraw)
        (print (.. qt bufname qt " compiled" ))))
+
+;; -------------------- ;;
+;;      Eval Msgs       ;;
+;; -------------------- ;;
+(lambda serialize [tbl]
+  (local out (-> (vim.inspect tbl)
+                 (string.gsub "," "")
+                 (string.gsub "= " "")
+                 (string.gsub "(\n.-)%[\"(.-)\"%]" "%1%2")
+                 (string.gsub "(\n.-)(%w)" "%1:%2")
+                 (string.gsub "(\n.-)%{( .- )%}" "%1[%2]")))
+  out)
+
+(lambda log.value [val]
+  (if (= :table (type val))
+      (print ::return (serialize val))
+      (not= val nil)
+      (print ::return (vim.inspect val))))
 
 :return log
