@@ -1,6 +1,6 @@
 ; DEPENDS:
 ; (-string)             tangerine.fennel
-; (-file)               tangerine.utils.fs
+; (-file -vimrc)        tangerine.utils.fs
 ; (-vimrc -all)         tangerine.utils.env
 ; EXCEPT(-string)       tangerine.utils.p
 ; EXCEPT(-string)       tangerine.utils.diff
@@ -34,6 +34,7 @@
 
 (lambda compile-dir [sourcedir targetdir ?opts]
   "diff compiles fnl files in 'sourcedir' and barfs it to targetdir."
+  ;; ?opts {:verbose boolean :force boolean}
   (local opts (or ?opts {}))
   (local sources  (p.wildcard sourcedir "**/*.fnl"))
   (local logs [])
@@ -52,6 +53,7 @@
 ;; -------------------- ;;
 (fn compile-buffer [opts]
   "compiles the current active vim buffer."
+  ;; opts {:verbose boolean}
   (let [opts (or opts {})
         bufname (vim.fn.expand :%:p)
         target  (p.target bufname)]
@@ -60,16 +62,19 @@
 
 (fn compile-vimrc [opts]
   "diff compiles ENV.vimrc to ENV.target dir."
+  ;; opts {:verbose boolean :force boolean}
   (let [opts (or opts {})
         vimrc  (env.get :vimrc)
-        target (p.target vimrc)]
-       (when (or opts.force (df.stale? vimrc target))
-             :compile (compile-file vimrc target)
-             :logger (log.compiled [(p.shortname vimrc)] opts.verbose)
-             true)))
+        target (p.target vimrc)
+        compile? (or opts.force (df.stale? vimrc target))]
+       (when (and compile? (fs.readable? vimrc)
+                  :compile (compile-file vimrc target))
+         :logger (log.compiled [(p.shortname vimrc)] opts.verbose)
+         :return true)))
 
 (fn compile-all [opts]
   "diff compiles all indexed fnl files, present in ENV.source dir."
+  ;; opts {:verbose boolean :force boolean}
   (local opts (or opts {}))
   (local logs [])
   (if (compile-vimrc opts)
@@ -84,6 +89,7 @@
 
 
 ; Examples
+; (compile-file "~/a.fnl" "~/a.lua")
 ; (compile-dir 
 ;    "~/tangerine/fnl" "~/tangerine/lua"
 ;    {:force true :verbose true})
