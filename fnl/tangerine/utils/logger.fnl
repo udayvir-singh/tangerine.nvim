@@ -39,10 +39,22 @@
        (vim.cmd :redraw)
        (print (.. qt bufname qt " compiled" ))))
 
+
+;; -------------------- ;;
+;;     Cleaned Msgs     ;;
+;; -------------------- ;;
+(lambda log.cleaned [files ?verbose]
+  "prints cleaned message for arr:'files'."
+  (if (or (disable? ?verbose) (= 0 (# files)))
+      (lua :return))
+  (print-array files "CLEANED:"))
+
+
 ;; -------------------- ;;
 ;;      Eval Msgs       ;;
 ;; -------------------- ;;
 (lambda serialize [tbl]
+  "pretty print lua table in fennel form."
   (local out (-> (vim.inspect tbl)
                  (string.gsub "," "")
                  (string.gsub "= " "")

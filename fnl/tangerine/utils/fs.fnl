@@ -15,18 +15,21 @@
 ;; -------------------- ;;
 ;;        Files         ;;
 ;; -------------------- ;;
-(lambda fs.read [path]
-  (with-open [file (assert (io.open path "r"))]
-    (file:read "*a")))
-
 (lambda fs.readable? [path]
   (= 1 (vim.fn.filereadable path)))
 
+(lambda fs.read [path]
+  (with-open [file (assert (io.open path :r))]
+             (file:read "*a")))
+
 (lambda fs.write [path content]
   (let [dir (fs.dirname path)]
-    (when (not (fs.dir-exists? dir))
-      (fs.mkdir dir))
+    (if (not (fs.dir-exists? dir))
+        (fs.mkdir dir))
     (with-open [file (assert (io.open path :w))]
-      (file:write content))))
+               (file:write content))))
+
+(lambda fs.remove [path]
+  (os.remove path))
 
 :return fs
