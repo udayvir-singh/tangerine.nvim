@@ -48,6 +48,15 @@
         (p.from-x-to-y path [:target "lua"] [:source "fnl"]))))
 
 ;; -------------------- ;;
+;;         Vim          ;;
+;; -------------------- ;;
+(lambda p.goto-output []
+  "open lua:target of current fennel buffer."
+  (let [target (p.target (vim.fn.expand :%:p))]
+       (vim.cmd (.. "badd" target))
+       (vim.cmd (.. "b"    target))))
+
+;; -------------------- ;;
 ;;       Indexers       ;;
 ;; -------------------- ;;
 (lambda p.wildcard [dir pat]
