@@ -32,10 +32,12 @@
        (set fennel.path path)
        fennel))
 
+(local original-path [package.path])
+
 (fn patch-package-path []
   "appends fennel source dirs in package.path."
   (let [path (get-rtp :lua)]
-       (set package.path (.. path ";" package.path))
+       (set package.path (.. path ";" (. original-path 1)))
        true))
 
 :return {
