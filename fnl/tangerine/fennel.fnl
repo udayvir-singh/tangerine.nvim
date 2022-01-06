@@ -1,5 +1,5 @@
 ; DEPENDS:
-; (get-rtps load-fennel): tangerine.utils.env
+; (get-rtps load-fennel patch-): tangerine.utils.env
 ; (load-fennel): tangerine.fennel.x-y-z
 (local env (require :tangerine.utils.env))
 
@@ -36,8 +36,9 @@
 
 (fn patch-package-path []
   "appends fennel source dirs in package.path."
-  (let [path (get-rtp :lua)]
-       (set package.path (.. path ";" (. original-path 1)))
+  (let [path (get-rtp :lua)
+        target (format-path (env.get :target) :lua)]
+       (set package.path (.. target ";" path ";" (. original-path 1)))
        true))
 
 :return {
