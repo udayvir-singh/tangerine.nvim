@@ -56,11 +56,16 @@
 (lambda serialize [tbl]
   "pretty print lua table in fennel form."
   (local out (-> (vim.inspect tbl)
+                 ; remove "," and "= "
                  (string.gsub "," "")
                  (string.gsub "= " "")
+                 ; convert ["key"] to key
                  (string.gsub "(\n.-)%[\"(.-)\"%]" "%1%2")
+                 ; append ":" in front of keys
                  (string.gsub "(\n.-)(%w)" "%1:%2")
-                 (string.gsub "(\n.-)%{( .- )%}" "%1[%2]")))
+                 ; convert {1, 2} to [1 2]
+                 (string.gsub "(\n.-)%{( .- )%}" "%1[%2]")
+                 (string.gsub "^%{( .- )%}$" "[%1]")))
   out)
 
 (lambda log.value [val]
