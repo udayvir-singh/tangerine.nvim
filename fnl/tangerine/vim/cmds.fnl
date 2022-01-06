@@ -26,7 +26,6 @@
 ;; -------------------- ;;
 (command! :FnlCompile       "compile.all()"          [])
 (command! :FnlCompileBuffer "compile.buffer()"       [])
-(command! :FnlCompileFile   "compile.file(<q-args>)" [:nargs 1 :complete "file"])
 
 (command! :FnlBuffer "eval.buffer()"                       [])
 (command! :Fnl       "eval.string(<q-args>)"               [:nargs "*"])
