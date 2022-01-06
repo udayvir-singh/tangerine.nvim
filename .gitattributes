@@ -1,0 +1,3 @@
+lua/**  -diff linguist-generated
+deps/** -diff linguist-vendored
+lua/tangerine/fennel/* -diff linguist-vendored
