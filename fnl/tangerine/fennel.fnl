@@ -6,18 +6,19 @@
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
-(lambda format-path [path ext]
+(lambda format-path [path ext ?macro]
   "converts 'path' into usable fennel.path."
-  (.. path :?. ext ";" path :?/init. ext))
+  (.. path :?. ext ";" path :?/init. ext
+      (if ?macro (.. ";" path :?/init-macros.fnl) "")))
 
-(lambda get-rtp [ext]
+(lambda get-rtp [ext ?macro]
   "get rtp entries containing /fnl formatted for fennel.path or package.path."
-  (local out [(format-path (env.get :source) ext)])
+  (local out [(format-path (env.get :source) ext ?macro)])
   (let [rtp (.. vim.o.runtimepath ",")]
        (each [entry (rtp:gmatch "(.-),")]
-             (local path (.. entry "/fnl"))
+             (local path (.. entry "/fnl/"))
              (if (= 1 (vim.fn.isdirectory path))
-                 (table.insert out (format-path path ext)))))
+                 (table.insert out (format-path path ext ?macro)))))
   (table.concat out ";"))
 
 
@@ -27,9 +28,9 @@
 (fn load-fennel []
   "require fennel and setups it opts."
   (let [version (env.get :compiler :version)
-        fennel  (require (.. :tangerine.fennel. version))
-        path    (get-rtp :fnl)]
-       (set fennel.path path)
+        fennel  (require (.. :tangerine.fennel. version))]
+       (set fennel.path (get-rtp :fnl false))
+       (set fennel.macro-path (get-rtp :fnl true))
        fennel))
 
 (local original-path [package.path])
