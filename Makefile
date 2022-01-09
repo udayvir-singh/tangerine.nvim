@@ -1,4 +1,4 @@
-FENNEL      := ./deps/bin/1-0-0
+FENNEL      := ./deps/bin/fennel
 FNL_DEPS    := $(shell find deps -name '*.lua')
 FNL_FILES   := $(shell find fnl  -name '*.fnl')
 INSTALL_DIR := ~/.local/share/nvim/site/pack/tangerine/start/tangerine.nvim
