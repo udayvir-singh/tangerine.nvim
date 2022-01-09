@@ -35,7 +35,7 @@
 
 (lambda load-api []
   (let [api (require-api)]
-       (global tangerine {: api})))
+       (global tangerine {:api api :fennel fennel.load})))
 
 (lambda load-cmds []
   (require-cmds))
