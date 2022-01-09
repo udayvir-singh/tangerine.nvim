@@ -51,7 +51,7 @@ DRAW_BLOCK () {
 }
 
 # --------------------- #
-#         MAIN         #
+#         MAIN          #
 # --------------------- #
 DRAW_LINE () { 
 	START="$1"
@@ -68,37 +68,43 @@ DRAW_LINE () {
 }
 
 DRAW_HEADER () { 
-	PRIMARY="$1"
-	BLOCKS="$(echo $@ | cut -d' ' -f2-)"
-	NO_BLOCKS="$(echo $BLOCKS | wc -w)"
+	PRIMARY="${1}"
+	shift 1
+	NO_BLOCKS="${#@}"
 
 	DRAW_LINE $UP_LEFT $UP_RIGHT $DASH_DOWN $NO_BLOCKS
 	DRAW_PRIMARY $PRIMARY
-	for BLOCK in $BLOCKS; do
+	while [[ "${1}" ]]; do
+		BLOCK="${1}"
 		DRAW_BLOCK "$BLOCK"
+		shift 1
 	done; ENDL
 	DRAW_LINE $PIPE_LEFT $PIPE_RIGHT $CROSS $NO_BLOCKS
 }
 
 DRAW_ROW () {
 	PRIMARY="$1"
-	BLOCKS="$(echo $@ | cut -d' ' -f2-)"
+	shift 1
 
 	DRAW_PRIMARY $PRIMARY
-	for BLOCK in $BLOCKS; do
+	while [[ "${1}" ]]; do
+		BLOCK="${1}"
 		DRAW_BLOCK "$BLOCK"
+		shift 1
 	done; ENDL
 }
 
 DRAW_FOOTER () {
-	PRIMARY="$1"
-	BLOCKS="$(echo $@ | cut -d' ' -f2-)"
-	NO_BLOCKS="$(echo $BLOCKS | wc -w)"
+	PRIMARY="${1}"
+	shift 1
+	NO_BLOCKS="${#@}"
 	
 	DRAW_LINE $PIPE_LEFT $PIPE_RIGHT $CROSS $NO_BLOCKS
 	DRAW_PRIMARY $PRIMARY
-	for BLOCK in $BLOCKS; do
+	while [[ "${1}" ]]; do
+		BLOCK="${1}"
 		DRAW_BLOCK "$BLOCK"
+		shift 1
 	done; ENDL
 	DRAW_LINE $DOWN_LEFT $DOWN_RIGHT $DASH_UP $NO_BLOCKS
 }
@@ -106,7 +112,7 @@ DRAW_FOOTER () {
 
 ## example
 _example_table () {
-	DRAW_HEADER "FILE"          "Code" "Comments" "Docs" "SUBTOTAL"
+	DRAW_HEADER "FILE"          "Code" "Comments" "Docs" " TOTAL"
 	DRAW_ROW    "tangerine.fnl" "233"  "12"       "23"   "268"
 	DRAW_ROW    "tangerine.fnl" "233"  "12"       "23"   "268"
 	DRAW_ROW    "tangerine.fnl" "233"  "12"       "23"   "268"
