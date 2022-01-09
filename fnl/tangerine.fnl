@@ -57,12 +57,6 @@
   (load-vimrc)
   true)
 
-(setup {
-  :compiler {
-    :hooks [:onsave]
-  }
-})
-
 {
   : setup
 }
