@@ -2,8 +2,8 @@
 
 FNL_FILES="${1}"
 
-source $(dirname $0)/table.sh
-source $(dirname $0)/utils.sh
+source $(dirname $0)/utils/core.sh
+source $(dirname $0)/utils/table.sh
 
 # --------------------- #
 #         VARS          #
@@ -12,9 +12,8 @@ DOCS_REGEX="^ *\""
 BLANK_REGEX="^$"
 COMMENT_REGEX="^;"
 
-TDOCS=0; TBLANKS=0; TCOMMENTS=0; TCODE=0; TOTAL=0
 COLUMNS="FILE Code Comments Docs Blanks SUBTOTAL"
-
+TCODE=0; TCOMMENTS=0; TDOCS=0; TBLANKS=0; TOTAL=0
 
 # --------------------- #
 #         MAIN          #

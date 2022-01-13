@@ -15,10 +15,10 @@ default: help
 .PHONY: fnl deps
 
 fnl: 
-	.scripts/compile.sh "$(FENNEL)" "$(FNL_FILES)"
+	./scripts/compile.sh "$(FENNEL)" "$(FNL_FILES)"
 
 deps:
-	.scripts/copy-deps.sh "$(FNL_DEPS)" lua/tangerine/fennel
+	./scripts/copy-deps.sh "$(FNL_DEPS)" lua/tangerine/fennel
 
 install: deps fnl
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
@@ -36,7 +36,7 @@ clean:
 	echo ":: CLEANED INSTALL DIR"
 
 loc:
-	.scripts/loc.sh "$(FNL_FILES)"
+	./scripts/loc.sh "$(FNL_FILES)"
 
 help:
 	echo 'GNU Make Targets'

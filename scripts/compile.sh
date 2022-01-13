@@ -3,7 +3,7 @@
 FENNEL="${1}"
 SOURCES="${2}"
 
-source $(dirname $0)/utils.sh
+source $(dirname $0)/utils/core.sh
 
 # --------------------- #
 #         UTILS         #
