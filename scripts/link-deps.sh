@@ -10,9 +10,9 @@ source $(dirname $0)/utils/core.sh
 # --------------------- #
 [ ! -d $TARGETDIR ] && mkdir -p $TARGETDIR
 
-:: COPYING DEPS
+:: LINKING DEPS
 for DEP in $DEPS; do
-	cp -f $DEP $TARGETDIR
+	ln -srf $DEP $TARGETDIR
 	log 2 $DEP
 done
 :: DONE

@@ -18,7 +18,7 @@ fnl:
 	./scripts/compile.sh "$(FENNEL)" "$(FNL_FILES)"
 
 deps:
-	./scripts/copy-deps.sh "$(FNL_DEPS)" lua/tangerine/fennel
+	./scripts/link-deps.sh "$(FNL_DEPS)" lua/tangerine/fennel
 
 install: deps fnl
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
