@@ -37,7 +37,7 @@
     :clean   "boolean"
     :force   "boolean"
     :version [:oneof ["latest" "1-0-0" "0-10-0" "0-9-2"]]
-    :hooks   [:array ["onsave" "onload"]]
+    :hooks   [:array ["onsave" "onload" "oninit"]]
   }
 })
 

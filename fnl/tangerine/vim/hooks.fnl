@@ -1,7 +1,7 @@
 ; DEPENDS:
 ; (augroup) _G.tangerine
 ; :onload   tangerine.utils.env
-(local prefix "lua tangerine.api.")
+(local prefix "lua _G.tangerine.api.")
 (local env (require :tangerine.utils.env))
 
 ;; -------------------- ;;
@@ -36,4 +36,6 @@
 
   :onsave #(augroup :tangerine-onsave
                     [[:BufWritePost pat] prefix "compile.all()"])
+  
+  :oninit #(_G.tangerine.api.compile.all)
 }
