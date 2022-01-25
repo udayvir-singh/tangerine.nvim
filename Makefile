@@ -37,13 +37,15 @@ loc:
 	./scripts/loc.sh "$(SOURCE_DIR)"
 
 help:
-	echo 'GNU Make Targets'
-	echo '  :fnl       compiles fennel files.'
-	echo '  :deps      copy required deps in lua folder.'
-	echo '  :install   makes and install tangerine on this system.'
-	echo '  :clean     deletes build and install dir.'
-	echo '  :loc       pretty print lines of code in fennel files.'
-	echo '  :help      print this help.'
+	echo 'Usage: make [target] ...'
+	echo 
+	echo 'Targets:'
+	echo '  :fnl            compiles fennel files'
+	echo '  :deps           copy required deps in lua folder'
+	echo '  :install        makes and install tangerine on this system'
+	echo '  :clean          deletes build and install dir'
+	echo '  :loc            pretty print lines of code in fennel files'
+	echo '  :help           print this help.'
 	echo
 	echo 'Examples:'
 	echo '  make clean install'
