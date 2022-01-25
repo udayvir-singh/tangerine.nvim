@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FNL_FILES="${1}"
+SOURCE_DIR="${1}"
 
 source $(dirname $0)/utils/core.sh
 source $(dirname $0)/utils/table.sh
@@ -18,9 +18,11 @@ TCODE=0; TCOMMENTS=0; TDOCS=0; TBLANKS=0; TOTAL=0
 # --------------------- #
 #         MAIN          #
 # --------------------- #
-DRAW_HEADER $COLUMNS
+DRAW_HEADER ${COLUMNS}
 
-for SOURCE in $FNL_FILES; do 
+SOURCES="$(find "${SOURCE_DIR}" -name "*.fnl")"
+
+for SOURCE in ${SOURCES}; do 
 	    DOCS=$(count "$SOURCE" "$DOCS_REGEX")
 	  BLANKS=$(count "$SOURCE" "$BLANK_REGEX")
 	COMMENTS=$(count "$SOURCE" "$COMMENT_REGEX")

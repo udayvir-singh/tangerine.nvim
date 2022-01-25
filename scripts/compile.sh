@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-FENNEL="${1}"
-SOURCES="${2}"
+FENNEL_BIN="${1}"
+SOURCE_DIR="${2}"
 
 source $(dirname $0)/utils/core.sh
 
@@ -15,7 +15,7 @@ compile () {
 	local SOURCE="${1}"
 	local TARGET="${2}"
 
-	${FENNEL} ${FLAGS} -c "${SOURCE}" > "${TARGET}" 2> "${LOGFILE}"
+	"${FENNEL_BIN}" ${FLAGS} -c "${SOURCE}" > "${TARGET}" 2> "${LOGFILE}"
 }
 
 # --------------------- #
@@ -23,17 +23,19 @@ compile () {
 # --------------------- #
 :: INITILIZE COMPILING
 
-for SOURCE in $SOURCES; do
-	TARGET="$(get-target $SOURCE)"
-	TARGETDIR="$(dirname $TARGET)"
+SOURCES="$(find "${SOURCE_DIR}" -name "*.fnl")"
 
-	[ ! -d $TARGETDIR ] && mkdir -p $TARGETDIR
+for SOURCE in ${SOURCES}; do
+	TARGET="$(get-target "${SOURCE}")"
+	TARGET_DIR="$(dirname "${TARGET}")"
 
-	if compile $SOURCE $TARGET; then
-		log 2 $SOURCE
+	[ ! -d "${TARGET_DIR}" ] && mkdir -p "${TARGET_DIR}"
+
+	if compile "${SOURCE}" "${TARGET}"; then
+		log 2 "${SOURCE}" 
 	else
-		log 1 $SOURCE
-		logcat $LOGFILE
+		log 1 "${SOURCE}" 
+		logcat "${LOGFILE}"
 		exit 1
 	fi
 done

@@ -1,7 +1,6 @@
-FENNEL      := ./deps/bin/fennel
-FNL_DEPS    := $(shell find deps -name '*.lua')
-FNL_FILES   := $(shell find fnl  -name '*.fnl')
-INSTALL_DIR := ~/.local/share/nvim/site/pack/tangerine/start/tangerine.nvim
+FENNEL_BIN  = deps/bin/fennel
+SOURCE_DIR  = fnl
+INSTALL_DIR = ~/.local/share/nvim/site/pack/tangerine/start/tangerine.nvim
 
 ifndef VERBOSE
 .SILENT:
@@ -10,33 +9,32 @@ endif
 default: help
 
 # ------------------- #
-#      COMPILING      #
+#      BUILDING       #
 # ------------------- #
 .PHONY: fnl deps
 
 fnl: 
-	./scripts/compile.sh "$(FENNEL)" "$(FNL_FILES)"
+	./scripts/compile.sh "$(FENNEL_BIN)" "$(SOURCE_DIR)"
 
 deps:
-	./scripts/link-deps.sh "$(FNL_DEPS)" lua/tangerine/fennel
+	./scripts/link.sh deps/lua lua/tangerine/fennel
 
 install: deps fnl
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
 	ln -srf lua $(INSTALL_DIR)/lua
 	echo ":: FINISHED INSTALLING"
 
-
-# ------------------- #
-#        EXTRA        #
-# ------------------- #
 clean:
 	rm -rf lua/**
 	echo ":: CLEANED BUILD DIR"
 	rm -rf $(INSTALL_DIR)
 	echo ":: CLEANED INSTALL DIR"
 
+# ------------------- #
+#        EXTRA        #
+# ------------------- #
 loc:
-	./scripts/loc.sh "$(FNL_FILES)"
+	./scripts/loc.sh "$(SOURCE_DIR)"
 
 help:
 	echo 'GNU Make Targets'
