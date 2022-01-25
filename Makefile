@@ -19,9 +19,13 @@ fnl:
 deps:
 	./scripts/link.sh deps/lua lua/tangerine/fennel
 
-install: deps fnl
+vimdoc:
+	./scripts/docs.sh ./doc/tangerine.md ./doc/tangerine.txt
+
+install: deps fnl vimdoc
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
 	ln -srf lua $(INSTALL_DIR)/lua
+	ln -srf doc $(INSTALL_DIR)/doc
 	echo ":: FINISHED INSTALLING"
 
 clean:
@@ -44,9 +48,11 @@ help:
 	echo '  :deps           copy required deps in lua folder'
 	echo '  :install        makes and install tangerine on this system'
 	echo '  :clean          deletes build and install dir'
+	echo '  :vimdoc         runs panvimdoc to generate vimdocs'
 	echo '  :loc            pretty print lines of code in fennel files'
 	echo '  :help           print this help.'
 	echo
 	echo 'Examples:'
 	echo '  make clean install'
+	echo '  make vimdoc'
 	echo '  make loc  [do it]'
