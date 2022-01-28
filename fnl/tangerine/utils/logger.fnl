@@ -68,7 +68,7 @@
                  (string.gsub "^%{( .- )%}$" "[%1]")))
   out)
 
-(lambda log.value [val]
+(fn log.value [val]
   (if (= :table (type val))
       (print ::return (serialize val))
       (not= val nil)
