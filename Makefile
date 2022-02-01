@@ -20,7 +20,7 @@ deps:
 	./scripts/link.sh deps/lua lua/tangerine/fennel
 
 vimdoc:
-	./scripts/docs.sh ./doc/tangerine.md ./doc/tangerine.txt
+	./scripts/docs.sh README.md ./doc/tangerine.txt
 
 install: deps fnl vimdoc
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
