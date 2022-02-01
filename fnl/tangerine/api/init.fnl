@@ -1,6 +1,6 @@
 ; DEPENDS:
-; (lazy) tangerine.api.**
-; (lazy) tangerine.utils.path
+; :api tangerine.api.**
+; :api tangerine.utils.path
 (local prefix "tangerine.")
 
 ;; -------------------- ;;
