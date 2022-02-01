@@ -3,10 +3,12 @@
 ; (-target)           tangerine.utils.diff
 ; (-target -orphaned) tangerine.utils.path
 ; (-target -orphaned) tangerine.utils.logger
-(local p   (require :tangerine.utils.path))
-(local fs  (require :tangerine.utils.fs))
-(local df  (require :tangerine.utils.diff))
-(local log (require :tangerine.utils.logger))
+(local {
+  : p
+  : fs
+  : df
+  : log
+} (require :tangerine.utils))
 
 (lambda clean-target [target ?force]
   "checks if lua:'target' is Marked and has a readable fnl:source, if not

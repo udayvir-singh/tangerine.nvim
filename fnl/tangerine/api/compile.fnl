@@ -6,11 +6,13 @@
 ; EXCEPT(-string)       tangerine.utils.diff
 ; EXCEPT(-string -file) tangerine.utils.log
 (local fennel (require :tangerine.fennel))
-(local fs     (require :tangerine.utils.fs))
-(local p      (require :tangerine.utils.path))
-(local df     (require :tangerine.utils.diff))
-(local env    (require :tangerine.utils.env))
-(local log    (require :tangerine.utils.logger))
+(local {
+  : p
+  : fs
+  : df
+  : env
+  : log
+} (require :tangerine.utils))
 
 ;; -------------------- ;;
 ;;      Low Level       ;;

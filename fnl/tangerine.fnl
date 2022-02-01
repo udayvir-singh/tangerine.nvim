@@ -6,8 +6,7 @@
 ; (load-cmds)  tangerine.vim.cmds
 ; (setup load-hooks load-vimrc) tangerine.utils.env
 (local fennel (require :tangerine.fennel))
-(local env    (require :tangerine.utils.env))
-(local fs     (require :tangerine.utils.fs))
+(local { : env : fs } (require :tangerine.utils))
 
 (local require-api   #(require :tangerine.api))
 (local require-cmds  #(require :tangerine.vim.cmds))

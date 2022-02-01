@@ -4,9 +4,11 @@
 ; (-file)    tangerine.utils.path
 ; (-file)    tangerine.utils.fs
 (local fennel (require :tangerine.fennel))
-(local p      (require :tangerine.utils.path))
-(local fs     (require :tangerine.utils.fs))
-(local log    (require :tangerine.utils.logger))
+(local {
+  : p
+  : fs
+  : log
+} (require :tangerine.utils))
 
 ;; -------------------- ;;
 ;;         Utils        ;;
