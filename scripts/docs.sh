@@ -37,13 +37,27 @@ fi
 # --------------------- #
 LOGFILE="$(mktemp)"
 
+panvimdoc () {
+	< "${SOURCE}" \
+	awk '{ 
+		if ($2 == "ignore-start") { 
+			ignore="Yes" 
+		} else if ($2 == "ignore-end") { 
+			ignore=Null; getline 
+		}
+
+		if (! ignore) print $0 
+	}' |
+	pandoc \
+		-M 'project:tangerine' -M 'vimversion:Neovim v0.5.0' \
+		-t           "${SRCDIR}/panvimdoc.lua" \
+		--lua-filter "${SRCDIR}/include-files.lua" \
+		--lua-filter "${SRCDIR}/inspect.lua" \
+		-o "${TARGET}" 2> "${LOGFILE}"
+}
+
 :: RUNNING PANVIMDOC
-if pandoc \
-	-M 'project:tangerine' -M 'vimversion:Neovim v0.5.0' \
-	-t           "${SRCDIR}/panvimdoc.lua" \
-	--lua-filter "${SRCDIR}/include-files.lua" \
-	--lua-filter "${SRCDIR}/inspect.lua" \
-	"${SOURCE}" -o "${TARGET}" 2> "${LOGFILE}"; then
+if panvimdoc; then
 	log 2 DONE
 else
 	log 1 ERROR
