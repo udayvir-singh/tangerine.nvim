@@ -25,9 +25,9 @@
 ;; -------------------- ;;
 ;;       Fennel         ;;
 ;; -------------------- ;;
-(fn load-fennel []
+(fn load-fennel [version]
   "require fennel and setups it opts."
-  (let [version (env.get :compiler :version)
+  (let [version (or version (env.get :compiler :version))
         fennel  (require (.. :tangerine.fennel. version))]
        (set fennel.path (get-rtp :fnl false))
        (set fennel.macro-path (get-rtp :fnl true))
