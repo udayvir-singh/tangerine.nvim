@@ -68,6 +68,8 @@
                  (string.gsub "^%{( .- )%}$" "[%1]")))
   out)
 
+(set log.serialize serialize)
+
 (fn log.value [val]
   (if (= :table (type val))
       (print ::return (serialize val))

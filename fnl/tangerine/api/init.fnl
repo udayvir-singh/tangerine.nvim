@@ -1,6 +1,7 @@
 ; DEPENDS:
 ; :api tangerine.api.**
 ; :api tangerine.utils.path
+; :api tangerine.utils.logger
 (local prefix "tangerine.")
 
 ;; -------------------- ;;
@@ -37,4 +38,5 @@
     :orphaned (lazy :api.clean "orphaned")
   }
   :goto_output (lazy :utils.path "goto-output")
+  :serialize   (lazy :utils.logger "serialize")
 }
