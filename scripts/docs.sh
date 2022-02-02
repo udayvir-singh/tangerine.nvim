@@ -40,11 +40,24 @@ LOGFILE="$(mktemp)"
 panvimdoc () {
 	< "${SOURCE}" \
 	awk '{ 
-		if ($2 == "ignore-start") { 
+		if ($0 ~ "ignore-start") { 
 			ignore="Yes" 
-		} else if ($2 == "ignore-end") { 
+		} 
+		if (ignore && $0 ~ "ignore-end") { 
 			ignore=Null; getline 
 		}
+
+		if ($0 ~ "ignore-line") { 
+			getline
+		}
+
+		if ($2 ~ "doc=.+") {
+			doc=$2
+			getline 
+			$(NF + 1)="{"doc"}"
+		}
+
+		gsub("<.+>", "", $0)
 
 		if (! ignore) print $0 
 	}' |

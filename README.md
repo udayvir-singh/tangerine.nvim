@@ -167,13 +167,16 @@ Here is config that I use in my dotfiles
 That's It now get writing your vim config in fennel
 
 # Commands
-#### :FnlCompile {doc=:FnlCompile}
+<!-- doc=:FnlCompile -->
+#### :FnlCompile
 Diff and compile fennel files in `source` dir to `target` dir.
 
-#### :FnlCompileBuffer {doc=:FnlCompileBuffer}
+<!-- doc=:FnlCompileBuffer -->
+#### :FnlCompileBuffer
 Only compile current buffer of an fennel file
 
-#### :Fnl {expr} {doc=:Fnl}
+<!-- doc=:Fnl -->
+#### :Fnl {expr}
 Executes and Evalutate {expr} of fennel
 ```fennel
 :Fnl (print "Hello World")
@@ -183,13 +186,16 @@ Executes and Evalutate {expr} of fennel
   -> :return [ 1 2 3 4 ]
 ```
 
-#### :FnlBuffer {doc=:FnlBuffer}
+<!-- doc=:FnlBuffer -->
+#### :FnlBuffer
 Evaluates all lines in current fennel buffer
 
-#### :[range]FnlRange {doc=:FnlRange}
+<!-- doc=:FnlRange -->
+#### :[range]FnlRange
 Evaluates [range] of fennel in current buffer
 
-#### :FnlFile {file} {doc=:FnlFile}
+<!-- doc=:FnlFile -->
+#### :FnlFile {file}
 Evaluates a file of fennel
 
 ```fennel
@@ -198,10 +204,12 @@ Evaluates a file of fennel
 :FnlFile % ;; not recomended
 ```
 
-#### :FnlClean {doc=:FnlClean}
+<!-- doc=:FnlClean -->
+#### :FnlClean
 Checks and deletes stale and orphaned lua files in `target` dir
 
-#### :FnlGotoOutput {doc=:FnlGotoOutput}
+<!-- doc=:FnlGotoOutput -->
+#### :FnlGotoOutput
 Open output lua file of current fennel buffer in a new buffer
 
 # FAQ and Tricks
@@ -264,24 +272,36 @@ By default tangerine provides the following api
 ## Compiler Api
 This section describes function for `tangerine.api.compile.{func}`
 
-#### compile-string {doc=tangerine.api.compile.string()}
-(compile.string {str})
+<!-- doc=tangerine.api.compile.string() -->
+#### compile-string
+<pre lang="fennel"><code> (compile.string {str})
+</pre></code>
 
+<ul><li>
 Compiles string {str} of fennel, returns string of lua
+</li></ul>
 
 Can throw errors, upto users to handle them
 
-#### compile-file {doc=tangerine.api.compile.file()}
-(compile.file {path} {output})
+<!-- doc=tangerine.api.compile.file() -->
+#### compile-file
+<pre lang="fennel"><code> (compile.file {path} {output})
+</pre></code>
 
+<ul><li>
 Compiles fennel {path} and writes out to {output}
+</li></ul>
 
 Can throw errors, upto users to handle them
 
-#### compile-buffer {doc=tangerine.api.compile.buffer()}
-(compile-buffer {opts})
+<!-- doc=tangerine.api.compile.buffer() -->
+#### compile-buffer
+<pre lang="fennel"><code> (compile-buffer {opts})
+</pre></code>
 
+<ul><li>
 Compiles current fennel buffer
+</li></ul>
 
 opts can be of table:
 ```fennel
@@ -290,10 +310,14 @@ opts can be of table:
 }
 ```
 
-#### compile-vimrc {doc=tangerine.api.compile.vimrc()}
-(compile-vimrc {opts})
+<!-- doc=tangerine.api.compile.vimrc() -->
+#### compile-vimrc
+<pre lang="fennel"><code> (compile-vimrc {opts})
+</pre></code>
 
+<ul><li>
 Compiles `config.vimrc` to `config.target/tangerine_vimrc.lua`
+</li></ul>
 
 opts can be of table:
 ```fennel
@@ -304,10 +328,14 @@ opts can be of table:
 ```
 If {opts.force} != `true` then it diffs files for compiling
 
-#### compile-all {doc=tangerine.api.compile.all()}
-(compile.all {opts})
+<!-- doc=tangerine.api.compile.all() -->
+#### compile-all
+<pre lang="fennel"><code> (compile.all {opts})
+</pre></code>
 
+<ul><li>
 Compiles fennel files in `config.source` dir to `config.target` dir.
+</li></ul>
 
 opts can be of table:
 ```fennel
@@ -318,10 +346,14 @@ opts can be of table:
 ```
 If {opts.force} != `true` then it diffs files for compiling
 
-#### compile-dir {doc=tangerine.api.compile.dir()}
-(compile-dir {source} {target} {opts})
+<!-- doc=tangerine.api.compile.dir() -->
+#### compile-dir
+<pre lang="fennel"><code> (compile-dir {source} {target} {opts})
+</pre></code>
 
+<ul><li>
 Compiles fennel in file {source} dir to {target} dir
+</li></ul>
 
 opts can be of table:
 ```fennel
@@ -345,17 +377,25 @@ Tangerine comes with functions to clean stale lua file in target dir without the
 
 This section describes function for `tangerine.api.clean.{func}`
 
-#### clean-target {doc=tangerine.api.clean.target()}
-(clean.target {target} {force})
+<!-- doc=tangerine.api.clean.target() -->
+#### clean-target
+<pre lang="fennel"><code> (clean.target {target} {force})
+</pre></code>
 
+<ul><li>
 Deletes lua files in {target} dir without their fennel parent
+</li></ul>
 
 If {force} == `true`, then it deletes all compiled files
 
-#### clean-orphaned {doc=tangerine.api.clean.orphaned()}
-(clean.orphaned {opts})
+<!-- doc=tangerine.api.clean.orphaned() -->
+#### clean-orphaned
+<pre lang="fennel"><code> (clean.orphaned {opts})
+</pre></code>
 
+<ul><li>
 Deletes lua files in `config.target` dir without their fennel parent
+</li></ul>
 
 opts can be of table:
 ```
@@ -369,38 +409,58 @@ If {opts.force} == `true`, then it deletes all compiled files
 ## Evaluation Api
 This section describes function for `tangerine.api.eval.{func}`
 
-#### eval-string {doc=tangerine.api.eval.string()}
-(eval.string {str})
+<!-- doc=tangerine.api.eval.string() -->
+#### eval-string
+<pre lang="fennel"><code> (eval.string {str})
+</pre></code>
 
+<ul><li>
 Evaluates string {str} of fennel, and prints the output
+</li></ul>
 
 Can throw errors
 
-#### eval-file {doc=tangerine.api.eval.file()}
-(eval.file {path})
+<!-- doc=tangerine.api.eval.file() -->
+#### eval-file
+<pre lang="fennel"><code> (eval.file {path})
+</pre></code>
 
+<ul><li>
 Evaluates {path} of fennel, and prints the output
+</li></ul>
 
 Can throw errors
 
-#### eval-range {doc=tangerine.api.eval.range()}
-(eval.range {start} {end} {count})
+<!-- doc=tangerine.api.eval.range() -->
+#### eval-range
+<pre lang="fennel"><code> (eval.range {start} {end} {count})
+</pre></code>
 
+<ul><li>
 Evaluates range {start} to {end} in vim buffer 0
+</li></ul>
 
 Optionally takes {count}, only meant to be used in command definitions
 
-#### eval-buffer {doc=tangerine.api.eval.buffer()}
-(eval.buffer)
+<!-- doc=tangerine.api.eval.buffer() -->
+#### eval-buffer
+<pre lang="fennel"><code> (eval.buffer)
+</pre></code>
 
+<ul><li>
 Evaluates all lines in vim buffer 0,
 wrapper around `(eval.range 1 -1)`
+</li></ul>
 
 ## Utils Api
-#### serialize {doc=tangerine.api.serialize()}
-(serialize {object})
+<!-- doc=tangerine.api.serialize() -->
+#### serialize
+<pre lang="fennel"><code> (serialize {object})
+</pre></code>
 
+<ul><li>
 Return a human-readable representation of given {object}
+</li></ul>
 
 Example:
 ```fennel
@@ -408,15 +468,21 @@ Example:
 -> "[ 1 2 3 4 ]"
 ```
 
-#### goto_output {doc=tangerine.api.goto_output()}
-(goto_output)
+<!-- doc=tangerine.api.goto_output() -->
+#### goto_output
+<pre lang="fennel"><code> (goto_output)
+</pre></code>
 
+<ul><li>
 Open lua source of current fennel buffer in a new buffer
+</li></ul>
 
-## Fennel Api {doc=tangerine.fennel()}
+<!-- doc=tangerine.fennel() -->
+## Fennel Api
 Underlying fennel used by tangerine can by accessed by calling `tangerine.fennel`
 
-(tangerine.fennel {version})
+<pre lang="fennel"><code> (tangerine.fennel {version})
+</pre></code>
 
 {version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ]
 
