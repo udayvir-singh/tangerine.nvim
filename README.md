@@ -48,8 +48,8 @@ It prioritizes speed, transparency and minimalism. It's blazing fast thanks to i
 - Built-in support for interactive evaluation 
 
 ## Comparison to other plugins
-- [hotpot]() closest to this plugin, but hooks onto lua package searches to compile
-- [aniseed]() seems too bloated and focused on plugin developers rather than for dotfiles
+- [Hotpot](https://github.com/rktjmp/hotpot.nvim) closest to this plugin, but hooks onto lua package searches to compile
+- [Aniseed](https://github.com/Olical/aniseed) seems too bloated and focused on plugin developers rather than for dotfiles
 
 Tangerine also compiles and loads `~/.config/nvim/init.fnl`, without it having to required by user.
 
