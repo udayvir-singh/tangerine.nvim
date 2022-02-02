@@ -40,8 +40,8 @@ FEATURES                                                  *tangerine-features*
 COMPARISON TO OTHER PLUGINS            *tangerine-comparison-to-other-plugins*
 
 
-- hotpot <> closest to this plugin, but hooks onto lua package searches to compile
-- aniseed <> seems too bloated and focused on plugin developers rather than for dotfiles
+- Hotpot <https://github.com/rktjmp/hotpot.nvim> closest to this plugin, but hooks onto lua package searches to compile
+- Aniseed <https://github.com/Olical/aniseed> seems too bloated and focused on plugin developers rather than for dotfiles
 
 
 Tangerine also compiles and loads `~/.config/nvim/init.fnl`, without it having
@@ -278,7 +278,7 @@ Ans: just change source in config
 
 GET UNDERLYING FENNEL USED BY TANGERINE
 
-Call `(tangerine.fennel {version})` to fennel, see |tangerine-fennel-api| for
+Call `(tangerine.fennel {*version})` to fennel, see |tangerine-fennel-api| for
 more info
 
 >
@@ -528,7 +528,8 @@ Underlying fennel used by tangerine can by accessed by calling
 
 (tangerine.fennel {version})
 
-{version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ]
+{version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ], default
+`config.compiler.version`
 
 ==============================================================================
 6. The End                                                 *tangerine-the-end*

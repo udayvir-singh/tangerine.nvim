@@ -231,7 +231,7 @@ source = "/path/to/your/dir"
 ```
 
 ##### Get underlying fennel used by tangerine
-Call `(tangerine.fennel {version})` to fennel, see [fennel api](#fennel-api-doctangerinefennel) for more info
+Call `(tangerine.fennel {*version})` to fennel, see [fennel api](#fennel-api) for more info
 ```fennel
 (tangerine.fennel (or :latest :1-0-0 :0-10-0 :0-9-2))
 ```
@@ -485,6 +485,7 @@ Underlying fennel used by tangerine can by accessed by calling `tangerine.fennel
 <pre lang="fennel"><code> (tangerine.fennel {version})
 </pre></code>
 
-{version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ]
+{version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ],
+default `config.compiler.version`
 
 # The End
