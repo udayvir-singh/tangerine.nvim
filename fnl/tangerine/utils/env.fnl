@@ -88,10 +88,13 @@
 (lambda validate [tbl schema]
   (each [key val (pairs tbl)]
         (local scm (. schema key))
+        (if (not (. schema key))
+            (error (.. "[tangerine]: invalid key " key)))
         (if 
-           (= :string (type scm)) (validate-type  key val scm)
-           (= :oneof  (?. scm 1)) (validate-oneof key val (. scm 2))
-           (= :array  (?. scm 1)) (validate-array key val (. scm 2))
+            (= :string (type scm)) (validate-type  key val scm)
+            (= :oneof  (?. scm 1)) (validate-oneof key val (. scm 2))
+            (= :array  (?. scm 1)) (validate-array key val (. scm 2))
+        ; recursive validation
         (= :table  (type scm))
         (validate val scm))))
 
