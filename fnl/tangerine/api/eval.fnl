@@ -18,9 +18,7 @@
       (table.concat "\n")))
 
 (lambda softerr [msg]
-  (vim.cmd "echohl Error")
-  (vim.cmd (.. "echo '" msg "'"))
-  (vim.cmd "echohl none"))
+  (vim.api.nvim_echo [[msg :Error]] false {}))
 
 ;; -------------------- ;;
 ;;         Main         ;;
