@@ -4,6 +4,7 @@
 # :tangerine: Tangerine :tangerine:
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat-square&logo=neovim)
+![GNU Neovim version](https://img.shields.io/badge/Neovim%20In%20Emacs-0.5-dac?style=flat-square&logo=gnuemacs&logoColor=daf)
 
 [About](#introduction) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api)
 
