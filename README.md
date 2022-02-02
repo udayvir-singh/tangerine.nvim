@@ -168,14 +168,14 @@ That's It now get writing your vim config in fennel
 
 # Commands
 #### :FnlCompile {doc=:FnlCompile}
-Diff and compile fennel file in `source` dir to `target` dir.
+Diff and compile fennel files in `source` dir to `target` dir.
 
 #### :FnlCompileBuffer {doc=:FnlCompileBuffer}
 Only compile current buffer of an fennel file
 
 #### :Fnl {expr} {doc=:Fnl}
 Executes and Evalutate {expr} of fennel
-```
+```fennel
 :Fnl (print "Hello World")
   -> Hello World
 
@@ -192,7 +192,7 @@ Evaluates [range] of fennel in current buffer
 #### :FnlFile {file} {doc=:FnlFile}
 Evaluates a file of fennel
 
-```
+```fennel
 :FnlFile path/source.fnl
 
 :FnlFile % ;; not recomended
@@ -217,24 +217,24 @@ hooks = ["onenter"]
 
 ##### Q: How to tuck away compiled output in a separate directory
 Ans: just change source in config
-```
+```lua
 source = "/path/to/your/dir"
 ```
 
 ##### Get underlying fennel used by tangerine
 Call `(tangerine.fennel {version})` to fennel, see [fennel api](#fennel-api-doctangerinefennel) for more info
-```
+```fennel
 (tangerine.fennel (or :latest :1-0-0 :0-10-0 :0-9-2))
 ```
 
 # Api
 <!-- ignore-start -->
-NOTE: this section was formatted to be viewed by vimdoc,
-see `:h tangerine-api` for better formatting
+**NOTE: this section was formatted to be viewed by vimdoc,
+see** `:h tangerine-api` **for better formatting**
 <!-- ignore-end -->
 
 By default tangerine provides the following api 
-```
+```fennel
 :Fnl tangerine.api
 
 -> :return {
