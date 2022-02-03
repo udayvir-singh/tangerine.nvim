@@ -139,7 +139,13 @@ local config = vim.stdpath [[config]]
 		-- "onload" run on VimEnter event
 		-- "oninit" run before sourcing init.fnl [recommended than onload]
 		hooks   = []
-	}
+	},
+
+	diagnostic = {
+		hl_normal  = "DiagnosticError",            -- hl group for errored lines
+		hl_virtual = "DiagnosticVirtualTextError", -- hl group for virtual text
+		timeout    = 10 -- how long should the error persist
+	},
 }
 ```
 
@@ -157,6 +163,11 @@ local config = vim.stdpath [[config]]
 		:force   "boolean"
 		:version [:oneof ["latest" "1-0-0" "0-10-0" "0-9-2"]]
 		:hooks   [:array ["onsave" "onload" "oninit"]]
+	}
+	:diagnostic {
+		:hl_normal  "string"
+		:hl_virtual "string"
+		:timeout    "number"
 	}
 }
 ```
@@ -328,7 +339,9 @@ opts can be of table:
 </pre></code>
 
 <ul><li>
+
 Compiles `config.vimrc` to `config.target/tangerine_vimrc.lua`
+
 </li></ul>
 
 opts can be of table:
@@ -406,7 +419,9 @@ If {force} == `true`, then it deletes all compiled files
 </pre></code>
 
 <ul><li>
+
 Deletes lua files in `config.target` dir without their fennel parent
+
 </li></ul>
 
 opts can be of table:

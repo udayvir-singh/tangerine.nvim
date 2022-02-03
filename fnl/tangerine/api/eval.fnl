@@ -8,6 +8,7 @@
   : p
   : fs
   : log
+  : err
 } (require :tangerine.utils))
 
 ;; -------------------- ;;
@@ -42,7 +43,13 @@
     (lua :return))
   (let [lines   (get-lines start end)
         bufname (vim.fn.expand :%)]
-       :eval (eval-string lines bufname)))
+       (err.clear) ; clear previous errors
+       :eval (local (ok? res) (pcall #(eval-string lines bufname)))
+       (if ok? :skip
+           (err.compile? res)
+           (err.send (err.parse res))
+           :else
+           (softerr res))))
 
 (lambda eval-buffer []
   "evaluate all lines in current vim buffer."

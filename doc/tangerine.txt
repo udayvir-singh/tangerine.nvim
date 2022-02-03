@@ -1,4 +1,4 @@
-*tangerine.txt*         For Neovim v0.5.0        Last change: 2022 February 02
+*tangerine.txt*         For Neovim v0.5.0        Last change: 2022 February 03
 
 ==============================================================================
 Table of Contents                                *tangerine-table-of-contents*
@@ -17,6 +17,8 @@ Table of Contents                                *tangerine-table-of-contents*
   - Utils Api                                            |tangerine-utils-api|
   - Fennel Api                                          |tangerine-fennel-api|
 6. The End                                                 |tangerine-the-end|
+
+
 
 ==============================================================================
 1. Introduction                                       *tangerine-introduction*
@@ -145,7 +147,13 @@ Default config                         Tangerine uses sane defaults so that you
             -- "onload" run on VimEnter event
             -- "oninit" run before sourcing init.fnl [recommended than onload]
             hooks   = []
-        }
+        },
+    
+        diagnostic = {
+            hl_normal  = "DiagnosticError",            -- hl group for errored lines
+            hl_virtual = "DiagnosticVirtualTextError", -- hl group for virtual text
+            timeout    = 10 -- how long should the error persist
+        },
     }
 <
 
@@ -161,6 +169,11 @@ Default config                         Tangerine uses sane defaults so that you
             :force   "boolean"
             :version [:oneof ["latest" "1-0-0" "0-10-0" "0-9-2"]]
             :hooks   [:array ["onsave" "onload" "oninit"]]
+        }
+        :diagnostic {
+            :hl_normal  "string"
+            :hl_virtual "string"
+            :timeout    "number"
         }
     }
 <

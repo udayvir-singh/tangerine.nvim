@@ -7,6 +7,7 @@
   :df  "tangerine.utils.diff"
   :env "tangerine.utils.env"
   :log "tangerine.utils.logger"
+  :err "tangerine.utils.error"
 })
 
 :return (setmetatable {} { 

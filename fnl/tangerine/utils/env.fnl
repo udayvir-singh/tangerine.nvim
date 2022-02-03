@@ -39,6 +39,11 @@
     :version [:oneof ["latest" "1-0-0" "0-10-0" "0-9-2"]]
     :hooks   [:array ["onsave" "onload" "oninit"]]
   }
+  :diagnostic {
+      :hl_normal  "string"
+      :hl_virtual "string"
+      :timeout    "number"
+  }
 })
 
 (local pre-schema {
@@ -46,6 +51,7 @@
   :target resolve
   :vimrc  resolve
   :compiler nil
+  :diagnostic nil
 })
 
 (local ENV {
@@ -58,6 +64,11 @@
     :force   false
     :version "latest"           
     :hooks   []
+  }
+  :diagnostic {
+      :hi_normal  "DiagnosticError"
+      :hi_virtual "DiagnosticVirtualTextError"
+      :timeout    10
   }
 })
 
