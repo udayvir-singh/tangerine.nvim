@@ -1,3 +1,14 @@
+<!--
+-- DEPENDS:
+-- #Install  tangerine.init
+-- #Command  tangerine.vim.cmds
+-- #Setup    tangerine.utils.env
+-- #FAQ      tangerine.utils.env
+-- #API      G.tangerine.api.**
+-- #FAQ      G.tangerine.fennel
+-- #API      G.tangerine.fennel
+-->
+
 <!-- ignore-start -->
 <div align="center">
 
