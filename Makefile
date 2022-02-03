@@ -12,6 +12,7 @@ default: help
 #      BUILDING       #
 # ------------------- #
 .PHONY: fnl deps
+build: deps fnl vimdoc
 
 fnl: 
 	./scripts/compile.sh "$(FENNEL_BIN)" "$(SOURCE_DIR)"
@@ -22,7 +23,7 @@ deps:
 vimdoc:
 	./scripts/docs.sh README.md ./doc/tangerine.txt
 
-install: deps fnl vimdoc
+install:
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
 	ln -srf lua $(INSTALL_DIR)/lua
 	ln -srf doc $(INSTALL_DIR)/doc
@@ -46,9 +47,10 @@ help:
 	echo 'Targets:'
 	echo '  :fnl            compiles fennel files'
 	echo '  :deps           copy required deps in lua folder'
-	echo '  :install        makes and install tangerine on this system'
-	echo '  :clean          deletes build and install dir'
 	echo '  :vimdoc         runs panvimdoc to generate vimdocs'
+	echo '  :build          combines :fnl :deps :vimdoc'
+	echo '  :install        install tangerine on this system'
+	echo '  :clean          deletes build and install dir'
 	echo '  :loc            pretty print lines of code in fennel files'
 	echo '  :help           print this help.'
 	echo
