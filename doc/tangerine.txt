@@ -7,6 +7,7 @@ Table of Contents                                *tangerine-table-of-contents*
   - Features                                              |tangerine-features|
   - Comparison to other plugins        |tangerine-comparison-to-other-plugins|
   - Installation                                      |tangerine-installation|
+  - Building From Source                      |tangerine-building-from-source|
 2. Setup                                                     |tangerine-setup|
 3. Commands                                               |tangerine-commands|
 4. FAQ and Tricks                                   |tangerine-faq-and-tricks|
@@ -115,6 +116,60 @@ PAQ
     (paq {
         :udayvir-singh/tangerine.nvim
     })
+<
+
+
+BUILDING FROM SOURCE                          *tangerine-building-from-source*
+
+REQUIREMENTS ~
+
+│  Program   │         Description         │
+│pandoc <>   │for generating vimdoc        │
+│make <>     │for build instructions       │
+│lua <>      │for running fennel (included)│
+│bash <>     │for running shell scripts    │
+│coreutils <>│required by shell scripts    │
+
+
+GIT ~
+
+>
+    git clone https://github.com/udayvir-singh/tangerine.nvim
+    cd tangerine.nvim
+    
+    make 
+<
+
+
+see `make help` or |tangerine-below| for information on targets.
+
+MAKE TARGETS ~
+
+│   Target   │               Description                │
+│:fnl        │compiles fennel files                     │
+│:deps       │copy required deps in lua folder          │
+│:vimdoc     │runs panvimdoc to generate vimdocs        │
+│:build      │combines :fnl :deps :vimdoc               │
+│:install    │install tangerine on this system          │
+│:clean      │deletes build and install dir             │
+│:loc        │pretty print lines of code in fennel files│
+
+
+
+- To build tangerine run:
+
+
+>
+    $ make clean build
+<
+
+
+
+- Then to install it
+
+
+>
+    $ make install
 <
 
 
