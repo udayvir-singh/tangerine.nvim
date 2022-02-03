@@ -74,15 +74,15 @@ Tangerine intends to be as fast and transparent as possible, it does most tediou
 -- ~/.config/nvim/plugin/tangerine.lua
 
 -- pick your plugin manager, default [standalone]
-local pack = "tangerine" or "packer" or "paq";
+local pack = "tangerine" or "packer" or "paq"
 
 local remote = "https://github.com/udayvir-singh/tangerine.nvim"
-local tangerine_path = vim.fn.stdpath "data" .. "/site/pack/" .. pack .. "/start/tangerin.nvim"
+local tangerine_path = vim.fn.stdpath "data" .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
 
-if vim.fn.empty(tangerine_path) > 0 then
+if vim.fn.empty(vim.fn.glob(tangerine_path)) > 0 then
 	print [[tangerine.nvim: installing in data dir... ]]
 	vim.fn.system {"git", "clone", remote, tangerine_path}
-	vim.cmd [[ redraw ]]
+	vim.cmd [[redraw]]
 	print [[tangerine.nvim: finished installing ]]
 end
 ```
