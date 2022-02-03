@@ -1,7 +1,7 @@
 ; DEPENDS:
-; (augroup) _G.tangerine
-; :onload   tangerine.utils.env
-(local prefix "lua _G.tangerine.api.")
+; (base-hooks)  _G.tangerine
+; (base-hooks)  tangerine.utils.env
+; :onsave       tangerine.utils.env
 (local env (require :tangerine.utils.env))
 
 ;; -------------------- ;;
@@ -28,14 +28,21 @@
 ;; -------------------- ;;
 (local source (env.get :source))
 (local vimrc  (env.get :vimrc))
-(local pat (.. source "*.fnl" "," vimrc))
+(local pat    (.. source "*.fnl" "," vimrc))
+
+(fn base-hooks []
+  (let [clean? (env.get :compiler :clean)]
+       (if clean?
+           (_G.tangerine.api.clean.orphaned))
+       (_G.tangerine.api.compile.all)))
+
+(local lua-base 
+       "lua :require 'tangerine.vim.hooks'.run()")
 
 :augroups {
-  :onload #(augroup :tangerine-onload
-                    [[:VimEnter "*"]     prefix "compile.all()"])
+  :onload #(augroup :tangerine-onload [[:VimEnter "*"]]     lua-base)
+  :onsave #(augroup :tangerine-onsave [[:BufWritePost pat]] lua-base)
+  :oninit #(base-hooks)
 
-  :onsave #(augroup :tangerine-onsave
-                    [[:BufWritePost pat] prefix "compile.all()"])
-  
-  :oninit #(_G.tangerine.api.compile.all)
+  :run base-hooks
 }
