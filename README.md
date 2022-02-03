@@ -466,7 +466,7 @@ Deletes lua files in `config.target` dir without their fennel parent
 </li></ul>
 
 opts can be of table:
-```
+```fennel
 {
 	:force <boolean>
 	:verbose <boolean>
@@ -516,14 +516,16 @@ Optionally takes {count}, only meant to be used in command definitions
 </pre></code>
 
 <ul><li>
+
 Evaluates all lines in vim buffer 0,
 wrapper around `(eval.range 1 -1)`
+
 </li></ul>
 
 ## Utils Api
 <!-- doc=tangerine.api.serialize() -->
 #### serialize
-<pre lang="fennel"><code> (serialize {object})
+<pre lang="fennel"><code> (tangerine.api.serialize {object})
 </pre></code>
 
 <ul><li>
@@ -538,7 +540,7 @@ Example:
 
 <!-- doc=tangerine.api.goto_output() -->
 #### goto_output
-<pre lang="fennel"><code> (goto_output)
+<pre lang="fennel"><code> (tangerine.api.goto_output)
 </pre></code>
 
 <ul><li>

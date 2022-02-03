@@ -569,7 +569,7 @@ UTILS API                                                *tangerine-utils-api*
 
                              *tangerine-serialize* *tangerine.api.serialize()*
 
-serialize                              (serialize {object})
+serialize                              (tangerine.api.serialize {object})
 
 
 Return a human-readable representation of given {object}
@@ -584,7 +584,7 @@ Example:
 
                          *tangerine-goto_output* *tangerine.api.goto_output()*
 
-goto_output                            (goto_output)
+goto_output                            (tangerine.api.goto_output)
 
 
 Open lua source of current fennel buffer in a new buffer
