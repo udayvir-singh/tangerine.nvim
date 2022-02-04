@@ -62,7 +62,7 @@
                  ; convert ["key"] to key
                  (string.gsub "(\n.-)%[\"(.-)\"%]" "%1%2")
                  ; append ":" in front of keys
-                 (string.gsub "(\n.-)[^<%w*]([%w_-])" "%1:%2")
+                 (string.gsub "(\n.-)[^<%w*]([%w_-])" "%1 :%2")
                  ; convert {1, 2} to [1 2]
                  (string.gsub "(\n.-)%{( .- )%}" "%1[%2]")
                  (string.gsub "^%{( .- )%}$" "[%1]")))
