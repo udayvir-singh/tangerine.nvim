@@ -22,18 +22,22 @@ deps:
 
 vimdoc:
 	./scripts/docs.sh README.md ./doc/tangerine.txt
+	echo :: GENERATING HELPTAGS
+	nvim --noplugin --headless -c "helptags doc" -c "q" doc/tangerine.txt
 
 install:
 	[[ -d $(INSTALL_DIR) ]] || mkdir -p $(INSTALL_DIR)
 	ln -srf lua $(INSTALL_DIR)/lua
 	ln -srf doc $(INSTALL_DIR)/doc
-	echo ":: FINISHED INSTALLING"
+	echo :: FINISHED INSTALLING
 
 clean:
+	rm -rf doc/tags
+	echo :: CLEANED HELPTAGS
 	rm -rf lua/**
-	echo ":: CLEANED BUILD DIR"
+	echo :: CLEANED BUILD DIR
 	rm -rf $(INSTALL_DIR)
-	echo ":: CLEANED INSTALL DIR"
+	echo :: CLEANED INSTALL DIR
 
 # ------------------- #
 #        EXTRA        #
