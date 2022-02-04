@@ -400,7 +400,9 @@ If {opts.force} != `true` then it diffs files for compiling
 </pre></code>
 
 <ul><li>
+
 Compiles fennel files in `config.source` dir to `config.target` dir.
+
 </li></ul>
 
 opts can be of table:
