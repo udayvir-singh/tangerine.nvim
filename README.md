@@ -8,9 +8,9 @@
 -- #FAQ      G.tangerine.fennel
 -- #API      G.tangerine.fennel
 -- #Build    Makefile
---!>
+-->
 
-<!-- ignore-start --!>
+<!-- ignore-start -->
 <div align="center">
 
 # :tangerine: Tangerine :tangerine:
@@ -26,7 +26,7 @@
 
 
 </div>
-<!-- ignore-end --!>
+<!-- ignore-end -->
 
 # Introduction
 Tangerine provides a painless way to add fennel to your neovim config, without adding to your load times.
@@ -281,10 +281,10 @@ Call `(tangerine.fennel {*version})` to fennel, see [fennel api](#fennel-api) fo
 ```
 
 # Api
-<!-- ignore-start --!>
+<!-- ignore-start -->
 **NOTE: this section was formatted to be viewed by vimdoc,
 see** `:h tangerine-api` **for better formatting**
-<!-- ignore-end --!>
+<!-- ignore-end -->
 
 By default tangerine provides the following api 
 ```fennel
