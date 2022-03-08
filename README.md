@@ -1,3 +1,4 @@
+### WARN: plugin under heavy development, stable version will be released on 31 Mar.
 <!--
 -- DEPENDS:
 -- #Install  tangerine.init
