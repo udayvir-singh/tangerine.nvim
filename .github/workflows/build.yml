@@ -1,0 +1,189 @@
+name: Build CI
+
+on: 
+  pull_request:
+  push:
+    paths:
+      - README.md
+      - Makefile
+      - deps/**
+      - fnl/**
+      - scripts/**
+      - .github/**
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  # -------------------- #
+  #       METADATA       #
+  # -------------------- #
+  loc:
+    name:      lines of code
+    runs-on:   ubuntu-latest
+    container: alpine
+
+    steps:
+    - name: Install requirements
+      run: |
+        apk update && apk upgrade 
+        apk add make git bash curl coreutils findutils
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+
+    - name: FENNEL
+      run:  make loc-fennel LOC_HEAD="HEAD"
+
+    - name: BASH
+      run:  make loc-bash LOC_HEAD="HEAD"
+
+    - name: MARKDOWN
+      run:  make loc-markdown LOC_HEAD="HEAD"
+
+    - name: MAKEFILE
+      run:  make loc-makefile LOC_HEAD="HEAD"
+
+    - name: YAML
+      run:  make loc-yaml LOC_HEAD="HEAD"
+
+
+  # -------------------- #
+  #    DOCUMENTATION     #
+  # -------------------- #
+  vimdoc:
+    runs-on:   ubuntu-latest
+    container: pandoc/minimal:2.17-alpine
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install requirements
+      run: |
+        apk update && apk upgrade 
+        apk add make bash curl coreutils findutils neovim
+
+    - name: Clean previous build
+      run:  make clean
+
+    - name: Build vimdoc
+      run:  make vimdoc NO_HELPTAGS=1
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: vimdoc
+        path: doc
+
+
+  # -------------------- #
+  #     BUILD FENNEL     #
+  # -------------------- #
+  fennel:
+    runs-on:   ubuntu-latest
+    container: alpine
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install requirements
+      run: |
+        apk update && apk upgrade 
+        apk add make bash curl coreutils findutils lua5.4
+        # links lua5.4 -> lua
+        ln -sv /usr/bin/lua5.4           /usr/bin/lua
+        ln -sv /usr/lib/lua5.4/liblua.so /usr/lib/liblua5.4.so
+
+    - name: Clean previous build
+      run:  make clean
+
+    - name: Build fennel
+      run:  make fnl
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: fennel-out
+        path: lua 
+
+  fnldoc:
+    name:      fennel docs
+    needs:     [fennel]
+    runs-on:   ubuntu-latest
+    container: alpine
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install requirements
+      run: |
+        apk update && apk upgrade 
+        apk add make bash curl coreutils findutils neovim
+
+    - name: Clean previous build
+      run:  make clean
+
+    - name: Download fennel:out
+      uses: actions/download-artifact@v2
+      with:
+        name: fennel-out
+        path: lua
+
+    - name: Install Tangerine
+      run:  make deps install
+
+    - name: Build fennel docs
+      run:  make fnldoc
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: fnldoc
+        path: fnl/**/README.md
+
+  
+  # -------------------- #
+  #     COMMIT BUILD     #
+  # -------------------- #
+  commit:
+    name:    commit changes
+    needs:   [vimdoc, fnldoc, fennel]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Clean previous build
+      run:  make clean
+
+    - name: Download vimdoc
+      uses: actions/download-artifact@v2
+      with:
+        name: vimdoc
+        path: doc
+
+    - name: Download fennel docs
+      uses: actions/download-artifact@v2
+      with:
+        name: fnldoc
+        path: fnl
+
+    - name: Download fennel:out
+      uses: actions/download-artifact@v2
+      with:
+        name: fennel-out
+        path: lua
+
+    - name: Build Deps
+      run:  make deps
+
+    - name: Print Changes
+      run: |
+        git status --short --ignored; echo
+        git diff --color=always
+
+    - name: Commit
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: '[auto]: run build steps'
+        file_pattern: lua fnl doc/tangerine.txt
