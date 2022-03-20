@@ -1,2 +1,2 @@
-lua/**                   linguist-generated
-deps/**           -diff  linguist-vendored
+lua/**          linguist-generated
+deps/**  -diff  linguist-vendored
