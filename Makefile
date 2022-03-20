@@ -59,6 +59,29 @@ uninstall:
 	
 
 # ------------------- #
+#         GIT         #
+# ------------------- #
+LUA_FILES := $(shell find lua -name '*.lua')
+DOC_FILES := $(shell find fnl -name 'README.md')
+
+--pull:
+	git restore doc lua $(DOC_FILES)
+	echo :: RUNNING GIT PULL
+	echo -e  "   \e[1;32m$$\e[0m git pull"
+	(git pull --rebase 2>&1 || sleep 4) | sed 's:^:   :'
+
+git-pull: git-unskip --pull clean build git-skip
+
+git-skip:
+	git update-index --skip-worktree $(LUA_FILES) $(DOC_FILES)
+	git update-index --skip-worktree doc/tangerine.txt
+
+git-unskip:
+	git update-index --no-skip-worktree $(LUA_FILES) $(DOC_FILES)
+	git update-index --no-skip-worktree doc/tangerine.txt
+
+
+# ------------------- #
 #         LOC         #
 # ------------------- #
 ifdef LOC_HEAD
@@ -101,6 +124,15 @@ define HELP
 |   :install        install tangerine on this system
 |   :clean          deletes build and install dir
 |   :help           print this help
+| 
+| 
+| Git helpers:
+|   - Hooks for git meant to be used in development,
+|   - run :git-skip before running :build to prevent output files in git index
+| 
+|   :git-skip       make git ignore build dirs
+|   :git-unskip     reverts git-skip, run :build before executing
+|   :git-pull       clean build dirs before fetching to avoid conflicts
 | 
 | 
 | Lines of Code:
