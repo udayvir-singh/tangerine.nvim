@@ -20,7 +20,7 @@
 [About](#introduction) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api) • [Development](#development)
 
 <p align="center">
-	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/testci/master/demo/demo.svg">
+	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/tangerine.nvim/master/demo/demo.svg">
 </p>
 
 
