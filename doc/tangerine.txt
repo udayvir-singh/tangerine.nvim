@@ -27,7 +27,7 @@ Table of Contents                                *tangerine-table-of-contents*
   - Make Targets                                      |tangerine-make-targets|
   - Git Hooks                                            |tangerine-git-hooks|
   - LOC Helpers                                        |tangerine-loc-helpers|
-8. The End                                                 |tangerine-the-end|
+8. End Credits                                         |tangerine-end-credits|
 
 
 
@@ -397,7 +397,7 @@ WINDOW                                                      *tangerine-window*
 ==============================================================================
 6. Api                                                         *tangerine-api*
 
-By default tangerine provides the following api
+By default tangerine provides the following api:
 
 >
     :Fnl tangerine.api
@@ -442,7 +442,7 @@ This section describes function for `tangerine.api.compile.{func}`
 
                    *tangerine-compile-string* *tangerine.api.compile.string()*
 
-compile-string                         (compile.string {str} {opts})
+compile-string                         (compile.string {str} {opts?})
 
 
 Compiles string {str} of fennel, returns string of lua.
@@ -459,7 +459,7 @@ PARAMETERS: ~
 
                        *tangerine-compile-file* *tangerine.api.compile.file()*
 
-compile-file                           (compile.file {source} {target} {opts})
+compile-file                           (compile.file {source} {target} {opts?})
 
 
 Compiles fennel {source} and writes output to {target}.
@@ -476,7 +476,7 @@ PARAMETERS: ~
 
                          *tangerine-compile-dir* *tangerine.api.compile.dir()*
 
-compile-dir                            (compile-dir {source} {target} {opts})
+compile-dir                            (compile-dir {source} {target} {opts?})
 
 
 Diff compiles files in {source} dir and outputs to {target} dir.
@@ -507,7 +507,7 @@ EXAMPLE: ~
 
                    *tangerine-compile-buffer* *tangerine.api.compile.buffer()*
 
-compile-buffer                         (compile-buffer {opts})
+compile-buffer                         (compile-buffer {opts?})
 
 
 Compiles the current active fennel buffer.
@@ -526,7 +526,7 @@ PARAMETERS: ~
 
                      *tangerine-compile-vimrc* *tangerine.api.compile.vimrc()*
 
-compile-vimrc                          (compile-vimrc {opts})
+compile-vimrc                          (compile-vimrc {opts?})
 
 
 Diff compiles `config.vimrc` to `config.target` dir.
@@ -548,7 +548,7 @@ PARAMETERS: ~
 
                          *tangerine-compile-rtp* *tangerine.api.compile.rtp()*
 
-compile-rtp                            (compile.rtp {opts})
+compile-rtp                            (compile.rtp {opts?})
 
 
 Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
@@ -581,7 +581,7 @@ EXAMPLE: ~
 
                          *tangerine-compile-all* *tangerine.api.compile.all()*
 
-compile-all                            (compile.all {opts})
+compile-all                            (compile.all {opts?})
 
 
 Diff compiles all indexed fennel files in `config`.
@@ -603,14 +603,16 @@ PARAMETERS: ~
 
 CLEANING API                                          *tangerine-cleaning-api*
 
+Provides functions to clean stale / orphaned lua files in target dirs.
+
 This section describes function for `tangerine.api.clean.{func}`
 
                        *tangerine-clean-target* *tangerine.api.clean.target()*
 
-clean-target                           (clean.target {source} {target} {opts})
+clean-target                           (clean.target {source} {target} {opts?})
 
 
-Deletes orphaned {target} after comparing against {source}.
+Deletes orphaned? {target} after comparing against {source}.
 
 PARAMETERS: ~
 
@@ -621,14 +623,14 @@ PARAMETERS: ~
 <
 
 
-{opts.force} deletes all compiled files if set to `true`
+{opts.force} deletes {target} without comparing if set to `true`
 
                                                          *tangerine-clean-rtp*
 
-clean-rtp                              (clean.rtp {opts})
+clean-rtp                              (clean.rtp {opts?})
 
 
-Deletes orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
+Deletes all orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
 
 PARAMETERS: ~
 
@@ -646,10 +648,10 @@ PARAMETERS: ~
 
                    *tangerine-clean-orphaned* *tangerine.api.clean.orphaned()*
 
-clean-orphaned                         (clean.orphaned {opts})
+clean-orphaned                         (clean.orphaned {opts?})
 
 
-Deletes orphaned lua files indexed inside `target` dirs.
+Deletes all orphaned lua files indexed inside `target` dirs.
 
 PARAMETERS: ~
 
@@ -671,7 +673,7 @@ This section describes function for `tangerine.api.eval.{func}`
 
                          *tangerine-eval-string* *tangerine.api.eval.string()*
 
-eval-string                            (eval.string {str} {opts})
+eval-string                            (eval.string {str} {opts?})
 
 
 Evaluates string {str} of fennel, pretty prints the output.
@@ -690,7 +692,7 @@ PARAMETERS: ~
 
                              *tangerine-eval-file* *tangerine.api.eval.file()*
 
-eval-file                              (eval.file {path} {opts})
+eval-file                              (eval.file {path} {opts?})
 
 
 Evaluates {path} of fennel, pretty prints the output.
@@ -708,7 +710,7 @@ PARAMETERS: ~
 
                          *tangerine-eval-buffer* *tangerine.api.eval.buffer()*
 
-eval-buffer                            (eval.buffer {start} {end} {opts})
+eval-buffer                            (eval.buffer {start} {end} {opts?})
 
 
 Evalutes lines {start} to {end} in current fennel buffer.
@@ -726,7 +728,7 @@ PARAMETERS: ~
 
                              *tangerine-eval-peak* *tangerine.api.eval.peak()*
 
-eval-peak                              (eval.peak {start} {end} {opts})
+eval-peak                              (eval.peak {start} {end} {opts?})
 
 
 Peak lua output for lines {start} to {end} inside a scratch buffer.
@@ -773,7 +775,7 @@ EXAMPLES: ~
 
 WINDOWS API                                            *tangerine-windows-api*
 
-Provides way for user to interact with floating windows created by tangerine.
+Provides functions to interact with floating windows created by tangerine.
 
 This section describes function for `tangerine.api.win.{func}`
 
@@ -821,22 +823,22 @@ fennel-load                            (tangerine.fennel {version?})
 
 Provides underlying fennel used by tangerine
 
-{version?} can be one of [ `"latest" "1-0-0" "0-10-0" "0-9-2"` ]
+{version} can be one of [ `"latest" "1-0-0" "0-10-0" "0-9-2"` ]
 
 ==============================================================================
 7. Development                                         *tangerine-development*
 
 REQUIREMENTS                                          *tangerine-requirements*
 
-│  Program   │        Description        │
-│pandoc <>   │generates vimdoc           │
-│lua <>      │runs included fennel       │
-│make <>     │runs build instructions    │
-│watchexec <>│build on changes (optional)│
-│bash <>     │runs shell scripts         │
-│coreutils <>│required by shell scripts  │
-│findutils <>│” ”                    │
-│curl <>     │” ”                    │
+│                     Program                      │        Description        │
+│pandoc <https://github.com/jgm/pandoc>            │generates vimdoc           │
+│lua <https://www.lua.org>                         │runs included fennel       │
+│make <https://www.gnu.org/software/make>          │runs build instructions    │
+│watchexec <https://github.com/watchexec/watchexec>│build on changes (optional)│
+│bash <https://www.gnu.org/software/bash>          │runs shell scripts         │
+│coreutils <https://www.gnu.org/software/coreutils>│required by shell scripts  │
+│findutils <https://www.gnu.org/software/findutils>│“ ”                    │
+│curl <https://curl.se>                            │“ ”                    │
 
 
 NOTE: only GNU/utils work, 9base or busybox should not work
@@ -857,16 +859,18 @@ see `make help` or |tangerine-below| for information on targets.
 MAKE TARGETS                                          *tangerine-make-targets*
 
 │     Target     │                    Description                    │
-│:fnl            │compiles fennel files                              │
-│:deps           │copy required deps in lua folder                   │
-│:vimdoc         │runs panvimdoc to generate vimdocs                 │
-│:fnldoc         │generates module level documentation               │
+│:fnl            │Compiles fennel files                              │
+│:deps           │Copy required deps in lua folder                   │
+│:vimdoc         │Runs panvimdoc to generate vimdocs                 │
+│:fnldoc         │Generates module level documentation               │
 │                │                                                   │
-│:build          │combines :fnl :deps :vimdoc :fnldoc                │
-│:watch-build    │watches source dir, runs :build on changes         │
+│:build          │Combines :fnl :deps :vimdoc :fnldoc                │
+│:watch-build    │Watches source dir, runs :build on changes         │
 │                │                                                   │
-│:install        │install tangerine on this system                   │
-│:clean          │deletes build and install dir                      │
+│:install        │Install tangerine on this system                   │
+│:clean          │Deletes build and install dir                      │
+│                │                                                   │
+│:help           │Prints this help message                           │
 
 
 To build tangerine run:
@@ -888,9 +892,9 @@ To install tangerine run:
 GIT HOOKS                                                *tangerine-git-hooks*
 
 │    Target    │                         Description                          │
-│git-pull      │safely fetches git repo, prevents conflicts with local changes│
-│git-skip      │makes git ignore build dirs, run before make build            │
-│git-unskip    │reverts git-skip, run after make build                        │
+│git-pull      │Safely fetches git repo, prevents conflicts with local changes│
+│git-skip      │Makes git ignore build dirs, run before make build            │
+│git-unskip    │Reverts git-skip, run after make build                        │
 
 
 EXAMPLE WORKFLOW: ~
@@ -912,7 +916,7 @@ EXAMPLE WORKFLOW: ~
 
 LOC HELPERS                                            *tangerine-loc-helpers*
 
-Helpers to generate detailed summary about lines of code in source files
+Helpers to generate detailed summary about lines of code in source files:
 
 >
     $ make loc-{language}
@@ -939,7 +943,18 @@ EXAMPLES: ~
 
 
 ==============================================================================
-8. The End                                                 *tangerine-the-end*
+8. End Credits                                         *tangerine-end-credits*
+
+
+- **myself**: for making this plugin
+- **myself**: for refactoring this plugin
+- **myself**: for bloating this plugin…
+
+
+>
+    :: おれとして白眼くらする蛙かな ::
+<
+
 
 Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
 
