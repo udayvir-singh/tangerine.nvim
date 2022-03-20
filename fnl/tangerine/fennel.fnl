@@ -1,48 +1,52 @@
+; ABOUT:
+;   Configures fennel and provides functions to load fennel bins.
+;
 ; DEPENDS:
-; (get-rtps load-fennel patch-): tangerine.utils.env
-; (load-fennel): tangerine.fennel.x-y-z
+; (-load) utils[env]
+; (-load) fennel[*]
 (local env (require :tangerine.utils.env))
+
+(local fennel {})
 
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
-(lambda format-path [path ext ?macro]
+(lambda format-path [path ext macro-path?]
   "converts 'path' into usable fennel.path."
   (.. path :?. ext ";" path :?/init. ext
-      (if ?macro (.. ";" path :?/init-macros.fnl) "")))
+      (if macro-path? (.. ";" path :?/init-macros.fnl) "")))
 
-(lambda get-rtp [ext ?macro]
+(lambda get-rtp [ext macro-path?]
   "get rtp entries containing /fnl formatted for fennel.path or package.path."
-  (local out [(format-path (env.get :source) ext ?macro)])
+  (local out [(format-path (env.get :source) ext macro-path?)])
   (let [rtp (.. vim.o.runtimepath ",")]
-       (each [entry (rtp:gmatch "(.-),")]
-             (local path (.. entry "/fnl/"))
-             (if (= 1 (vim.fn.isdirectory path))
-                 (table.insert out (format-path path ext ?macro)))))
+    (each [entry (rtp:gmatch "(.-),")]
+          (local path (.. entry "/fnl/"))
+          (if (= 1 (vim.fn.isdirectory path))
+              (table.insert out (format-path path ext macro-path?)))))
   (table.concat out ";"))
 
 
 ;; -------------------- ;;
 ;;       Fennel         ;;
 ;; -------------------- ;;
-(fn load-fennel [version]
-  "require fennel and setups it opts."
-  (let [version (or version (env.get :compiler :version))
+(lambda fennel.load [?version]
+  "require fennel of 'version' and setups it paths."
+  (let [version (or ?version (env.get :compiler :version))
         fennel  (require (.. :tangerine.fennel. version))]
-       (set fennel.path (get-rtp :fnl false))
-       (set fennel.macro-path (get-rtp :fnl true))
-       fennel))
+    ;; setup paths
+    (tset fennel :path       (get-rtp :fnl false))
+    (tset fennel :macro-path (get-rtp :fnl true))
+    :return fennel))
 
-(local original-path [package.path])
+(local orig { :path package.path }) ;; cache original package.path
 
-(fn patch-package-path []
-  "appends fennel source dirs in package.path."
-  (let [path (get-rtp :lua)
-        target (format-path (env.get :target) :lua)]
-       (set package.path (.. target ";" path ";" (. original-path 1)))
-       true))
+(lambda fennel.patch-path []
+  "appends fennel source and target dirs into package.path."
+  (let [targetdirs (get-rtp :lua false)
+        sourcedirs (format-path (env.get :target) :lua false)]
+    (tset package :path (.. orig.path ";" targetdirs ";" sourcedirs))
+    :return true))
 
-:return {
-  :load load-fennel
-  :     patch-package-path 
-}
+
+:return fennel

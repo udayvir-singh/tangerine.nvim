@@ -1,27 +1,32 @@
+; ABOUT:
+;   Contains diffing algorithm used by compiler.
+; 
+;   Works by creating marker that looks like `-- :fennel:<UTC>`,
+;   compares UTC in marker to ftime(source).
 (local df {})
 
 (lambda df.create-marker [source]
-  "generate a meta tag from 'source' for target."
+  "generates a comment tag from ftime of 'source'."
   (let [base "-- :fennel:"
         meta (vim.fn.getftime source)]
     (.. base meta)))
 
 (lambda df.read-marker [path]
-  "reads 'marker' located in first 21 bytes."
+  "reads marker located in first 21 bytes of 'path'."
   (with-open [file (assert (io.open path "r"))]
-      (local bytes (file:read 21))
-      (local marker (string.match (or bytes "") "fennel:(.*)"))
-      (if (not (and marker bytes))
-          false
-          (tonumber marker))))
+    (local bytes  (or (file:read 21) ""))
+    (local marker (bytes:match ":fennel:([0-9]+)"))
+    (if marker 
+        (tonumber marker)
+        :else false)))
 
 (lambda df.stale? [source target]
-  "diffs 'source' and 'target'. (true) if target is stale"
-  (if (= 1 (vim.fn.filereadable target))
-    (let [source-time (vim.fn.getftime source)
-          target-marker (df.read-marker target)]
-      (not= source-time target-marker))
-    true))
+  "compares marker of 'target' with ftime(source), true if source is stale."
+  (if (not= 1 (vim.fn.filereadable target))
+      (lua "return true"))
+  (let [source-time (vim.fn.getftime source)
+        marker-time (df.read-marker target)]
+    (not= source-time marker-time)))
 
 
 :return df

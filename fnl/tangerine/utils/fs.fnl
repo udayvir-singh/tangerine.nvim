@@ -1,3 +1,5 @@
+; ABOUT:
+;   Basic utils around file system handlers.
 (local fs {})
 
 ;; -------------------- ;;

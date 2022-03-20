@@ -1,38 +1,87 @@
+; ABOUT:
+;   Functions to clean stale lua files in target dirs.
+;
 ; DEPENDS:
-; (-target)           tangerine.utils.fs
-; (-target)           tangerine.utils.diff
-; (-target -orphaned) tangerine.utils.path
-; (-target -orphaned) tangerine.utils.logger
+; (-target)           utils[fs]
+; (-target)           utils[env]
+; (-target)           utils[diff]
+; (-target -orphaned) utils[path]
+; (-target -orphaned) output[logger]
 (local {
   : p
   : fs
   : df
-  : log
+  : env
 } (require :tangerine.utils))
 
-(lambda clean-target [target ?force]
-  "checks if lua:'target' is Marked and has a readable fnl:source, if not
-   then it deletes 'target'."
+(local { 
+  : log
+} (require :tangerine.output))
+
+(local clean {})
+
+;; -------------------- ;;
+;;        Utils         ;;
+;; -------------------- ;;
+(lambda merge [list1 list2]
+  "merges values of 'list2' onto 'list1'."
+  (each [_ val (ipairs list2)]
+        (table.insert list1 val))
+  list1)
+
+(lambda tbl-merge [tbl1 tbl2]
+  "merges 'tbl1' onto 'tbl2'."
+  (vim.tbl_extend "keep" (or tbl1 {}) tbl2))
+
+
+;; -------------------- ;;
+;;         MAIN         ;;
+;; -------------------- ;;
+(lambda clean.target [source target ?opts]
+  "checks if lua:'target' is Marked and has a readable fnl:'source', 
+   if not then it deletes 'target'."
+  ;; opts { :force boolean }
+  (local opts (or ?opts {}))
   (let [target  (p.resolve target)
+        source? (fs.readable? (p.resolve source))
         marker? (df.read-marker target)
-        source? (fs.readable? (p.source target))]
-    (if (and marker? (or (not source?) (= ?force true)))
+        force?  (env.conf opts [:force])]
+    (if (and marker? (or (not source?) force?))
         (fs.remove target)
         :else false)))
 
-(lambda clean-orphaned [?opts]
-  "delete orphaned lua:files present in ENV.target dir."
-  ;; opts {:verbose boolean :force boolean}
-  (let [opts (or ?opts {})
-        logs []]
-    (each [_ target (ipairs (p.list-lua-files))]
-          (if (clean-target target opts.force) 
-              (table.insert logs (p.shortname target))))
-    :logger (log.cleaned logs)))
+(lambda clean.rtp [?opts]
+  "deletes orphaned lua files in ENV.rtpdirs or 'opts.rtpdirs'."
+  ;; opts { :rtpdirs list :force boolean :verbose boolean :float boolean }
+  (local opts (or ?opts {}))
+  (local logs [])
+  (local dirs (env.conf opts [:rtpdirs]))
+  :clean
+  (each [_ dir (ipairs dirs)]
+    (each [_ target (ipairs (p.wildcard dir "**/*.lua"))]
+          (local source (target:gsub ".lua$" ".fnl"))
+          (if (clean.target source target opts)
+              (table.insert logs (p.shortname target)))))
+  :logger (log.success "CLEANED" logs opts)
+  :return logs)
 
-; (clean-orphaned {:verbose true :force false})
+(lambda clean.orphaned [?opts]
+  "deletes orphaned lua files indexed in ENV."
+  ;; opts { :rtpdirs list :force boolean :verbose boolean :float boolean }
+  (local opts (or ?opts {}))
+  (local logs [])
+  :clean
+  (merge logs
+    (clean.rtp (tbl-merge {:verbose false} opts)))
+  (each [_ target (ipairs (p.list-lua-files))]
+        (if (clean.target (p.source target) target opts) 
+            (table.insert logs (p.shortname target))))
+  :logger (log.success "CLEANED" logs opts))
 
-:return {
-  :target   clean-target
-  :orphaned clean-orphaned  
-}
+; EXAMPLES:
+; (pcall tangerine.api.compile.all {:verbose false}) ;; setup
+; (clean.rtp {:rtpdirs [:plugin] :force true :verbose true :float true})
+; (clean.orphaned {:force true :verbose true :float true})
+
+
+:return clean

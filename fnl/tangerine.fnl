@@ -1,61 +1,47 @@
 ; DEPENDS:
-; (setup)      tangerine.fennel
-; (load-vimrc) tangerine.utils.fs
-; (load-api)   tangerine.api
-; (load-hooks) tangerine.vim.hooks
-; (load-cmds)  tangerine.vim.cmds
-; (setup load-hooks load-vimrc) tangerine.utils.env
+; (setup) api
+; (setup) fennel
+; (setup) vim[*]
+; ALL()   utils[env]
+(local env    (require :tangerine.utils.env))
+(local api    (require :tangerine.api))
 (local fennel (require :tangerine.fennel))
-(local { : env : fs } (require :tangerine.utils))
-
-(local require-api   #(require :tangerine.api))
-(local require-cmds  #(require :tangerine.vim.cmds))
-(local require-hooks #(require :tangerine.vim.hooks))
-
-(local vimrc-module "tangerine_vimrc")
-
-;; -------------------- ;;
-;;        Utils         ;;
-;; -------------------- ;;
-(lambda safe-require [module]
-  (let [(ok? out) (pcall require module)] 
-       (if (not ok?)
-           (print out)
-           :else out)))
-
-;; -------------------- ;;
-;;       Loaders        ;;
-;; -------------------- ;;
-(lambda load-vimrc []
-  (let [target (env.get :target)
-        path   (.. target vimrc-module ".lua")]
-        (if (fs.readable? path)
-            (safe-require vimrc-module))))
-
-(lambda load-api []
-  (let [api (require-api)]
-       (global tangerine {:api api :fennel fennel.load})))
-
-(lambda load-cmds []
-  (require-cmds))
-
-(lambda load-hooks []
-  (let [hooks (require-hooks)]
-       (each [_ hook (ipairs (env.get :compiler :hooks))]
-             :call ((. hooks hook)))))
 
 ;; -------------------- ;;
 ;;         MAIN         ;;
 ;; -------------------- ;;
-(lambda setup [config]
-  (env.set config)
-  (fennel.patch-package-path) 
-  (load-api)
-  (load-cmds)
-  (load-hooks)
-  (load-vimrc)
-  true)
+(lambda load-vimrc []
+  "safely require vimrc if readable."
+  (let [module "tangerine_vimrc"
+        path   (.. (env.get :target) module ".lua")]
+    (if (= 1 (vim.fn.filereadable path))
+        (xpcall #(require module)
+                #(print (.. "[tangerine]: ERROR LOADING VIMRC...\n" $1))))))
 
-{
-  : setup
+(lambda load-hooks [hooks]
+  "loads hooks that are present in ENV from table of 'hooks'."
+  (each [_ hook (ipairs (env.get :compiler :hooks))]
+        :call ((. hooks hook))))
+
+(lambda setup [config]
+  "main entry point for tangerine, setups required configuration."
+  ; setup ENV and package.path
+  (env.set config)
+  (fennel.patch-path)
+  ; setup tangerine.api
+  (global tangerine {
+    :api    api
+    :fennel fennel.load
+  })
+  ; load vim config
+  (require :tangerine.vim.cmds)
+  (require :tangerine.vim.maps)
+  (load-hooks (require :tangerine.vim.hooks))
+  ; load vimrc
+  (load-vimrc)
+  :return true)
+
+
+:return {
+  : setup 
 }

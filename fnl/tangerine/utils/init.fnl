@@ -1,5 +1,5 @@
 ; DEPENDS:
-; :return tangerine.utils.**
+; :return utils[*]
 
 (local modules {
   :p   "tangerine.utils.path"
@@ -7,7 +7,7 @@
   :df  "tangerine.utils.diff"
   :env "tangerine.utils.env"
   :log "tangerine.utils.logger"
-  :err "tangerine.utils.error"
+  :win "tangerine.utils.window"
 })
 
 :return (setmetatable {} { 
