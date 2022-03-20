@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eou pipefail
+
 # ---------------------- #
 #         Logger         #
 # ---------------------- #
@@ -8,14 +10,22 @@
 }
 
 log () {
-	COLOR="${1}"
-	CONTENT="$(echo $@ | cut -d' ' -f2-)"
+	local COLOR="${1}"
+	local CONTENT="$(echo $@ | cut -d' ' -f2-)"
 
-	echo -e "  \e[1;3${COLOR}m ==>\e[0m $CONTENT"
+	local BOLD=0
+	local HEADER="==>"
+	if [ "${COLOR}" = "1" ]; then
+		BOLD=1
+		HEADER="xxx"
+		echo "  ${HEADER} ${CONTENT}" > /tmp/tangerine-err
+	fi
+
+	echo -e "   \e[1;3${COLOR}m${HEADER}\e[0m \e[${BOLD}m${CONTENT}\e[0m" 
 } 
 
 logcat () {
-	cat "${1}" | sed "s/^/       /"
+	cat "${1}" | sed "s/^/       /" >&2
 }
 
 # ---------------------- #
@@ -30,16 +40,12 @@ shortname () {
 }
 
 # ---------------------- #
-#         Counter        #
+#         Files          #
 # ---------------------- #
-count () {
-	FILE="${1}"
-	REGEX="${2}"
+list_files () {
+	local DIR="${1}"
+	local EXT="${2}"
 
-	grep -c "$REGEX" < "$FILE"
-}
-
-lines () {
-	wc -l < ${1}
+	find "${DIR}" -name "${EXT}" -printf "%d %p\n" | LC_ALL=C sort -n | cut -d " " -f 2
 }
 

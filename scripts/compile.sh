@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-FENNEL_BIN="${1}"
-SOURCE_DIR="${2}"
+set -eou pipefail
+
+FENNEL_BIN="${1?required arg FENNEL BINARY}"
+SOURCE_DIR="${2?required arg SOURCE}"
 
 source $(dirname $0)/utils/core.sh
 
@@ -23,18 +25,19 @@ compile () {
 # --------------------- #
 :: INITILIZE COMPILING
 
-SOURCES="$(find "${SOURCE_DIR}" -name "*.fnl")"
+SOURCES="$(list_files "${SOURCE_DIR}" "*.fnl")"
 
 for SOURCE in ${SOURCES}; do
+	NAME="$(sed "s:^fnl/::" <<< "${SOURCE}")"
 	TARGET="$(get-target "${SOURCE}")"
 	TARGET_DIR="$(dirname "${TARGET}")"
 
 	[ ! -d "${TARGET_DIR}" ] && mkdir -p "${TARGET_DIR}"
 
 	if compile "${SOURCE}" "${TARGET}"; then
-		log 2 "${SOURCE}" 
+		log 2 "${NAME}" 
 	else
-		log 1 "${SOURCE}" 
+		log 1 "${NAME}" >&2
 		logcat "${LOGFILE}"
 		exit 1
 	fi

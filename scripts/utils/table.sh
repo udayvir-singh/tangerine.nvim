@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eou pipefail
+
 # --------------------- #
 #       VARIABLES       #
 # --------------------- #
@@ -29,7 +31,7 @@ ENDL () {
 }
 
 DRAW_NTIMES () {
-	printf -- "${2}%.0s" `seq ${1}`
+	printf -- "${2-}%.0s" `seq ${1-}`
 }
 
 DRAW_DASHES () {
@@ -37,7 +39,7 @@ DRAW_DASHES () {
 }
 
 DRAW_SECT () {
-	printf %-${1}s " ""${2}"
+	printf %-${1-}s " ""${2-}"
 	printf "│"
 }
 
@@ -68,14 +70,14 @@ DRAW_LINE () {
 }
 
 DRAW_HEADER () { 
-	PRIMARY="${1}"
+	PRIMARY="${1-}"
 	shift 1
 	NO_BLOCKS="${#@}"
 
 	DRAW_LINE $UP_LEFT $UP_RIGHT $DASH_DOWN $NO_BLOCKS
 	DRAW_PRIMARY $PRIMARY
-	while [[ "${1}" ]]; do
-		BLOCK="${1}"
+	while [[ "${1-}" ]]; do
+		BLOCK="${1-}"
 		DRAW_BLOCK "$BLOCK"
 		shift 1
 	done; ENDL
@@ -87,22 +89,22 @@ DRAW_ROW () {
 	shift 1
 
 	DRAW_PRIMARY $PRIMARY
-	while [[ "${1}" ]]; do
-		BLOCK="${1}"
+	while [[ "${1-}" ]]; do
+		BLOCK="${1-}"
 		DRAW_BLOCK "$BLOCK"
 		shift 1
 	done; ENDL
 }
 
 DRAW_FOOTER () {
-	PRIMARY="${1}"
+	PRIMARY="${1-}"
 	shift 1
 	NO_BLOCKS="${#@}"
 	
 	DRAW_LINE $PIPE_LEFT $PIPE_RIGHT $CROSS $NO_BLOCKS
 	DRAW_PRIMARY $PRIMARY
-	while [[ "${1}" ]]; do
-		BLOCK="${1}"
+	while [[ "${1-}" ]]; do
+		BLOCK="${1-}"
 		DRAW_BLOCK "$BLOCK"
 		shift 1
 	done; ENDL
