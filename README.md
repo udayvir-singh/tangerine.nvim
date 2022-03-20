@@ -1,28 +1,26 @@
-### WARN: plugin under heavy development, stable version will be released on 31 Mar.
-<!--
+<!-- FIXME
 -- DEPENDS:
--- #Install  tangerine.init
--- #Command  tangerine.vim.cmds
--- #Setup    tangerine.utils.env
--- #FAQ      tangerine.utils.env
--- #API      G.tangerine.api.**
--- #FAQ      G.tangerine.fennel
--- #API      G.tangerine.fennel
--- #Build    Makefile
+-- Install     | setup
+-- API         | api[*]
+-- Command     | vim[cmds]
+-- Setup, FAQ  | utils[env]
+-- API,   FAQ  | fennel
+-- Build       | Makefile
 -->
 
 <!-- ignore-start -->
+### WARN: plugin under heavy development, stable version will be released on 31 Mar.
 <div align="center">
 
 # :tangerine: Tangerine :tangerine:
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat-square&logo=neovim)
-![GNU Neovim version](https://img.shields.io/badge/Neovim%20In%20Emacs-0.5-dac?style=flat-square&logo=gnuemacs&logoColor=daf)
+![GNU Neovim in Emacs version](https://img.shields.io/badge/Neovim%20In%20Emacs-0.5-dac?style=flat-square&logo=gnuemacs&logoColor=daf)
 
-[About](#introduction) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api)
+[About](#introduction) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api) • [Development](#development)
 
 <p align="center">
-    <img width="700" src="https://raw.githubusercontent.com/udayvir-singh/tangerine.nvim/master/demo/demo.svg">
+	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/testci/master/demo/demo.svg">
 </p>
 
 
@@ -30,29 +28,29 @@
 <!-- ignore-end -->
 
 # Introduction
-Tangerine provides a painless way to add fennel to your neovim config, without adding to your load times.
+Tangerine provides a painless way to add fennel to your neovim config,
+without adding to your load times.
 
-It prioritizes speed, transparency and minimalism. It's blazing fast thanks to it diffing algorithm.
+It prioritizes speed, transparency and minimalism 
+and It's lightning fast thanks to it diffing algorithm.
 
 ## Features
-- Lighting fast compile times
-- Smart diffing to only compile files that are stale
-- Loads `init.fnl` automatically for you
-- Abstracts away lua output from user
-- Built-in support for interactive evaluation 
+- :fire:   *BLAZING* fast, compile times in milliseconds
+- :ocean:  200% support for interactive evaluation 
+- :bamboo: Transparent, doesn't create stupid abstractions
+- :ribbon: Natively loads `nvim/init.fnl`
 
 ## Comparison to other plugins
-- [Hotpot](https://github.com/rktjmp/hotpot.nvim) closest to this plugin, but hooks onto lua package searches to compile
-- [Aniseed](https://github.com/Olical/aniseed) seems too bloated and focused on plugin developers rather than for dotfiles
+##### HOTPOT :stew:
+- Abstracts too much away from user.
+- Hooks onto lua package searchers to compile [harder to debug]
 
-Tangerine also compiles and loads `~/.config/nvim/init.fnl`, without it having to required by user.
+##### ANISEED :herb:
+- Excessively feature rich to be used for dotfiles.
+- Blindly compiles all files that it founds, resulting in slow load times.
 
-Tangerine intends to be as fast and transparent as possible, it does most tedious heavy lifting for you, so you can easily configure neovim in fennel.
-
-## Installation
-1) create file `plugin/tangerine.lua` in your config dir
-
-2) add these lines to automatically bootstrap tangerine
+# Installation
+1. create file `plugin/tangerine.lua` to bootstrap tangerine:
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
@@ -69,7 +67,7 @@ if vim.fn.empty(vim.fn.glob(tangerine_path)) > 0 then
 	print [[tangerine.nvim: finished installing ]]
 end
 ```
-3) call setup() function
+2. call tangerine's `setup()` function, see [docs](#setup):
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
@@ -77,13 +75,15 @@ local tangerine = require [[tangerine]]
 
 tangerine.setup {}
 ```
-4) create `~/.config/nvim/init.fnl`
 
-5) invoke `:FnlCompile` to run tangerine or add hooks to automatically compile, see [setup](#setup) for more info.
+3. invoke `:FnlCompile` manually or setup [hooks](#setup).
 
-6) add `tangerine.nvim` to your plugin list, if you are using a plugin manager
+4. create `~/.config/nvim/init.fnl`, and start writing your config.
 
-##### Packer
+---
+You can use a plugin manager to manage tangerine afterwards.
+
+#### Packer
 ```fennel
 (local packer (require :packer))
 
@@ -91,7 +91,7 @@ tangerine.setup {}
 	(use :udayvir-singh/tangerine.nvim)))
 ```
 
-##### Paq
+#### Paq
 ```fennel
 (local paq (require :paq))
 
@@ -100,108 +100,81 @@ tangerine.setup {}
 })
 ```
 
-## Building From Source
-### Requirements
-| Program       | Description                     |
-|---------------|---------------------------------|
-| [pandoc]()    | for generating vimdoc           |
-| [make]()      | for build instructions          |
-| [lua]()       | for running fennel (included)   |
-| [bash]()      | for running shell scripts       |
-| [coreutils]() | required by shell scripts       |
-
-### Git
-```bash
-git clone https://github.com/udayvir-singh/tangerine.nvim
-cd tangerine.nvim
-
-make <target>
-```
-see `make help` or [below](#make-targets) for information on targets.
-
-### Make Targets
-| Target     | Description                                |
-|------------|--------------------------------------------|
-| `:fnl`     | compiles fennel files                      |
-| `:deps`    | copy required deps in lua folder           |
-| `:vimdoc`  | runs panvimdoc to generate vimdocs         |
-| `:build`   | combines `:fnl` `:deps` `:vimdoc`          |
-| `:install` | install tangerine on this system           |
-| `:clean`   | deletes build and install dir              |
-| `:loc`     | pretty print lines of code in fennel files |
-
-- To build tangerine run:
-```console
-$ make clean build
-```
-
-- Then to install it
-```console
-$ make install
-```
-
 # Setup
-#### Default config
-Tangerine uses sane defaults so that you can get going with having to add to your config.
+### Default config
+Tangerine comes with sane defaults so that you can get going without having to add much to your config.
 ```lua
-local config = vim.stdpath [[config]]
+local nvim_dir = vim.stdpath [[config]]
 
 {
-	source = config .. "/fnl",
-	target = config .. "/lua",
-	vimrc  = config .. "/init.fnl",
+	vimrc   = nvim_dir .. "/init.fnl",
+	source  = nvim_dir .. "/fnl",
+	target  = nvim_dir .. "/lua",
+	rtpdirs = {},
 
 	compiler = {
-		verbose = true,     -- enable messages showing compiled files
+		float   = true,     -- show output in floating window
 		clean   = true,     -- delete stale lua files
 		force   = false,    -- disable diffing (not recommended)
-		version = "latest", -- version of fennel to use, possible values [ latest, 1-0-0, 0-10-0, 0-9-2 ]
+		verbose = true,     -- enable messages showing compiled files
+
+		globals = {...},    -- list of alowedGlobals
+		version = "latest", -- version of fennel to use, [ latest, 1-0-0, 0-10-0, 0-9-2 ]
 
 		-- hooks for tangerine to compile on:
-		-- "onsave" run every time you save fennel file in {target} dir.
+		-- "onsave" run every time you save fennel file in {source} dir.
 		-- "onload" run on VimEnter event
 		-- "oninit" run before sourcing init.fnl [recommended than onload]
 		hooks   = []
 	},
 
-	diagnostic = {
-		hl_normal  = "DiagnosticError",            -- hl group for errored lines
-		hl_virtual = "DiagnosticVirtualTextError", -- hl group for virtual text
-		timeout    = 10 -- how long should the error persist
+	eval = {
+		float  = true,      -- show results in floating window
+		luafmt = function() -- function that returns formater for peaked lua
+			return {"lua-format"}
+		end,
+
+		diagnostic = { 
+			virtual = true,  -- show errors in virtual text
+			timeout = 10     -- how long should the error persist
+		}
+	},
+
+	keymaps = {
+		eval_buffer = "gE",
+		peak_buffer = "gL",
+		goto_output = "gO",
+		float = {
+			next    = "<C-K>",
+			prev    = "<C-J>",
+			kill    = "<Esc>",
+			close   = "<Enter>",
+			resizef = "<C-W>=",
+			resizeb = "<C-W>-"
+		}
+	},
+
+	highlight = {
+		float   = "Normal",
+		success = "String",
+		errors  = "DiagnosticError"
 	},
 }
 ```
 
-<details>
-<summary>Here is schema used internally for validation</summary>
-
-```fennel
-{
-	:source "string"
-	:target "string"
-	:vimrc  "string"
-	:compiler {
-		:verbose "boolean"
-		:clean   "boolean"
-		:force   "boolean"
-		:version [:oneof ["latest" "1-0-0" "0-10-0" "0-9-2"]]
-		:hooks   [:array ["onsave" "onload" "oninit"]]
-	}
-	:diagnostic {
-		:hl_normal  "string"
-		:hl_virtual "string"
-		:timeout    "number"
-	}
-}
-```
-</details>
-
-#### Example Config
-Here is config that I use in my dotfiles
+### Example Config
+Here is config that I use in my dotfiles:
 ```lua
 {
 	-- save fnl output in a separate dir, it gets automatically added to package.path
-	target = vim.fn.stdpath [[data]] .. "/tangerine"
+	target = vim.fn.stdpath [[data]] .. "/tangerine",
+
+	-- compile files in &rtp
+	rtpdirs = {
+		"plugin",
+		"colors",
+		"$HOME/mydir" -- absolute paths are also supported
+	},
 
 	compiler = {
 		-- compile every time changed are made to fennel files or on entering vim
@@ -210,17 +183,25 @@ Here is config that I use in my dotfiles
 }
 ```
 
-That's It now get writing your vim config in fennel
-
 # Commands
-<!-- doc=:FnlCompile -->
-#### :FnlCompile
-Diff and compile fennel files in `source` dir to `target` dir.
-
+## Compiling
 <!-- doc=:FnlCompileBuffer -->
 #### :FnlCompileBuffer
-Only compile current buffer of an fennel file
+Compiles current active fennel buffer
 
+<!-- doc=:FnlCompile -->
+#### :FnlCompile[!]
+Diff compiles all indexed fennel files
+
+If bang! is present then forcefully compiles all `source` files
+
+<!-- doc=:FnlClean -->
+#### :FnlClean[!]
+Deletes stale or orphaned lua files in `target` dir
+
+If bang! is present then it deletes all lua files.
+
+## Evaluation
 <!-- doc=:Fnl -->
 #### :Fnl {expr}
 Executes and Evalutate {expr} of fennel
@@ -228,21 +209,13 @@ Executes and Evalutate {expr} of fennel
 :Fnl (print "Hello World")
   -> Hello World
 
-:Fnl (values some-var)
+:Fnl (values some_var)
   -> :return [ 1 2 3 4 ]
 ```
 
-<!-- doc=:FnlBuffer -->
-#### :FnlBuffer
-Evaluates all lines in current fennel buffer
-
-<!-- doc=:FnlRange -->
-#### :[range]FnlRange
-Evaluates [range] of fennel in current buffer
-
 <!-- doc=:FnlFile -->
 #### :FnlFile {file}
-Evaluates a file of fennel
+Evaluates {file} of fennel and outputs the result
 
 ```fennel
 :FnlFile path/source.fnl
@@ -250,69 +223,118 @@ Evaluates a file of fennel
 :FnlFile % ;; not recomended
 ```
 
-<!-- doc=:FnlClean -->
-#### :FnlClean
-Checks and deletes stale and orphaned lua files in `target` dir
+<!-- doc=:FnlBuffer -->
+#### :[range]FnlBuffer
+Evaluates all lines or [range] in current fennel buffer
+
+> mapped to `gE` by default.
+
+## Peaking
+<!-- doc=:FnlPeak -->
+#### :[range]FnlPeak
+Peak lua output for [range] in current fennel buffer
+
+> mapped to `gL` by default.
 
 <!-- doc=:FnlGotoOutput -->
 #### :FnlGotoOutput
-Open output lua file of current fennel buffer in a new buffer
+Open lua output of current fennel buffer in a new buffer
 
-# FAQ and Tricks
-##### Q: How to make tangerine compile automatically when you open vim
-Ans: add hooks in config of `setup()` function:
+> mapped to `gO` by default.
+
+## Window
+<!-- doc=:FnlWinNext -->
+#### :FnlWinNext [N]
+Jump to [N]th next floating window created by tangerine
+
+> mapped to `CTRL-K` in floats by default.
+
+<!-- doc=:FnlWinPrev -->
+#### :FnlWinPrev [N]
+Jump to [N]th previous floating window created by tangerine
+
+> mapped to `CTRL-J` in floats by default.
+
+<!-- doc=:FnlWinResize -->
+#### :FnlWinResize [N]
+Increase or Decrease floating window height by [N] factor
+
+> mapped to `CTRL-W =` to increase and `CTRL-W -` decrease by default.
+
+<!-- doc=:FnlWinClose -->
+#### :FnlWinClose
+Closes current floating window under cursor
+
+> mapped to `ENTER` in floats by default.
+
+<!-- doc=:FnlWinKill -->
+#### :FnlWinKill
+Closes all floating windows made by tangerine
+
+> mapped to `ESC` in floats by default.
+
+# FAQ
+**Q: How to make tangerine compile automatically when you open vim**
+
+**A:** add hooks in config:
 ```lua
--- if you want to compile before loading init.fnl (recommended)
-hooks = ["oninit"]
+tangerine.setup {
+	compiler = {
+		-- if you want to compile before loading init.fnl (recommended)
+		hooks = ["oninit"]
 
--- if you only want after VimEnter event has fired
-hooks = ["onenter"]
+		-- if you only want after VimEnter event has fired
+		hooks = ["onenter"]
+	}
+}
 ```
 
-##### Q: How to tuck away compiled output in a separate directory
-Ans: just change source in config
-```lua
-source = "/path/to/your/dir"
-```
 
-##### Get underlying fennel used by tangerine
-Call `(tangerine.fennel {*version})` to fennel, see [fennel api](#fennel-api) for more info
-```fennel
-(tangerine.fennel (or :latest :1-0-0 :0-10-0 :0-9-2))
+**Q: How to tuck away compiled output in a separate directory**
+
+**A:** change source in config:
+```lua
+tangerine.setup {
+	source = "/path/to/your/dir"
+}
 ```
 
 # Api
-<!-- ignore-start -->
-**NOTE: this section was formatted to be viewed by vimdoc,
-see** `:h tangerine-api` **for better formatting**
-<!-- ignore-end -->
-
 By default tangerine provides the following api 
 ```fennel
 :Fnl tangerine.api
 
 -> :return {
-  	:compile {
-  		:all    <function 3>
-  		:buffer <function 4>
-  		:dir    <function 5>
-  		:file   <function 6>
-  		:string <function 7>
-  		:vimrc  <function 8>
-  	}
-  	:clean {
-  		:orphaned <function 1>
-  		:target   <function 2>
-  	}
-  	:eval {
-  		:buffer <function 9>
-  		:file   <function 10>
-  		:range  <function 11>
-  		:string <function 12>
-  	}
-  	:goto_output <function 13>
-	:serialize   <function 14>
-  }
+     :compile {
+       :all    <function 0>
+       :buffer <function 1>
+       :dir    <function 2>
+       :file   <function 3>
+       :rtp    <function 4>
+       :string <function 5>
+       :vimrc  <function 6>
+     }
+     :clean {
+       :rtp      <function 7>
+       :target   <function 8>
+       :orphaned <function 9>
+     }
+     :eval {
+       :buffer <function 10>
+       :file   <function 11>
+       :peak   <function 12>
+       :string <function 13>
+     }
+     :win {
+       :next    <function 14>
+       :prev    <function 15>
+       :close   <function 16>
+       :killall <function 17>
+       :resize  <function 18>
+     }
+     :goto_output <function 19>
+     :serialize   <function 20>
+   }
 ```
 
 ## Compiler Api
@@ -320,39 +342,74 @@ This section describes function for `tangerine.api.compile.{func}`
 
 <!-- doc=tangerine.api.compile.string() -->
 #### compile-string
-<pre lang="fennel"><code> (compile.string {str})
+<pre lang="fennel"><code> (compile.string {str} {opts})
 </pre></code>
 
-<ul><li>
-Compiles string {str} of fennel, returns string of lua
-</li></ul>
+Compiles string {str} of fennel, returns string of lua.
 
-Can throw errors, upto users to handle them
+##### Parameters:
+```fennel
+{
+	:filename <string>
+	:globals  <list>
+}
+```
 
 <!-- doc=tangerine.api.compile.file() -->
 #### compile-file
-<pre lang="fennel"><code> (compile.file {path} {output})
+<pre lang="fennel"><code> (compile.file {source} {target} {opts})
 </pre></code>
 
-<ul><li>
-Compiles fennel {path} and writes out to {output}
-</li></ul>
+Compiles fennel {source} and writes output to {target}.
 
-Can throw errors, upto users to handle them
+##### Parameters:
+```fennel
+{
+	:filename <string>
+	:globals  <list>
+}
+```
+
+<!-- doc=tangerine.api.compile.dir() -->
+#### compile-dir
+<pre lang="fennel"><code> (compile-dir {source} {target} {opts})
+</pre></code>
+
+Diff compiles files in {source} dir and outputs to {target} dir.
+
+##### Parameters:
+```fennel
+{
+	:force   <boolean>
+	:float   <boolean>
+	:verbose <boolean>
+	:globals <list>
+}
+```
+{opts.force} disables diffing if set to `true`
+
+##### Example:
+```fennel
+(tangerine.api.compile.dir 
+	:path/fnl 
+	:path/lua
+	{ :force false :float true :verbose true })
+```
 
 <!-- doc=tangerine.api.compile.buffer() -->
 #### compile-buffer
 <pre lang="fennel"><code> (compile-buffer {opts})
 </pre></code>
 
-<ul><li>
-Compiles current fennel buffer
-</li></ul>
+Compiles the current active fennel buffer.
 
-opts can be of table:
+##### Parameters:
 ```fennel
 {
-	:verbose <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:filename <string>
+	:globals  <list>
 }
 ```
 
@@ -361,184 +418,355 @@ opts can be of table:
 <pre lang="fennel"><code> (compile-vimrc {opts})
 </pre></code>
 
-<ul><li>
+Diff compiles `config.vimrc` to `config.target` dir.
 
-Compiles `config.vimrc` to `config.target/tangerine_vimrc.lua`
-
-</li></ul>
-
-opts can be of table:
+##### Parameters:
 ```fennel
 {
-	:force <boolean>
-	:verbose <boolean>
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:filename <string>
+	:globals  <list>
 }
 ```
-If {opts.force} != `true` then it diffs files for compiling
+{opts.force} disables diffing if set to `true`
+
+<!-- doc=tangerine.api.compile.rtp() -->
+#### compile-rtp
+<pre lang="fennel"><code> (compile.rtp {opts})
+</pre></code>
+
+Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
+
+##### Parameters:
+```fennel
+{
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:globals  <list>
+	:rtpdirs  <list>
+}
+```
+{opts.force} disables diffing if set to `true`
+
+##### Example:
+```fennel
+(tangerine.api.compile.rtp {
+	:force   false
+	:float   true
+	:verbose true
+	:rtpdirs [ "colors" "plugin" "$HOME/mydir" ]})
+```
 
 <!-- doc=tangerine.api.compile.all() -->
 #### compile-all
 <pre lang="fennel"><code> (compile.all {opts})
 </pre></code>
 
-<ul><li>
+Diff compiles all indexed fennel files in `config`.
 
-Compiles fennel files in `config.source` dir to `config.target` dir.
-
-</li></ul>
-
-opts can be of table:
+##### Parameters:
 ```fennel
 {
-	:force <boolean>
-	:verbose <boolean>
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:globals  <list>
+	:rtpdirs  <list>
 }
 ```
-If {opts.force} != `true` then it diffs files for compiling
-
-<!-- doc=tangerine.api.compile.dir() -->
-#### compile-dir
-<pre lang="fennel"><code> (compile-dir {source} {target} {opts})
-</pre></code>
-
-<ul><li>
-Compiles fennel in file {source} dir to {target} dir
-</li></ul>
-
-opts can be of table:
-```fennel
-{
-	:force <boolean>
-	:verbose <boolean>
-}
-```
-If {opts.force} != `true` then it diffs files for compiling
-
-Example:
-```fennel
-(tangerine.api.compile.dir 
-	:path/fnl 
-	:path/lua
-	{ :force true :verbose true })
-```
+{opts.force} disables diffing if set to `true`
 
 ## Cleaning Api
-Tangerine comes with functions to clean stale lua file in target dir without their fennel parents.
-
 This section describes function for `tangerine.api.clean.{func}`
 
 <!-- doc=tangerine.api.clean.target() -->
 #### clean-target
-<pre lang="fennel"><code> (clean.target {target} {force})
+<pre lang="fennel"><code> (clean.target {source} {target} {opts})
 </pre></code>
 
-<ul><li>
-Deletes lua files in {target} dir without their fennel parent
-</li></ul>
+Deletes orphaned {target} after comparing against {source}.
 
-If {force} == `true`, then it deletes all compiled files
+##### Parameters:
+```fennel
+{
+	:force <boolean>
+}
+```
+{opts.force} deletes all compiled files if set to `true`
+
+#### clean-rtp
+<pre lang="fennel"><code> (clean.rtp {opts})
+</pre></code>
+
+Deletes orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
+
+##### Parameters:
+```fennel
+{
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:rtpdirs  <list>
+}
+```
+{opts.force} deletes all compiled files if set to `true`
 
 <!-- doc=tangerine.api.clean.orphaned() -->
 #### clean-orphaned
 <pre lang="fennel"><code> (clean.orphaned {opts})
 </pre></code>
 
-<ul><li>
+Deletes orphaned lua files indexed inside `target` dirs.
 
-Deletes lua files in `config.target` dir without their fennel parent
-
-</li></ul>
-
-opts can be of table:
+##### Parameters:
 ```fennel
 {
-	:force <boolean>
-	:verbose <boolean>
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:rtpdirs  <list>
 }
 ```
-If {opts.force} == `true`, then it deletes all compiled files
+{opts.force} deletes all compiled files if set to `true`
 
 ## Evaluation Api
 This section describes function for `tangerine.api.eval.{func}`
 
 <!-- doc=tangerine.api.eval.string() -->
 #### eval-string
-<pre lang="fennel"><code> (eval.string {str})
+<pre lang="fennel"><code> (eval.string {str} {opts})
 </pre></code>
 
-<ul><li>
-Evaluates string {str} of fennel, and prints the output
-</li></ul>
+Evaluates string {str} of fennel, pretty prints the output.
 
-Can throw errors
+##### Parameters:
+```fennel
+{
+	:float    <boolean>
+	:virtual  <boolean>
+	:filename <string>
+	:offset   <number> ;; line offset for errors
+}
+```
 
 <!-- doc=tangerine.api.eval.file() -->
 #### eval-file
-<pre lang="fennel"><code> (eval.file {path})
+<pre lang="fennel"><code> (eval.file {path} {opts})
 </pre></code>
 
-<ul><li>
-Evaluates {path} of fennel, and prints the output
-</li></ul>
+Evaluates {path} of fennel, pretty prints the output.
 
-Can throw errors
-
-<!-- doc=tangerine.api.eval.range() -->
-#### eval-range
-<pre lang="fennel"><code> (eval.range {start} {end} {count})
-</pre></code>
-
-<ul><li>
-Evaluates range {start} to {end} in vim buffer 0
-</li></ul>
-
-Optionally takes {count}, only meant to be used in command definitions
+##### Parameters:
+```fennel
+{
+	:float    <boolean>
+	:virtual  <boolean>
+	:filename <string>
+}
+```
 
 <!-- doc=tangerine.api.eval.buffer() -->
 #### eval-buffer
-<pre lang="fennel"><code> (eval.buffer)
+<pre lang="fennel"><code> (eval.buffer {start} {end} {opts})
 </pre></code>
 
-<ul><li>
+Evalutes lines {start} to {end} in current fennel buffer.
 
-Evaluates all lines in vim buffer 0,
-wrapper around `(eval.range 1 -1)`
-
-</li></ul>
-
-## Utils Api
-<!-- doc=tangerine.api.serialize() -->
-#### serialize
-<pre lang="fennel"><code> (tangerine.api.serialize {object})
-</pre></code>
-
-<ul><li>
-Return a human-readable representation of given {object}
-</li></ul>
-
-Example:
+##### Parameters:
 ```fennel
-(tangerine.api.serialize [1 2 3 4])
--> "[ 1 2 3 4 ]"
+{
+	:float    <boolean>
+	:virtual  <boolean>
+	:filename <string>
+}
 ```
 
+<!-- doc=tangerine.api.eval.peak() -->
+#### eval-peak
+<pre lang="fennel"><code> (eval.peak {start} {end} {opts})
+</pre></code>
+
+Peak lua output for lines {start} to {end} inside a scratch buffer.
+
+##### Parameters:
+```fennel
+{
+	:float    <boolean>
+	:virtual  <boolean>
+	:filename <string>
+}
+```
+
+## Utils Api
 <!-- doc=tangerine.api.goto_output() -->
 #### goto_output
 <pre lang="fennel"><code> (tangerine.api.goto_output)
 </pre></code>
 
-<ul><li>
 Open lua source of current fennel buffer in a new buffer
-</li></ul>
 
-<!-- doc=tangerine.fennel() -->
-## Fennel Api
-Underlying fennel used by tangerine can by accessed by calling `tangerine.fennel`
-
-<pre lang="fennel"><code> (tangerine.fennel {version})
+<!-- doc=tangerine.api.serialize() -->
+#### serialize
+<pre lang="fennel"><code> (tangerine.api.serialize {val} {ret?})
 </pre></code>
 
-{version} can be one of [ `latest` `1-0-0` `0-10-0` `0-9-2` ],
-default `config.compiler.version`
+Return a human-readable representation of given {val}.
+
+Appends return block if {ret?} is `true`
+
+##### Examples:
+```fennel
+(tangerine.api.serialize foo)
+-> "[ 1 2 3 4 ]"
+
+(tangerine.api.serialize foo true)
+-> ":return [ 1 2 3 4 ]"
+```
+## Windows Api
+Provides way for user to interact with floating windows created by tangerine.
+
+This section describes function for `tangerine.api.win.{func}`
+
+<!-- doc=tangerine.api.win.next() -->
+#### win-next 
+<pre lang="fennel"><code> (tangerine.api.win.next {steps?})
+</pre></code>
+
+Switch to next floating window by 1 or N {steps?}.
+
+<!-- doc=tangerine.api.win.prev() -->
+#### win-prev
+<pre lang="fennel"><code> (tangerine.api.win.prev {steps?})
+</pre></code>
+
+Switch to previous floating window by 1 or N {steps?}.
+
+<!-- doc=tangerine.api.win.resize() -->
+#### win-resize
+<pre lang="fennel"><code> (tangerine.api.win.resize {factor})
+</pre></code>
+
+Changes height of current floating window by {factor} of N.
+
+<!-- doc=tangerine.api.win.close() -->
+#### win-close
+<pre lang="fennel"><code> (tangerine.api.win.close)
+</pre></code>
+
+Closes current floating window, switching to nearest neighbor afterwards.
+
+<!-- doc=tangerine.api.win.killall() -->
+#### win-killall
+<pre lang="fennel"><code> (tangerine.api.win.killall)
+</pre></code>
+
+Closes all floating windows created by tangerine.
+
+## Fennel Api
+<!-- doc=tangerine.fennel() -->
+#### fennel-load
+<pre lang="fennel"><code> (tangerine.fennel {version?})
+</pre></code>
+
+Provides underlying fennel used by tangerine
+
+{version?} can be one of [ `"latest" "1-0-0" "0-10-0" "0-9-2"` ]
+
+# Development
+## Requirements
+| Program       | Description                 |
+|---------------|-----------------------------|
+| [pandoc]()    | generates vimdoc            |
+| [lua]()       | runs included fennel        |
+| [make]()      | runs build instructions     |
+| [watchexec]() | build on changes (optional) |
+| [bash]()      | runs shell scripts          |
+| [coreutils]() | required by shell scripts   |
+| [findutils]() | " "                         |
+| [curl]()      | " "                         |
+
+NOTE: only GNU/utils work, 9base or busybox should not work
+
+## Building from source
+```bash
+git clone https://github.com/udayvir-singh/tangerine.nvim
+cd tangerine.nvim
+
+make <git-hooks>
+make <target>
+```
+see `make help` or [below](#make-targets) for information on targets.
+
+## Make Targets
+| Target         | Description                                  |
+|----------------|----------------------------------------------|
+| `:fnl`         | compiles fennel files                        |
+| `:deps`        | copy required deps in lua folder             |
+| `:vimdoc`      | runs panvimdoc to generate vimdocs           |
+| `:fnldoc`      | generates module level documentation         |
+|                |                                              |
+| `:build`       | combines `:fnl` `:deps` `:vimdoc` `:fnldoc`  |
+| `:watch-build` | watches source dir, runs `:build` on changes |
+|                |                                              |
+| `:install`     | install tangerine on this system             |
+| `:clean`       | deletes build and install dir                |
+
+To build tangerine run:
+```bash
+$ make clean build
+# or
+$ make watch-build
+```
+
+To install tangerine run:
+```bash
+$ make install
+```
+
+## Git Hooks
+| Target       | Description                                                    |
+|--------------|----------------------------------------------------------------|
+| `git-pull`   | safely fetches git repo, prevents conflicts with local changes |
+| `git-skip`   | makes git ignore build dirs, run before `make build`           |
+| `git-unskip` | reverts `git-skip`, run after `make build`                     |
+
+##### Example workflow:
+```bash
+$ make git-skip # first thing that you should be running
+
+# makes changes to tangerine
+$ ...
+$ make clean build
+
+# commit changes 
+$ git commit -a -m "<msg>"
+
+# cleanly fetch from origin
+$ make git-pull
+```
+
+## LOC Helpers
+Helpers to generate detailed summary about lines of code in source files
+
+```bash
+$ make loc-{language}
+```
+
+##### Supported Languages:
+- `fennel`
+- `bash`
+- `markdown`
+- `makefile`
+- `yaml`
+
+##### Examples:
+```bash
+$ make loc-fennel
+
+$ make loc-bash
+```
 
 # The End
