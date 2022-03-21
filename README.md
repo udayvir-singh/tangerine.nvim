@@ -28,11 +28,10 @@
 <!-- ignore-end -->
 
 # Introduction
-Tangerine provides a painless way to add fennel to your neovim config,
-without adding to your load times.
+Tangerine provides a painless way to add fennel to your config.
 
-It prioritizes speed, transparency and minimalism 
-and It's lightning fast thanks to it diffing algorithm.
+It prioritizes :zap:     lightning fast speeds,<br>
+& gives you    :cyclone: control over `when` and `how` fennel should compile.
 
 ## Features
 - :fire:   *BLAZING* fast, compile times in milliseconds
