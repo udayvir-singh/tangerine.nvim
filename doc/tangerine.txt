@@ -34,11 +34,10 @@ Table of Contents                                *tangerine-table-of-contents*
 ==============================================================================
 1. Introduction                                       *tangerine-introduction*
 
-Tangerine provides a painless way to add fennel to your neovim config, without
-adding to your load times.
+Tangerine provides a painless way to add fennel to your config.
 
-It prioritizes speed, transparency and minimalism and It’s lightning fast
-thanks to it diffing algorithm.
+It prioritizes :zap: lightning fast speeds, & gives you :cyclone: control over
+`when` and `how` fennel should compile.
 
 FEATURES                                                  *tangerine-features*
 
