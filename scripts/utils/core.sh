@@ -29,23 +29,14 @@ logcat () {
 }
 
 # ---------------------- #
-#         Parser         #
-# ---------------------- #
-get-target () {
-	echo "${1}" | sed "s/fnl/lua/g"
-}
-
-shortname () {
-	echo ${1} | sed "s:fnl/::"
-}
-
-# ---------------------- #
 #         Files          #
 # ---------------------- #
 list_files () {
 	local DIR="${1}"
 	local EXT="${2}"
 
-	find "${DIR}" -name "${EXT}" -printf "%d %p\n" | LC_ALL=C sort -n | cut -d " " -f 2
+	find "${DIR}" -name "${EXT}" -printf "%d %p\n" |
+		LC_ALL=C sort -n |
+		cut -d " " -f 2
 }
 

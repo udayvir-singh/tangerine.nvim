@@ -3,7 +3,7 @@
 set -eou pipefail
 
 FENNEL_BIN="${1?required arg FENNEL BINARY}"
-SOURCE_DIR="${2?required arg SOURCE}"
+SOURCE_DIR="${2?required arg SOURCE DIR}"
 
 source $(dirname $0)/utils/core.sh
 
@@ -28,16 +28,16 @@ compile () {
 SOURCES="$(list_files "${SOURCE_DIR}" "*.fnl")"
 
 for SOURCE in ${SOURCES}; do
-	NAME="$(sed "s:^fnl/::" <<< "${SOURCE}")"
-	TARGET="$(get-target "${SOURCE}")"
-	TARGET_DIR="$(dirname "${TARGET}")"
+	     TITLE="${SOURCE#fnl/}"
+	    TARGET="${SOURCE//fnl/lua}"
+	TARGET_DIR="${TARGET%/*}"
 
 	[ ! -d "${TARGET_DIR}" ] && mkdir -p "${TARGET_DIR}"
 
 	if compile "${SOURCE}" "${TARGET}"; then
-		log 2 "${NAME}" 
+		log 2 "${TITLE}" 
 	else
-		log 1 "${NAME}" >&2
+		log 1 "${TITLE}" >&2
 		logcat "${LOGFILE}"
 		exit 1
 	fi
