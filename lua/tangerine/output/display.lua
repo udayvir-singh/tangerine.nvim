@@ -9,7 +9,7 @@ local function escape_quotes(str)
 end
 local function serialize_tbl(tbl)
   _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/output/display.fnl:19")
-  return string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(vim.inspect(tbl), "= +'([^']+)'", escape_quotes), ",", ""), "= ", ""), "(\n -)[^<[%w]([%w_-])", "%1 :%2"), "(\n -)%[\"(.-)\"%]", "%1:%2"), "(\n -)%[(.-)%]", "%1%2"), "^%{ (.+)%}", "[ %1]"), "%{( [^{}]+ )%}", "[%1]"), "%{( [^{}]+ )%}", "[%1]")
+  return string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(vim.inspect(tbl), "= -'([^']-)'", escape_quotes), ",", ""), "= ", ""), "(\n -)[^<[%w]([%w_-])", "%1 :%2"), "(\n -)%[\"(.-)\"%]", "%1:%2"), "(\n -)%[(.-)%]", "%1%2"), "<(.-)>", "(%1)"), "^%{( .+ )%}", "[%1]"), "%{( [^{}]*[^ ] )%}", "[%1]"), "%{( .*[^ ] )%}", "[%1]"), "%{( .*[^ ] )%}", "[%1]")
 end
 dp.serialize = function(xs, return_3f)
   local out = ""
@@ -29,7 +29,7 @@ dp.serialize = function(xs, return_3f)
   return (_2_() .. out)
 end
 dp.format = function(code)
-  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:50")
+  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:53")
   local luafmt = env.get("eval", "luafmt")()
   if ((0 == #luafmt) or (0 == vim.fn.executable(luafmt[1]))) then
     return code
@@ -38,7 +38,7 @@ dp.format = function(code)
   end
 end
 dp.show = function(_3fval, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:62")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:65")
   if (_3fval == nil) then
     return
   else
@@ -53,8 +53,8 @@ dp.show = function(_3fval, opts)
   return true
 end
 dp["show-lua"] = function(code, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:73")
-  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:73")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:76")
+  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:76")
   local out = string.gsub(dp.format(code), "\n$", "")
   if env.conf(opts, {"eval", "float"}) then
     win["set-float"](out, "lua", env.get("highlight", "float"))

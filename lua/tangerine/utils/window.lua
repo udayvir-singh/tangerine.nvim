@@ -1,13 +1,14 @@
 local env = require("tangerine.utils.env")
 local win = {}
 local win_stack = {total = 0}
+win._stack_ = win_stack
 local function insert_stack(win_2a)
-  _G.assert((nil ~= win_2a), "Missing argument win* on fnl/tangerine/utils/window.fnl:17")
+  _G.assert((nil ~= win_2a), "Missing argument win* on fnl/tangerine/utils/window.fnl:19")
   return table.insert(win_stack, {win_2a, vim.api.nvim_win_get_config(win_2a)})
 end
 local function remove_stack(idx_2a, conf_2a)
-  _G.assert((nil ~= conf_2a), "Missing argument conf* on fnl/tangerine/utils/window.fnl:21")
-  _G.assert((nil ~= idx_2a), "Missing argument idx* on fnl/tangerine/utils/window.fnl:21")
+  _G.assert((nil ~= conf_2a), "Missing argument conf* on fnl/tangerine/utils/window.fnl:23")
+  _G.assert((nil ~= idx_2a), "Missing argument idx* on fnl/tangerine/utils/window.fnl:23")
   for idx, _1_ in ipairs(win_stack) do
     local _each_2_ = _1_
     local win0 = _each_2_[1]
@@ -21,7 +22,7 @@ local function remove_stack(idx_2a, conf_2a)
   return table.remove(win_stack, idx_2a)
 end
 local function normalize_parent(win_2a)
-  _G.assert((nil ~= win_2a), "Missing argument win* on fnl/tangerine/utils/window.fnl:29")
+  _G.assert((nil ~= win_2a), "Missing argument win* on fnl/tangerine/utils/window.fnl:31")
   for idx, _4_ in ipairs(win_stack) do
     local _each_5_ = _4_
     local win0 = _each_5_[1]
@@ -55,8 +56,8 @@ do
   timer:start(200, 200, vim.schedule_wrap(update_stack))
 end
 local function move_stack(start, steps)
-  _G.assert((nil ~= steps), "Missing argument steps on fnl/tangerine/utils/window.fnl:55")
-  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/utils/window.fnl:55")
+  _G.assert((nil ~= steps), "Missing argument steps on fnl/tangerine/utils/window.fnl:57")
+  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/utils/window.fnl:57")
   local index = start
   for idx, _11_ in ipairs(win_stack) do
     local _each_12_ = _11_
@@ -81,7 +82,7 @@ win.prev = function(_3fsteps)
   return move_stack(#win_stack, (-1 * (_3fsteps or 1)))
 end
 win.resize = function(n)
-  _G.assert((nil ~= n), "Missing argument n on fnl/tangerine/utils/window.fnl:73")
+  _G.assert((nil ~= n), "Missing argument n on fnl/tangerine/utils/window.fnl:75")
   local n0 = n
   local idx_2a = (#win_stack + 1)
   for idx, _15_ in ipairs(win_stack) do
@@ -140,7 +141,7 @@ win.killall = function()
   return true
 end
 local function lineheight(lines)
-  _G.assert((nil ~= lines), "Missing argument lines on fnl/tangerine/utils/window.fnl:114")
+  _G.assert((nil ~= lines), "Missing argument lines on fnl/tangerine/utils/window.fnl:116")
   local height = 0
   local width = vim.api.nvim_win_get_width(0)
   for _, line in ipairs(lines) do
@@ -149,7 +150,7 @@ local function lineheight(lines)
   return height
 end
 local function nmap_21(buffer, ...)
-  _G.assert((nil ~= buffer), "Missing argument buffer on fnl/tangerine/utils/window.fnl:126")
+  _G.assert((nil ~= buffer), "Missing argument buffer on fnl/tangerine/utils/window.fnl:128")
   for _, _26_ in ipairs({...}) do
     local _each_27_ = _26_
     local lhs = _each_27_[1]
@@ -159,14 +160,14 @@ local function nmap_21(buffer, ...)
   return nil
 end
 local function setup_mappings(buffer)
-  _G.assert((nil ~= buffer), "Missing argument buffer on fnl/tangerine/utils/window.fnl:131")
+  _G.assert((nil ~= buffer), "Missing argument buffer on fnl/tangerine/utils/window.fnl:133")
   local w = env.get("keymaps", "float")
   return nmap_21(buffer, {w.next, "FnlWinNext"}, {w.prev, "FnlWinPrev"}, {w.kill, "FnlWinKill"}, {w.close, "FnlWinClose"}, {w.resizef, "FnlWinResize 1"}, {w.resizeb, "FnlWinResize -1"})
 end
 win["create-float"] = function(lineheight0, filetype, highlight)
-  _G.assert((nil ~= highlight), "Missing argument highlight on fnl/tangerine/utils/window.fnl:146")
-  _G.assert((nil ~= filetype), "Missing argument filetype on fnl/tangerine/utils/window.fnl:146")
-  _G.assert((nil ~= lineheight0), "Missing argument lineheight on fnl/tangerine/utils/window.fnl:146")
+  _G.assert((nil ~= highlight), "Missing argument highlight on fnl/tangerine/utils/window.fnl:148")
+  _G.assert((nil ~= filetype), "Missing argument filetype on fnl/tangerine/utils/window.fnl:148")
+  _G.assert((nil ~= lineheight0), "Missing argument lineheight on fnl/tangerine/utils/window.fnl:148")
   normalize_parent(vim.api.nvim_get_current_win())
   local buffer = vim.api.nvim_create_buf(false, true)
   local win_width = vim.api.nvim_win_get_width(0)
@@ -183,9 +184,9 @@ win["create-float"] = function(lineheight0, filetype, highlight)
   return buffer
 end
 win["set-float"] = function(lines, filetype, highlight)
-  _G.assert((nil ~= highlight), "Missing argument highlight on fnl/tangerine/utils/window.fnl:175")
-  _G.assert((nil ~= filetype), "Missing argument filetype on fnl/tangerine/utils/window.fnl:175")
-  _G.assert((nil ~= lines), "Missing argument lines on fnl/tangerine/utils/window.fnl:175")
+  _G.assert((nil ~= highlight), "Missing argument highlight on fnl/tangerine/utils/window.fnl:177")
+  _G.assert((nil ~= filetype), "Missing argument filetype on fnl/tangerine/utils/window.fnl:177")
+  _G.assert((nil ~= lines), "Missing argument lines on fnl/tangerine/utils/window.fnl:177")
   local lines0 = vim.split(lines, "\n")
   local nlines = lineheight(lines0)
   local buffer = win["create-float"](nlines, filetype, highlight)

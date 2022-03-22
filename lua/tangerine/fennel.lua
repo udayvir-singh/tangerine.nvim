@@ -32,8 +32,8 @@ end
 fennel.load = function(_3fversion)
   local version = (_3fversion or env.get("compiler", "version"))
   local fennel0 = require(("tangerine.fennel." .. version))
-  do end (fennel0)["path"] = get_rtp("fnl", false)
-  do end (fennel0)["macro-path"] = get_rtp("fnl", true)
+  do end (fennel0)["path"] = (fennel0.path .. get_rtp("fnl", false))
+  do end (fennel0)["macro-path"] = (fennel0["macro-path"] .. get_rtp("fnl", true))
   return fennel0
 end
 local orig = {path = package.path}

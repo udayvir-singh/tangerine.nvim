@@ -53,18 +53,15 @@ compile.file = function(source, target, _3fopts)
   local target0 = p.resolve(target)
   local sname = p.shortname(source0)
   local opts0 = tbl_merge(opts, {filename = sname})
-  if not fs["readable?"](source0) then
-    err.soft(("[tangerine]: source " .. (sname or source0) .. " is not readable."))
-  else
-  end
+  assert(fs["readable?"](source0), ("[tangerine]: source " .. (sname or source0) .. " is not readable."))
   local marker = df["create-marker"](source0)
   local output = compile.string(fs.read(source0), opts0)
   fs.write(target0, (marker .. "\n" .. output))
   return true
 end
 compile.dir = function(sourcedir, targetdir, _3fopts)
-  _G.assert((nil ~= targetdir), "Missing argument targetdir on fnl/tangerine/api/compile.fnl:104")
-  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on fnl/tangerine/api/compile.fnl:104")
+  _G.assert((nil ~= targetdir), "Missing argument targetdir on fnl/tangerine/api/compile.fnl:103")
+  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on fnl/tangerine/api/compile.fnl:103")
   local opts = (_3fopts or {})
   local logs = {}
   for _, source in ipairs(p.wildcard(sourcedir, "**/*.fnl")) do
@@ -74,13 +71,13 @@ compile.dir = function(sourcedir, targetdir, _3fopts)
     if compile_3f(source, target, opts0) then
       table.insert(logs, sname)
       local out_2_auto
-      local function _4_()
+      local function _3_()
         return compile.file(source, target, opts0)
       end
-      local function _5_(_241)
+      local function _4_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts0)
       end
-      out_2_auto = xpcall(_4_, _5_)
+      out_2_auto = xpcall(_3_, _4_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else
@@ -98,13 +95,13 @@ compile.buffer = function(_3fopts)
   local target = p.target(bufname)
   do
     local out_2_auto
-    local function _8_()
+    local function _7_()
       return compile.file(bufname, target, tbl_merge(opts, {filename = sname}))
     end
-    local function _9_(_241)
+    local function _8_(_241)
       return log.failure("COMPILE ERROR", sname, _241, opts)
     end
-    out_2_auto = xpcall(_8_, _9_)
+    out_2_auto = xpcall(_7_, _8_)
     if ((0 == out_2_auto) or (false == out_2_auto)) then
       return 0
     else
@@ -124,13 +121,13 @@ compile.vimrc = function(_3fopts)
   if compile_3f(source, target, opts) then
     do
       local out_2_auto
-      local function _12_()
+      local function _11_()
         return compile.file(source, target, opts)
       end
-      local function _13_(_241)
+      local function _12_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts)
       end
-      out_2_auto = xpcall(_12_, _13_)
+      out_2_auto = xpcall(_11_, _12_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else
@@ -184,13 +181,13 @@ compile.all = function(_3fopts)
     if compile_3f(source, target, opts) then
       table.insert(logs, sname)
       local out_2_auto
-      local function _19_()
+      local function _18_()
         return compile.file(source, target, opts)
       end
-      local function _20_(_241)
+      local function _19_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts)
       end
-      out_2_auto = xpcall(_19_, _20_)
+      out_2_auto = xpcall(_18_, _19_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else

@@ -23,10 +23,10 @@ utils[env]
 **EXPORTS**
 ```fennel
 :hooks {
-  :oninit <function 1>
-  :onload <function 2>
-  :onsave <function 3>
-  :run <function 4>
+  :oninit (function 1)
+  :onload (function 2)
+  :onsave (function 3)
+  :run (function 4)
 }
 ```
 
