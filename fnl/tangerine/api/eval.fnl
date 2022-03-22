@@ -61,6 +61,8 @@
   (local opts (or ?opts {}))
   (let [path  (p.resolve path)
         sname (p.shortname path)]
+    (assert (fs.readable? path)
+            (.. "[tangerine]: error in 'eval-file', file not readable " path))
     :eval (eval.string (fs.read path) 
                        (tbl-merge opts {:filename sname}))))
 

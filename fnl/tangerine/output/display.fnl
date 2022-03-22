@@ -20,7 +20,7 @@
   "converts 'tbl' into readable fennel table."
   (-> (vim.inspect tbl)
       ;; escape single quotes
-      (string.gsub "= +'([^']+)'" escape-quotes)
+      (string.gsub "= -'([^']-)'" escape-quotes)
       ;; remove "," and "= "
       (string.gsub "," "")
       (string.gsub "= " "")
@@ -29,10 +29,13 @@
       ;; convert [key] to :key
       (string.gsub "(\n -)%[\"(.-)\"%]" "%1:%2")
       (string.gsub "(\n -)%[(.-)%]" "%1%2")
+      ;; convert <x> to (x)
+      (string.gsub "<(.-)>" "(%1)")
       ;; convert {1, 2} to [1 2]
-      (string.gsub "^%{ (.+)%}" "[ %1]")
-      (string.gsub "%{( [^{}]+ )%}" "[%1]") ; ignore brackets in nested lists
-      (string.gsub "%{( [^{}]+ )%}" "[%1]")))
+      (string.gsub "^%{( .+ )%}"        "[%1]")   ; inline list
+      (string.gsub "%{( [^{}]*[^ ] )%}" "[%1]")   ; inner list
+      (string.gsub "%{( .*[^ ] )%}"     "[%1]")   ; outer list
+      (string.gsub "%{( .*[^ ] )%}"     "[%1]")))
 
 (fn dp.serialize [xs return?]
   "converts 'xs' into human readable form."

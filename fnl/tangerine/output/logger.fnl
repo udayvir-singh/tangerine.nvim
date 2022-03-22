@@ -18,19 +18,15 @@
 (lambda empty? [list]
   "checks if 'list' is empty."
   (if (not (vim.tbl_islist list))
-      (error 
-        (.. "[tangerine]: error in logger, expected 'list' to be a valid list got " (type list) ".")))
+      (error (.. "[tangerine]: error in logger, expected 'list' to be a valid list got " (type list) ".")))
   :return 
   (= (length list) 0))
 
 (lambda indent [str level]
-  "add 'level' of indentation to 'str'."
-  (var spaces "")
-  (for [_ 1 level]
-       (set spaces (.. spaces " ")))
-  (-> str 
-      (string.gsub "^"  spaces)
-      (string.gsub "\n" (.. "\n" spaces))))
+  "appends 'level' of indentation to 'str'."
+  (local spaces (string.rep " " level))
+  (-> (.. spaces str)
+      (string.gsub "\n([^\n])" (.. "\n" spaces "%1"))))
 
 (lambda syn-match [group pattern]
   "defines syntax match of 'pattern' with 'group'."

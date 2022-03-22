@@ -14,6 +14,8 @@
   :total 0
 })
 
+(set win._stack_ win-stack)
+
 (lambda insert-stack [win*]
   "insert 'win*' into win-stack."
   (table.insert win-stack [win* (vim.api.nvim_win_get_config win*)]))

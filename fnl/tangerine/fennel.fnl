@@ -35,8 +35,8 @@
   (let [version (or ?version (env.get :compiler :version))
         fennel  (require (.. :tangerine.fennel. version))]
     ;; setup paths
-    (tset fennel :path       (get-rtp :fnl false))
-    (tset fennel :macro-path (get-rtp :fnl true))
+    (tset fennel :path       (.. fennel.path       (get-rtp :fnl false)))
+    (tset fennel :macro-path (.. fennel.macro-path (get-rtp :fnl true)))
     :return fennel))
 
 (local orig { :path package.path }) ;; cache original package.path

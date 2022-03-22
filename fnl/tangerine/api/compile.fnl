@@ -80,8 +80,8 @@
   (let [fennel   (fennel.load)
         filename (or opts.filename "tangerine-out")
         globals  (env.conf opts [:compiler :globals])]
-       (fennel.compileString str 
-                             {:filename filename :allowedGlobals globals :compilerEnv _G})))
+    (fennel.compileString str 
+                          {:filename filename :allowedGlobals globals :compilerEnv _G})))
 
 (lambda compile.file [source target ?opts]
   "slurps fnl:'source' and compiles it to lua:'target'."
@@ -91,15 +91,14 @@
         target (p.resolve target)
         sname  (p.shortname source)
         opts   (tbl-merge opts {:filename sname})] 
-       (if (not (fs.readable? source))
-           (err.soft 
-             (.. "[tangerine]: source " (or sname source) " is not readable.")))
-       :compile
-       (let [marker (df.create-marker source)
-             output (compile.string (fs.read source) opts)]
-         (fs.write target
-                   (.. marker "\n" output))
-         :return true)))
+    (assert (fs.readable? source)
+            (.. "[tangerine]: source " (or sname source) " is not readable."))
+    :compile
+    (let [marker (df.create-marker source)
+          output (compile.string (fs.read source) opts)]
+      (fs.write target
+                (.. marker "\n" output))
+      :return true)))
 
 (lambda compile.dir [sourcedir targetdir ?opts]
   "diff compiles fennel files in 'sourcedir' and outputs it to 'targetdir'."
