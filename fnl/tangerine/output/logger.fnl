@@ -25,8 +25,9 @@
 (lambda indent [str level]
   "appends 'level' of indentation to 'str'."
   (local spaces (string.rep " " level))
-  (-> (.. spaces str)
-      (string.gsub "\n([^\n])" (.. "\n" spaces "%1"))))
+  (pick-values 1
+    (-> (.. spaces str)
+        (string.gsub "\n([^\n])" (.. "\n" spaces "%1")))))
 
 (lambda syn-match [group pattern]
   "defines syntax match of 'pattern' with 'group'."
