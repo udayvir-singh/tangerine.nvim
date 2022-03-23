@@ -39,8 +39,9 @@
 
 (lambda compile? [source target opts]
   "if opts.force != true, then diffs 'source' against 'target'"
-  (or (env.conf opts [:compiler :force])
-      (df.stale? source target)))
+  (and (fs.readable? source)
+       (or (env.conf opts [:compiler :force])
+           (df.stale? source target))))
 
 (lambda merge [list1 list2]
   "merges values of 'list2' onto 'list1'."
@@ -151,6 +152,7 @@
   "diff compiles ENV.vimrc to ENV.target dir."
   ;; opts { :force boolean :float boolean :verbose boolean :filename string :globals list }
   (local opts (or ?opts {}))
+  (local logs [])
   (let [source (env.get :vimrc)
         target (p.target source)
         sname  (p.shortname source)]
@@ -159,9 +161,10 @@
       (hpcall #(compile.file source target opts)
               #(log.failure "COMPILE ERROR" sname $1 opts))
       :logger 
+      (table.insert logs sname)
       (if (env.conf opts [:compiler :verbose])
-          (compiled sname))
-      :return [sname])))
+          (compiled sname)))
+    :return logs))
 
 (lambda compile.rtp [?opts]
   "diff compiles files in ENV.rtpdirs or 'opts.rtpdirs'"
