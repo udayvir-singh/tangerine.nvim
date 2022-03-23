@@ -22,23 +22,23 @@ local function compile_3f(source, target, opts)
   _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/api/compile.fnl:40")
   _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:40")
   _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:40")
-  return (env.conf(opts, {"compiler", "force"}) or df["stale?"](source, target))
+  return (fs["readable?"](source) and (env.conf(opts, {"compiler", "force"}) or df["stale?"](source, target)))
 end
 local function merge(list1, list2)
-  _G.assert((nil ~= list2), "Missing argument list2 on fnl/tangerine/api/compile.fnl:45")
-  _G.assert((nil ~= list1), "Missing argument list1 on fnl/tangerine/api/compile.fnl:45")
+  _G.assert((nil ~= list2), "Missing argument list2 on fnl/tangerine/api/compile.fnl:46")
+  _G.assert((nil ~= list1), "Missing argument list1 on fnl/tangerine/api/compile.fnl:46")
   for _, val in ipairs(list2) do
     table.insert(list1, val)
   end
   return list1
 end
 local function tbl_merge(tbl1, tbl2)
-  _G.assert((nil ~= tbl2), "Missing argument tbl2 on fnl/tangerine/api/compile.fnl:51")
-  _G.assert((nil ~= tbl1), "Missing argument tbl1 on fnl/tangerine/api/compile.fnl:51")
+  _G.assert((nil ~= tbl2), "Missing argument tbl2 on fnl/tangerine/api/compile.fnl:52")
+  _G.assert((nil ~= tbl1), "Missing argument tbl1 on fnl/tangerine/api/compile.fnl:52")
   return vim.tbl_extend("keep", (tbl1 or {}), tbl2)
 end
 compile.string = function(str, _3fopts)
-  _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/api/compile.fnl:76")
+  _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/api/compile.fnl:77")
   local opts = (_3fopts or {})
   local fennel0 = fennel.load()
   local filename = (opts.filename or "tangerine-out")
@@ -46,8 +46,8 @@ compile.string = function(str, _3fopts)
   return fennel0.compileString(str, {filename = filename, allowedGlobals = globals, compilerEnv = _G})
 end
 compile.file = function(source, target, _3fopts)
-  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:86")
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:86")
+  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:87")
+  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:87")
   local opts = (_3fopts or {})
   local source0 = p.resolve(source)
   local target0 = p.resolve(target)
@@ -60,8 +60,8 @@ compile.file = function(source, target, _3fopts)
   return true
 end
 compile.dir = function(sourcedir, targetdir, _3fopts)
-  _G.assert((nil ~= targetdir), "Missing argument targetdir on fnl/tangerine/api/compile.fnl:103")
-  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on fnl/tangerine/api/compile.fnl:103")
+  _G.assert((nil ~= targetdir), "Missing argument targetdir on fnl/tangerine/api/compile.fnl:104")
+  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on fnl/tangerine/api/compile.fnl:104")
   local opts = (_3fopts or {})
   local logs = {}
   for _, source in ipairs(p.wildcard(sourcedir, "**/*.fnl")) do
@@ -115,6 +115,7 @@ compile.buffer = function(_3fopts)
 end
 compile.vimrc = function(_3fopts)
   local opts = (_3fopts or {})
+  local logs = {}
   local source = env.get("vimrc")
   local target = p.target(source)
   local sname = p.shortname(source)
@@ -133,14 +134,14 @@ compile.vimrc = function(_3fopts)
       else
       end
     end
+    table.insert(logs, sname)
     if env.conf(opts, {"compiler", "verbose"}) then
       compiled(sname)
     else
     end
-    return {sname}
   else
-    return nil
   end
+  return logs
 end
 compile.rtp = function(_3fopts)
   local opts = (_3fopts or {})

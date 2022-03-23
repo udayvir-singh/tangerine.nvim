@@ -12,11 +12,11 @@ fs["dir-exists?"] = function(dirpath)
   return (1 == vim.fn.isdirectory(dirpath))
 end
 fs["readable?"] = function(path)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:20")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:21")
   return (1 == vim.fn.filereadable(path))
 end
 fs.read = function(path)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:23")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:24")
   local file = assert(io.open(path, "r"))
   local function close_handlers_8_auto(ok_9_auto, ...)
     file:close()
@@ -32,8 +32,8 @@ fs.read = function(path)
   return close_handlers_8_auto(_G.xpcall(_2_, (package.loaded.fennel or debug).traceback))
 end
 fs.write = function(path, content)
-  _G.assert((nil ~= content), "Missing argument content on fnl/tangerine/utils/fs.fnl:27")
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:27")
+  _G.assert((nil ~= content), "Missing argument content on fnl/tangerine/utils/fs.fnl:28")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:28")
   local dir = fs.dirname(path)
   if not fs["dir-exists?"](dir) then
     fs.mkdir(dir)
@@ -53,8 +53,14 @@ fs.write = function(path, content)
   end
   return close_handlers_8_auto(_G.xpcall(_5_, (package.loaded.fennel or debug).traceback))
 end
-fs.remove = function(path)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:34")
-  return os.remove(path)
+fs.remove = function(x, ...)
+  _G.assert((nil ~= x), "Missing argument x on fnl/tangerine/utils/fs.fnl:35")
+  for _, path in ipairs({x, ...}) do
+    for _0, file in ipairs(vim.fn.glob((path .. "/*"), 0, 1)) do
+      os.remove(file)
+    end
+    os.remove(path)
+  end
+  return true
 end
 return fs
