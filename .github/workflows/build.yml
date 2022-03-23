@@ -185,5 +185,5 @@ jobs:
     - name: Commit
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: '[auto]: run build steps'
+        commit_message: 'auto: run build steps'
         file_pattern: lua fnl doc/tangerine.txt
