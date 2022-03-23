@@ -14,6 +14,7 @@
 (lambda fs.dir-exists? [dirpath]
   (= 1 (vim.fn.isdirectory dirpath)))
 
+
 ;; -------------------- ;;
 ;;        Files         ;;
 ;; -------------------- ;;
@@ -31,7 +32,12 @@
     (with-open [file (assert (io.open path :w))]
                (file:write content))))
 
-(lambda fs.remove [path]
-  (os.remove path))
+(lambda fs.remove [x ...]
+  (each [_ path (ipairs [x ...])]
+        (each [_ file (ipairs (vim.fn.glob (.. path "/*") 0 1))]
+              (os.remove file))
+        (os.remove path))
+  :return true)
+
 
 :return fs
