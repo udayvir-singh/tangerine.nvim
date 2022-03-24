@@ -16,6 +16,18 @@
   (let [qt  "\"" esc "\\\""]
        (.. qt (str:gsub qt esc) qt)))
 
+(lambda parse-list [str]
+  "recursively converts lua list in 'str' to fennel form."
+  (let [inline "%{( [^{]-%g )%}"
+        multi  "%{( [^{]%C- {.+%g )%}"]
+    (if ;; inline list
+        (str:find inline)
+        (parse-list (str:gsub inline "[%1]"))
+        ;; multi-line list
+        (str:find multi) 
+        (parse-list (str:gsub multi "[%1]"))
+        :else str)))
+
 (lambda serialize-tbl [tbl]
   "converts 'tbl' into readable fennel table."
   (-> (vim.inspect tbl)
@@ -32,10 +44,7 @@
       ;; convert <x> to (x)
       (string.gsub "<(.-)>" "(%1)")
       ;; convert {1, 2} to [1 2]
-      (string.gsub "^%{( .+ )%}"        "[%1]")   ; inline list
-      (string.gsub "%{( [^{}]*[^ ] )%}" "[%1]")   ; inner list
-      (string.gsub "%{( .*[^ ] )%}"     "[%1]")   ; outer list
-      (string.gsub "%{( .*[^ ] )%}"     "[%1]")))
+      (string.gsub "%b{}" parse-list)))
 
 (fn dp.serialize [xs return?]
   "converts 'xs' into human readable form."
