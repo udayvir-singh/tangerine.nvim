@@ -52,8 +52,10 @@
     (local (ok result) 
       (xpcall #(fennel.eval str {: filename}) 
               #(err.handle $1 opts)))
-    (if ok
-        (dp.show result {:float opts.float}))))
+    (if (not ok)
+        (lua "return false"))
+    (dp.show result opts)
+    :return result))
 
 (lambda eval.file [path ?opts]
   "reads 'path' and passes it off for evaluation."
@@ -96,8 +98,10 @@
     (local (ok result) 
       (xpcall #(fennel.compileString lines {:filename (or opts.filename bufname)}) 
               #(err.handle $1 (tbl-merge {:offset start} opts))))
-    (if ok
-        (dp.show-lua result opts))))
+    (if (not ok)
+        (lua "return false"))
+    (dp.show-lua result opts) 
+    :return result))
 
 ; EXAMPLES:
 ; (eval.peak 1 -8 {:float true :virtual true :filename "FILE"})

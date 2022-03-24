@@ -76,7 +76,8 @@
   (each [_ target (ipairs (p.list-lua-files))]
         (if (clean.target (p.source target) target opts) 
             (table.insert logs (p.shortname target))))
-  :logger (log.success "CLEANED" logs opts))
+  :logger (log.success "CLEANED" logs opts)
+  :return logs)
 
 ; EXAMPLES:
 ; (pcall tangerine.api.compile.all {:verbose false}) ;; setup
