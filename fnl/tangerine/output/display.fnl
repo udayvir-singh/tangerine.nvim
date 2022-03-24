@@ -11,6 +11,10 @@
 ;; -------------------- ;;
 ;;      Serialize       ;;
 ;; -------------------- ;; 
+(lambda primitive? [val]
+  (or (= :string (type val))
+      (= :number (type val))))
+
 (lambda escape-quotes [str]
   "shell escapes double quotes in 'str'."
   (let [qt  "\"" esc "\\\""]
@@ -49,10 +53,9 @@
 (fn dp.serialize [xs return?]
   "converts 'xs' into human readable form."
   (var out "")
-  (if (= (type xs) :table)
-      (set out (serialize-tbl xs))
-      :else
-      (set out (vim.inspect xs)))
+  (if (primitive? xs)
+      (set out (vim.inspect xs))
+      (set out (serialize-tbl xs)))
   (.. (if return? ":return " "") out))
 
 
