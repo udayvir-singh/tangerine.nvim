@@ -61,6 +61,7 @@ clean.orphaned = function(_3fopts)
     else
     end
   end
-  return log.success("CLEANED", logs, opts)
+  log.success("CLEANED", logs, opts)
+  return logs
 end
 return clean

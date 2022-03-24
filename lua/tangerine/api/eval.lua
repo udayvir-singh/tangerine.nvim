@@ -40,14 +40,15 @@ eval.string = function(str, _3fopts)
     return err.handle(_241, opts)
   end
   ok, result = xpcall(_4_, _5_)
-  if ok then
-    return dp.show(result, {float = opts.float})
+  if not ok then
+    return false
   else
-    return nil
   end
+  dp.show(result, opts)
+  return result
 end
 eval.file = function(path, _3fopts)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/api/eval.fnl:58")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/api/eval.fnl:60")
   local opts = (_3fopts or {})
   local path0 = p.resolve(path)
   local sname = p.shortname(path0)
@@ -55,8 +56,8 @@ eval.file = function(path, _3fopts)
   return eval.string(fs.read(path0), tbl_merge(opts, {filename = sname}))
 end
 eval.buffer = function(start, _end, _3fopts)
-  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:69")
-  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:69")
+  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:71")
+  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:71")
   local opts = (_3fopts or {})
   local start0 = (start - 1)
   local lines = get_lines(start0, _end)
@@ -64,8 +65,8 @@ eval.buffer = function(start, _end, _3fopts)
   return eval.string(lines, tbl_merge(opts, {filename = bufname, offset = start0}))
 end
 eval.peak = function(start, _end, _3fopts)
-  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:87")
-  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:87")
+  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:89")
+  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:89")
   local opts = (_3fopts or {})
   local fennel0 = fennel.load()
   local start0 = (start - 1)
@@ -80,10 +81,11 @@ eval.peak = function(start, _end, _3fopts)
     return err.handle(_241, tbl_merge({offset = start0}, opts))
   end
   ok, result = xpcall(_7_, _8_)
-  if ok then
-    return dp["show-lua"](result, opts)
+  if not ok then
+    return false
   else
-    return nil
   end
+  dp["show-lua"](result, opts)
+  return result
 end
 return eval
