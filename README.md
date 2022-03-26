@@ -733,8 +733,8 @@ $ make install
 | Target       | Description                                                    |
 |--------------|----------------------------------------------------------------|
 | `git-pull`   | Safely fetches git repo, prevents conflicts with local changes |
-| `git-skip`   | Makes git ignore build dirs, run before `make build`           |
-| `git-unskip` | Reverts `git-skip`, run after `make build`                     |
+| `git-skip`   | Makes git ignore changes to build files                        |
+| `git-unskip` | Reverts `git-skip`, makes build files trackable                |
 
 ##### Example workflow:
 ```bash

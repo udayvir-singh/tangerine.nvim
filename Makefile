@@ -61,8 +61,8 @@ uninstall:
 # ------------------- #
 #         GIT         #
 # ------------------- #
-LUA_FILES := $(shell find lua -name '*.lua')
-DOC_FILES := $(shell find fnl -name 'README.md')
+LUA_FILES := $(shell git ls-files lua)
+DOC_FILES := $(shell git ls-files fnl/*/README.md)
 
 --pull:
 	git restore doc lua $(DOC_FILES)
