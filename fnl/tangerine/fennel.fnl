@@ -55,8 +55,8 @@
   "appends fennel source and target dirs into package.path."
   (let [target (get-path :lua false)
         source (format-path (env.get :target) :lua false)]
-    (set package.path (.. orig.path ";" target ";" source))
-    :return true))
+    (tset package :path (.. orig.path ";" target ";" source))
+    :return package.path))
 
 
 :return fennel

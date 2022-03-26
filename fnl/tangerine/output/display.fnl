@@ -74,6 +74,11 @@
 ;; -------------------- ;;
 ;;        Output        ;;
 ;; -------------------- ;;
+(lambda print [str]
+  "wrapper around print that only works if UI is available."
+  (if (< 0 (# (vim.api.nvim_list_uis)))
+      (_G.print str)))
+
 (lambda dp.show [?val opts]
   "serializes 'val' and displays inside float if opts.float = true."
   ;; opts { :float boolean }
