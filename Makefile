@@ -20,18 +20,18 @@ watch-build:
 		notify-send DONE "  ==> tangerine.nvim" ||
 		notify-send "BUILD ERROR" "$$(cat /tmp/tangerine-err)"'
 
-fnl: 
-	./scripts/compile.sh "$(FENNEL_BIN)" "$(SOURCE_DIR)"
-
 deps:
-	./scripts/link.sh deps/lua lua/tangerine/fennel
+	./scripts/link deps/lua lua/tangerine/fennel
+
+fnl: 
+	./scripts/fennel "$(FENNEL_BIN)" "$(SOURCE_DIR)"
 
 fnldoc:
-	./scripts/fnldocs.sh fnl/tangerine
+	./scripts/fnldoc fnl/tangerine
 
 vimdoc:
 	[ -d doc ] || mkdir doc
-	./scripts/docs.sh README.md ./doc/tangerine.txt
+	./scripts/docs README.md ./doc/tangerine.txt
 ifndef NO_HELPTAGS
 	echo :: GENERATING HELPTAGS
 	nvim -n --noplugin --headless -c "helptags doc" -c "q" doc/tangerine.txt
@@ -89,19 +89,19 @@ LOC_ARGS= --head " " $(LOC_HEAD)
 endif
 
 loc-fennel:
-	./scripts/loc/fennel.sh $(LOC_ARGS)
+	./scripts/loc/fennel $(LOC_ARGS)
 
 loc-bash: 
-	./scripts/loc/bash.sh $(LOC_ARGS)
+	./scripts/loc/bash $(LOC_ARGS)
 
 loc-markdown: 
-	./scripts/loc/markdown.sh $(LOC_ARGS)
+	./scripts/loc/markdown $(LOC_ARGS)
 
 loc-makefile: 
-	./scripts/loc/makefile.sh $(LOC_ARGS)
+	./scripts/loc/makefile $(LOC_ARGS)
 
 loc-yaml: 
-	./scripts/loc/yaml.sh $(LOC_ARGS)
+	./scripts/loc/yaml $(LOC_ARGS)
 
 
 # ------------------- #
