@@ -59,6 +59,33 @@ uninstall:
 	
 
 # ------------------- #
+#       TESTING       #
+# ------------------- #
+.PHONY: test
+
+runner:
+	echo :: COMPILING TEST RUNNER
+	$(FENNEL_BIN) --globals vim -c "test/runner/init.fnl" > "lua/tangerine/test.lua" || exit
+	echo :: DONE
+
+test:
+	if [ ! -r "lua/tangerine/test.lua" ]; then
+		echo -e "\e[1;31mERROR:\e[0;31m test library not found\e[0m"
+		echo -e "  * try running \"\e[0mmake runner\e[0m\"\n"
+		exit 1
+	fi
+	
+	read -p \
+	"[1;33mWARN[0m this will delete your neovim config
+	
+	:: CONTINUE [y/N] " REPLY
+	
+	if [[ "$${REPLY,,}" =~ ^y(o+!*|es)?$$ ]]; then
+		./scripts/test ./test
+	fi
+
+
+# ------------------- #
 #         GIT         #
 # ------------------- #
 LUA_FILES := $(shell git ls-files lua)
@@ -90,6 +117,9 @@ endif
 
 loc-fennel:
 	./scripts/loc/fennel $(LOC_ARGS)
+
+loc-test:
+	./scripts/loc/fennel --dir test --title TEST $(LOC_ARGS)
 
 loc-bash: 
 	./scripts/loc/bash $(LOC_ARGS)
@@ -126,6 +156,11 @@ define HELP
 |   :help           print this help
 | 
 | 
+| Testing:
+|   :runner         compiles test runner library
+|   :test           runs unit tests, pray before executing
+| 
+| 
 | Git helpers:
 |   - Hooks for git meant to be used in development,
 |   - run :git-skip before running :build to prevent output files in git index
@@ -139,6 +174,7 @@ define HELP
 |   - Pretty prints lines of code in source dirs, possible targets are:
 | 
 |   :loc-fennel
+|   :loc-test
 |   :loc-bash
 |   :loc-markdown
 |   :loc-makefile

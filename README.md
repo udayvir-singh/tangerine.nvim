@@ -759,7 +759,7 @@ $ make loc-{language}
 ```
 
 ##### Supported Languages:
-- `fennel`
+- `fennel` / `test`
 - `bash`
 - `markdown`
 - `makefile`

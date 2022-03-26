@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+cd ${1?required args TEST DIR}
+
+# --------------------- #
+#         UTILS         #
+# --------------------- #
+harness () {
+	local LUA="
+	fennel = require 'tangerine.fennel.latest';
+	source = io.open('${1}', 'r');
+	
+	local ok, res = pcall(fennel.eval, source:read('*a'), {filename='${1}'});
+	
+	source:close();
+	if not ok then
+		io.write ('\27[1;7;31mHARNESS ERROR:\27[0m\n\27[31m' .. res .. '\27[0m\n')
+		vim.cmd 'cq'
+	end
+	"
+
+	nvim -n --noplugin --headless -c "lua ${LUA}" -c "qa!"
+}
+
+
+# --------------------- #
+#         MAIN          #
+# --------------------- #
+FAIL=0
+
+for SPEC in ./spec/*; do
+	harness "${SPEC}" || let FAIL+=1
+
+	printf "\n"
+done
+
+if [ ${FAIL} -eq 0 ]; then
+	echo -e "\e[1;7;32mSUCCESS\e[0m"
+else
+	echo -e "\e[1;7;31mFAILURE\e[0m [${FAIL}]"
+	exit 1
+fi
