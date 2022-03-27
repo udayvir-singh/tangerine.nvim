@@ -1,0 +1,31 @@
+name: Test CI
+
+on: 
+  pull_request:
+  push:
+    paths: lua/**
+
+jobs:
+  test:
+    runs-on:   ubuntu-latest
+    container: alpine
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install requirements
+      run: |
+        apk update && apk upgrade 
+        apk add make bash coreutils neovim lua5.4
+        # links lua5.4 -> lua
+        ln -sv /usr/bin/lua5.4           /usr/bin/lua
+        ln -sv /usr/lib/lua5.4/liblua.so /usr/lib/liblua5.4.so
+
+    - name: Install Tangerine
+      run:  make install
+
+    - name: Build Runner
+      run:  make runner
+
+    - name: Run Tests
+      run:  yes | make test

@@ -7,16 +7,15 @@ cd ${1?required args TEST DIR}
 # --------------------- #
 harness () {
 	local LUA="
-	fennel = require 'tangerine.fennel.latest';
-	source = io.open('${1}', 'r');
-	
-	local ok, res = pcall(fennel.eval, source:read('*a'), {filename='${1}'});
-	
-	source:close();
-	if not ok then
-		io.write ('\27[1;7;31mHARNESS ERROR:\27[0m\n\27[31m' .. res .. '\27[0m\n')
+	function onerr (err)
+		io.write('\27[1;7;31mHARNESS ERROR:\27[0m\n\27[31m' .. err .. '\27[0m\n')
 		vim.cmd 'cq'
 	end
+
+	_, fennel = xpcall(require, onerr, 'tangerine.fennel.latest')
+	source    = io.open('${1}', 'r'):read('*a')
+	
+	ok, res = xpcall(fennel.eval, onerr, source, {filename='${1}'})
 	"
 
 	nvim -n --noplugin --headless -c "lua ${LUA}" -c "qa!"

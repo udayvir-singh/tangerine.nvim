@@ -41,7 +41,7 @@ end
 fennel["patch-path"] = function()
   local target = get_path("lua", false)
   local source = format_path(env.get("target"), "lua", false)
-  package.path = (orig.path .. ";" .. target .. ";" .. source)
-  return true
+  do end (package)["path"] = (orig.path .. ";" .. target .. ";" .. source)
+  return package.path
 end
 return fennel

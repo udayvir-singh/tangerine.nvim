@@ -6,8 +6,8 @@ on:
     paths:
       - README.md
       - Makefile
-      - deps/**
       - fnl/**
+      - deps/**
       - scripts/**
       - .github/**
 
@@ -152,6 +152,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT || github.token }}
 
     - name: Clean previous build
       run:  make clean

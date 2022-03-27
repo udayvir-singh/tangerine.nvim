@@ -6,6 +6,9 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+.ONESHELL:
+SHELL = /bin/bash
+
 default: help
 
 # ------------------- #
@@ -88,8 +91,10 @@ test:
 # ------------------- #
 #         GIT         #
 # ------------------- #
-LUA_FILES := $(shell git ls-files lua)
-DOC_FILES := $(shell git ls-files fnl/*/README.md)
+GIT := $(shell if command -v git &>/dev/null; then echo git; else echo true; fi)
+ 
+LUA_FILES := $(shell $(GIT) ls-files lua)
+DOC_FILES := $(shell $(GIT) ls-files fnl/*/README.md)
 
 --pull:
 	git restore doc lua $(DOC_FILES)
@@ -137,8 +142,6 @@ loc-yaml:
 # ------------------- #
 #        INFO         #
 # ------------------- #
-.ONESHELL:
-
 define HELP
 | Usage: make [target] ...
 | 
