@@ -14,11 +14,11 @@ end
 local function parse_list(str)
   _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/output/display.fnl:23")
   local inline = "%{( [^{]-%g )%}"
-  local multi = "%{( [^{]%C- {.+%g )%}"
+  local nested = "%{( [^{]%C- {.-%g )%}"
   if str:find(inline) then
     return parse_list(str:gsub(inline, "[%1]"))
-  elseif str:find(multi) then
-    return parse_list(str:gsub(multi, "[%1]"))
+  elseif str:find(nested) then
+    return parse_list(str:gsub(nested, "[%1]"))
   elseif "else" then
     return str
   else
