@@ -8,7 +8,7 @@ _G.tangerine.api
 
 **EXPORTS**
 ```fennel
-:cmds
+:cmds [ true ]
 ```
 
 # hooks.fnl
@@ -22,7 +22,12 @@ utils[env]
 
 **EXPORTS**
 ```fennel
-:hooks
+:hooks {
+  :oninit (function 1)
+  :onload (function 2)
+  :onsave (function 3)
+  :run (function 4)
+}
 ```
 
 # maps.fnl
@@ -36,6 +41,6 @@ vim[cmds]
 
 **EXPORTS**
 ```fennel
-:maps
+:maps [ true ]
 ```
 

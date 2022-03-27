@@ -9,7 +9,10 @@ utils[env]
 
 **EXPORTS**
 ```fennel
-:fennel
+:fennel {
+  :load (function 1)
+  :patch-path (function 2)
+}
 ```
 
 # api/

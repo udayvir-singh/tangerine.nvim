@@ -56,7 +56,7 @@ dp.format = function(code)
 end
 local function print(str)
   _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/output/display.fnl:77")
-  if (0 < #vim.api.nvim_list_uis()) then
+  if (_G.has_ui or (0 < #vim.api.nvim_list_uis())) then
     return _G.print(str)
   else
     return nil
