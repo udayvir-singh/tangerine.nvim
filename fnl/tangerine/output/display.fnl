@@ -76,7 +76,7 @@
 ;; -------------------- ;;
 (lambda print [str]
   "wrapper around print that only works if UI is available."
-  (if (< 0 (# (vim.api.nvim_list_uis)))
+  (if (or _G.has_ui (< 0 (# (vim.api.nvim_list_uis))))
       (_G.print str)))
 
 (lambda dp.show [?val opts]
@@ -101,7 +101,7 @@
     :return true))
 
 ; EXAMPLES:
-; (dp.show { 3 [:list 1] :foo* "baz \"" } {:float true})
+; (dp.show { 1 [:list {:tbl "val"}] :foo- "baz \"" } {:float false})
 ; (dp.show-lua "return {foo={bar='value', baz=string, wrap=here}}" {:float true})
 
 

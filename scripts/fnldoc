@@ -53,13 +53,20 @@ get-about () {
 
 nvim-eval () {
 	local SOURCE="${1}"
-	local LUACMD="lua xpcall(
-		function()  require('tangerine.api').eval.file('${SOURCE}', {float=false}) end,
-		function(x) print('ERROR:', x) end
-	)"
+	local LUACMD="
+	has_ui = true
+
+	function onerr (x)
+		print('ERROR:', x)
+	end
+
+	_, eval = xpcall(require , onerr, 'tangerine.api.eval')
+
+	xpcall(eval.file, onerr, '${SOURCE}', {float=false})
+	"
 
 	nvim -n --noplugin --headless \
-	     -c "${LUACMD}" \
+	     -c "lua ${LUACMD}" \
 	     -c q 2>&1 | tr -d '\r'
 }
 

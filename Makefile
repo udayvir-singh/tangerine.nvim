@@ -94,7 +94,7 @@ test:
 GIT := $(shell if command -v git &>/dev/null; then echo git; else echo true; fi)
  
 LUA_FILES := $(shell $(GIT) ls-files lua)
-DOC_FILES := $(shell $(GIT) ls-files fnl/*/README.md)
+DOC_FILES := $(shell $(GIT) ls-files "fnl/*/README.md")
 
 --pull:
 	git restore doc lua $(DOC_FILES)
