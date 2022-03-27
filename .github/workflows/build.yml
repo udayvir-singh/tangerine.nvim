@@ -6,7 +6,7 @@ on:
     paths:
       - README.md
       - Makefile
-      - fnl/**
+      - fnl/**/*.fnl
       - deps/**
       - scripts/**
       - .github/**
