@@ -441,7 +441,7 @@ This section describes function for `tangerine.api.compile.{func}`
 
                    *tangerine-compile-string* *tangerine.api.compile.string()*
 
-compile-string                         (compile.string {str} {opts?})
+compile-string                         (compile.string {str} {opts*})
 
 
 Compiles string {str} of fennel, returns string of lua.
@@ -458,7 +458,7 @@ PARAMETERS: ~
 
                        *tangerine-compile-file* *tangerine.api.compile.file()*
 
-compile-file                           (compile.file {source} {target} {opts?})
+compile-file                           (compile.file {source} {target} {opts*})
 
 
 Compiles fennel {source} and writes output to {target}.
@@ -475,7 +475,7 @@ PARAMETERS: ~
 
                          *tangerine-compile-dir* *tangerine.api.compile.dir()*
 
-compile-dir                            (compile-dir {source} {target} {opts?})
+compile-dir                            (compile-dir {source} {target} {opts*})
 
 
 Diff compiles files in {source} dir and outputs to {target} dir.
@@ -506,7 +506,7 @@ EXAMPLE: ~
 
                    *tangerine-compile-buffer* *tangerine.api.compile.buffer()*
 
-compile-buffer                         (compile-buffer {opts?})
+compile-buffer                         (compile-buffer {opts*})
 
 
 Compiles the current active fennel buffer.
@@ -525,7 +525,7 @@ PARAMETERS: ~
 
                      *tangerine-compile-vimrc* *tangerine.api.compile.vimrc()*
 
-compile-vimrc                          (compile-vimrc {opts?})
+compile-vimrc                          (compile-vimrc {opts*})
 
 
 Diff compiles `config.vimrc` to `config.target` dir.
@@ -547,7 +547,7 @@ PARAMETERS: ~
 
                          *tangerine-compile-rtp* *tangerine.api.compile.rtp()*
 
-compile-rtp                            (compile.rtp {opts?})
+compile-rtp                            (compile.rtp {opts*})
 
 
 Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
@@ -580,7 +580,7 @@ EXAMPLE: ~
 
                          *tangerine-compile-all* *tangerine.api.compile.all()*
 
-compile-all                            (compile.all {opts?})
+compile-all                            (compile.all {opts*})
 
 
 Diff compiles all indexed fennel files in `config`.
@@ -608,7 +608,7 @@ This section describes function for `tangerine.api.clean.{func}`
 
                        *tangerine-clean-target* *tangerine.api.clean.target()*
 
-clean-target                           (clean.target {source} {target} {opts?})
+clean-target                           (clean.target {source} {target} {opts*})
 
 
 Deletes orphaned? {target} after comparing against {source}.
@@ -626,7 +626,7 @@ PARAMETERS: ~
 
                                                          *tangerine-clean-rtp*
 
-clean-rtp                              (clean.rtp {opts?})
+clean-rtp                              (clean.rtp {opts*})
 
 
 Deletes all orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
@@ -647,7 +647,7 @@ PARAMETERS: ~
 
                    *tangerine-clean-orphaned* *tangerine.api.clean.orphaned()*
 
-clean-orphaned                         (clean.orphaned {opts?})
+clean-orphaned                         (clean.orphaned {opts*})
 
 
 Deletes all orphaned lua files indexed inside `target` dirs.
@@ -672,7 +672,7 @@ This section describes function for `tangerine.api.eval.{func}`
 
                          *tangerine-eval-string* *tangerine.api.eval.string()*
 
-eval-string                            (eval.string {str} {opts?})
+eval-string                            (eval.string {str} {opts*})
 
 
 Evaluates string {str} of fennel, pretty prints the output.
@@ -691,7 +691,7 @@ PARAMETERS: ~
 
                              *tangerine-eval-file* *tangerine.api.eval.file()*
 
-eval-file                              (eval.file {path} {opts?})
+eval-file                              (eval.file {path} {opts*})
 
 
 Evaluates {path} of fennel, pretty prints the output.
@@ -709,7 +709,7 @@ PARAMETERS: ~
 
                          *tangerine-eval-buffer* *tangerine.api.eval.buffer()*
 
-eval-buffer                            (eval.buffer {start} {end} {opts?})
+eval-buffer                            (eval.buffer {start} {end} {opts*})
 
 
 Evalutes lines {start} to {end} in current fennel buffer.
@@ -727,7 +727,7 @@ PARAMETERS: ~
 
                              *tangerine-eval-peak* *tangerine.api.eval.peak()*
 
-eval-peak                              (eval.peak {start} {end} {opts?})
+eval-peak                              (eval.peak {start} {end} {opts*})
 
 
 Peak lua output for lines {start} to {end} inside a scratch buffer.
@@ -754,12 +754,12 @@ Open lua source of current fennel buffer in a new buffer
 
                              *tangerine-serialize* *tangerine.api.serialize()*
 
-serialize                              (tangerine.api.serialize {val} {ret?})
+serialize                              (tangerine.api.serialize {val} {ret*})
 
 
 Return a human-readable representation of given {val}.
 
-Appends return block if {ret?} is `true`
+Appends return block if {ret*} is `true`
 
 EXAMPLES: ~
 
@@ -780,17 +780,17 @@ This section describes function for `tangerine.api.win.{func}`
 
                                *tangerine-win-next* *tangerine.api.win.next()*
 
-win-next                               (tangerine.api.win.next {steps?})
+win-next                               (tangerine.api.win.next {steps*})
 
 
-Switch to next floating window by 1 or N {steps?}.
+Switch to next floating window by 1 or N {steps*}.
 
                                *tangerine-win-prev* *tangerine.api.win.prev()*
 
-win-prev                               (tangerine.api.win.prev {steps?})
+win-prev                               (tangerine.api.win.prev {steps*})
 
 
-Switch to previous floating window by 1 or N {steps?}.
+Switch to previous floating window by 1 or N {steps*}.
 
                            *tangerine-win-resize* *tangerine.api.win.resize()*
 
@@ -817,7 +817,7 @@ FENNEL API                                              *tangerine-fennel-api*
 
                                   *tangerine-fennel-load* *tangerine.fennel()*
 
-fennel-load                            (tangerine.fennel {version?})
+fennel-load                            (tangerine.fennel {version*})
 
 
 Provides underlying fennel used by tangerine
