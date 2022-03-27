@@ -23,13 +23,13 @@
 (lambda parse-list [str]
   "recursively converts lua list in 'str' to fennel form."
   (let [inline "%{( [^{]-%g )%}"
-        multi  "%{( [^{]%C- {.+%g )%}"]
+        nested "%{( [^{]%C- {.-%g )%}"]
     (if ;; inline list
         (str:find inline)
         (parse-list (str:gsub inline "[%1]"))
         ;; multi-line list
-        (str:find multi) 
-        (parse-list (str:gsub multi "[%1]"))
+        (str:find nested) 
+        (parse-list (str:gsub nested "[%1]"))
         :else str)))
 
 (lambda serialize-tbl [tbl]

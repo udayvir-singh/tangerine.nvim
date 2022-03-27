@@ -17,7 +17,7 @@
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat-square&logo=neovim)
 ![GNU Neovim in Emacs version](https://img.shields.io/badge/Neovim%20In%20Emacs-0.5-dac?style=flat-square&logo=gnuemacs&logoColor=daf)
 
-[About](#introduction) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api) • [Development](#development)
+[About](#about) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api) • [Development](#development)
 
 <p align="center">
 	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/tangerine.nvim/master/demo/demo.svg">
@@ -27,16 +27,13 @@
 </div>
 <!-- ignore-end -->
 
-# Introduction
-Tangerine provides a painless way to add fennel to your config.
-
-It prioritizes :zap:     lightning fast speeds,<br>
-& gives you    :cyclone: control over `when` and `how` fennel should compile.
+# About
+> Tangerine provides a painless way to add fennel to your config.
 
 ## Features
 - :fire:   *BLAZING* fast, compile times in milliseconds
 - :ocean:  200% support for interactive evaluation 
-- :bamboo: Transparent, doesn't create stupid abstractions
+- :bamboo: Control over when and how to compile
 - :ribbon: Natively loads `nvim/init.fnl`
 
 ## Comparison to other plugins
@@ -66,23 +63,26 @@ if vim.fn.empty(vim.fn.glob(tangerine_path)) > 0 then
 	print [[tangerine.nvim: finished installing ]]
 end
 ```
-2. call tangerine's `setup()` function, see [docs](#setup):
+2. call tangerine `setup()` function, see below:
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
 local tangerine = require [[tangerine]]
 
-tangerine.setup {}
+tangerine.setup {
+	-- ...config
+}
 ```
 
-3. invoke `:FnlCompile` manually or setup [hooks](#setup).
+3. invoke `:FnlCompile` manually or add [hooks](#setup) in setup
 
-4. create `~/.config/nvim/init.fnl`, and start writing your config.
+4. create `~/.config/nvim/init.fnl`, and start writing your config
 
 ---
-You can use a plugin manager to manage tangerine afterwards.
 
 #### Packer
+You can use packer to manage tangerine afterwards:
+
 ```fennel
 (local packer (require :packer))
 
@@ -305,34 +305,34 @@ By default tangerine provides the following api:
 
 -> :return {
      :compile {
-       :all    <function 0>
-       :buffer <function 1>
-       :dir    <function 2>
-       :file   <function 3>
-       :rtp    <function 4>
-       :string <function 5>
-       :vimrc  <function 6>
+       :all    (function 0)
+       :buffer (function 1)
+       :dir    (function 2)
+       :file   (function 3)
+       :rtp    (function 4)
+       :string (function 5)
+       :vimrc  (function 6)
      }
      :clean {
-       :rtp      <function 7>
-       :target   <function 8>
-       :orphaned <function 9>
+       :rtp      (function 7)
+       :target   (function 8)
+       :orphaned (function 9)
      }
      :eval {
-       :buffer <function 10>
-       :file   <function 11>
-       :peak   <function 12>
-       :string <function 13>
+       :buffer (function 10)
+       :file   (function 11)
+       :peak   (function 12)
+       :string (function 13)
      }
      :win {
-       :next    <function 14>
-       :prev    <function 15>
-       :close   <function 16>
-       :killall <function 17>
-       :resize  <function 18>
+       :next    (function 14)
+       :prev    (function 15)
+       :close   (function 16)
+       :killall (function 17)
+       :resize  (function 18)
      }
-     :goto_output <function 19>
-     :serialize   <function 20>
+     :goto_output (function 19)
+     :serialize   (function 20)
    }
 ```
 
@@ -674,22 +674,20 @@ Closes all floating windows created by tangerine.
 
 Provides underlying fennel used by tangerine
 
-{version} can be one of [ `"latest" "1-0-0" "0-10-0" "0-9-2"` ]
+{version} can be one of [ `"latest"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
 
 # Development
 ## Requirements
-| Program                                             | Description                 |
-|-----------------------------------------------------|-----------------------------|
-| [pandoc](https://github.com/jgm/pandoc)             | generates vimdoc            |
-| [lua](https://www.lua.org)                          | runs included fennel        |
-| [make](https://www.gnu.org/software/make)           | runs build instructions     |
-| [watchexec](https://github.com/watchexec/watchexec) | build on changes (optional) |
-| [bash](https://www.gnu.org/software/bash)           | runs shell scripts          |
-| [coreutils](https://www.gnu.org/software/coreutils) | required by shell scripts   |
-| [findutils](https://www.gnu.org/software/findutils) | “ ”                         |
-| [curl](https://curl.se)                             | “ ”                         |
+| Program                                             | Description                  |
+|-----------------------------------------------------|------------------------------|
+| [pandoc](https://github.com/jgm/pandoc)             | generates vimdoc             |
+| [lua](https://www.lua.org)                          | runs included fennel         |
+| [make](https://www.gnu.org/software/make)           | runs build instructions      |
+| [watchexec](https://github.com/watchexec/watchexec) | build on changes (optional)  |
+| [bash](https://www.gnu.org/software/bash)           | runs shell scripts           |
+| utils                                               | coreutils findutils gawk curl|
 
-NOTE: only GNU/utils work, 9base or busybox should not work
+> only GNU/utils work, 9base or busybox should not work
 
 ## Building from source
 ```bash
@@ -702,20 +700,22 @@ make <target>
 see `make help` or [below](#make-targets) for information on targets.
 
 ## Make Targets
-| Target         | Description                                  |
+| Target       | Description                                  |
 |----------------|----------------------------------------------|
-| `:fnl`         | Compiles fennel files                        |
-| `:deps`        | Copy required deps in lua folder             |
-| `:vimdoc`      | Runs panvimdoc to generate vimdocs           |
-| `:fnldoc`      | Generates module level documentation         |
+| `:fnl`         | compiles fennel files                        |
+| `:deps`        | copy required deps in lua folder             |
+| `:vimdoc`      | runs panvimdoc to generate vimdocs           |
+| `:fnldoc`      | generates module level documentation         |
 |                |                                              |
-| `:build`       | Combines `:fnl` `:deps` `:vimdoc` `:fnldoc`  |
-| `:watch-build` | Watches source dir, runs `:build` on changes |
+| `:build`       | combines `:fnl` `:deps` `:vimdoc` `:fnldoc`  |
+| `:watch-build` | watches source dir, runs `:build` on changes |
 |                |                                              |
-| `:install`     | Install tangerine on this system             |
-| `:clean`       | Deletes build and install dir                |
+| `:clean`       | deletes build and install dir                |
+| `:install`     | install tangerine on this system             |
 |                |                                              |
-| `:help`        | Prints this help message                     |
+| `:runner`      | compiles test runner library                 |
+| `:test`        | runs unit tests, will erase nvim config      |
+
 
 To build tangerine run:
 ```bash
@@ -732,9 +732,9 @@ $ make install
 ## Git Hooks
 | Target       | Description                                                    |
 |--------------|----------------------------------------------------------------|
-| `git-pull`   | Safely fetches git repo, prevents conflicts with local changes |
-| `git-skip`   | Makes git ignore changes to build files                        |
-| `git-unskip` | Reverts `git-skip`, makes build files trackable                |
+| `git-pull`   | safely fetches git repo, prevents conflicts with local changes |
+| `git-skip`   | makes git ignore changes to build files                        |
+| `git-unskip` | reverts `git-skip`, makes build files trackable                |
 
 ##### Example workflow:
 ```bash
