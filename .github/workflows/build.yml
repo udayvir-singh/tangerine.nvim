@@ -64,7 +64,7 @@ jobs:
     - name: Install requirements
       run: |
         apk update && apk upgrade 
-        apk add make bash curl coreutils findutils neovim
+        apk add make bash curl gawk coreutils findutils neovim
 
     - name: Clean previous build
       run:  make clean

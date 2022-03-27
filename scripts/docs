@@ -41,7 +41,7 @@ LOGFILE="$(mktemp)"
 
 panvimdoc () {
 	< "${SOURCE}" \
-	awk '{ 
+	gawk '{ 
 		# parse ignore
 		if ($0 ~ "ignore-line") { 
 			getline
