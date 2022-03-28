@@ -76,13 +76,13 @@
 (fn p.list-fnl-files []
   "return array of .fnl files present in source dir."
   (let [source (env.get :source)
-        out (p.wildcard source "**/*.fnl")]
-    out))
+        out    (p.wildcard source "**/*.fnl")]
+    (vim.tbl_filter #(not (string.find $1 "macros.fnl$")) out)))
 
 (fn p.list-lua-files []
   "return array of .fnl files present in target dir."
   (let [target (env.get :target)
-        out (p.wildcard target "**/*.lua")]
+        out    (p.wildcard target "**/*.lua")]
     out))
 
 
