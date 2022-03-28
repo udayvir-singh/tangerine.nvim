@@ -73,7 +73,10 @@ end
 p["list-fnl-files"] = function()
   local source = env.get("source")
   local out = p.wildcard(source, "**/*.fnl")
-  return out
+  local function _9_(_241)
+    return not string.find(_241, "macros.fnl$")
+  end
+  return vim.tbl_filter(_9_, out)
 end
 p["list-lua-files"] = function()
   local target = env.get("target")
