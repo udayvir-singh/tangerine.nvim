@@ -232,8 +232,7 @@
   "recursively gets value in 'tbl' from list of args."
   (if (= 0 (# args))
       (lua "return tbl"))
-  (let [rest (. tbl (. args 1))]
-    (table.remove args 1)
+  (let [rest (. tbl (table.remove args 1))]
     (if (not= nil rest)
         (rget rest args))))
 

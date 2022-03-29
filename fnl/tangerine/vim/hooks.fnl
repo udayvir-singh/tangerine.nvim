@@ -17,8 +17,7 @@
 
 (lambda parse-autocmd [opts]
   "converts 'opts' containing [[group] cmd] chunks into valid autocmd."
-  (let [groups (table.concat (. opts 1) " ")]
-       (table.remove opts 1)
+  (let [groups (table.concat (table.remove opts 1) " ")]
        (values :au groups (table.concat opts " "))))
 
 (lambda augroup [name ...]
