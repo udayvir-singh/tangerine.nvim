@@ -158,8 +158,7 @@ local function rget(tbl, args)
     return tbl
   else
   end
-  local rest = tbl[args[1]]
-  table.remove(args, 1)
+  local rest = tbl[table.remove(args, 1)]
   if (nil ~= rest) then
     return rget(rest, args)
   else
@@ -170,8 +169,8 @@ local function env_get(...)
   return rget(ENV, {...})
 end
 local function env_get_conf(opts, args)
-  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:244")
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:244")
+  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:243")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:243")
   local last = args[#args]
   if (nil ~= opts[last]) then
     return pre_process(opts, pre_schema)[last]
@@ -180,7 +179,7 @@ local function env_get_conf(opts, args)
   end
 end
 local function env_set(tbl)
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:255")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:254")
   validate(tbl, schema)
   return deepcopy(pre_process(tbl, pre_schema), ENV)
 end
