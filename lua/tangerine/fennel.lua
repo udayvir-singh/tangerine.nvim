@@ -22,10 +22,9 @@ local function get_path(ext, macro_path_3f)
   table.insert(out, format_path("./", ext, macro_path_3f))
   table.insert(out, format_path(source, ext, macro_path_3f))
   for entry in rtps:gmatch("(.-),") do
-    local path = (entry .. "/fnl/")
-    if (1 == vim.fn.isdirectory(path)) then
+    local glob = vim.fn.glob((entry .. "/fnl/"), 0, 1)
+    for _, path in ipairs(glob) do
       table.insert(out, format_path(path, ext, macro_path_3f))
-    else
     end
   end
   return table.concat(out, ";")
