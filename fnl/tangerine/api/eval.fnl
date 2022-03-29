@@ -50,7 +50,7 @@
         filename (or opts.filename :string)]
     (err.clear) ;; clear previous errors
     (local (ok result) 
-      (xpcall #(fennel.eval str {: filename}) 
+      (xpcall #(fennel.eval str {: filename :compilerEnv _G}) 
               #(err.handle $1 opts)))
     (if (not ok)
         (lua "return false"))
@@ -96,7 +96,7 @@
         bufname (get-bufname)]
     (err.clear) ;; clear previous errors
     (local (ok result) 
-      (xpcall #(fennel.compileString lines {:filename (or opts.filename bufname)}) 
+      (xpcall #(fennel.compileString lines {:filename (or opts.filename bufname) :compilerEnv _G}) 
               #(err.handle $1 (tbl-merge {:offset start} opts))))
     (if (not ok)
         (lua "return false"))
