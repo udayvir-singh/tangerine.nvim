@@ -27,9 +27,9 @@
     (table.insert out (format-path source ext macro-path?))
     ; rtp dirs
     (each [entry (rtps:gmatch "(.-),")]
-          (local path (.. entry "/fnl/"))
-          (if (= 1 (vim.fn.isdirectory path))
-              (table.insert out (format-path path ext macro-path?))))
+          (local glob (vim.fn.glob (.. entry "/fnl/") 0 1))
+          (each [_ path (ipairs glob)]
+                (table.insert out (format-path path ext macro-path?))))
     :return
     (table.concat out ";")))
 
