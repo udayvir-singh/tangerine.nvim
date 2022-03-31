@@ -9,7 +9,6 @@
 -->
 
 <!-- ignore-start -->
-### WARN: plugin under heavy development, stable version will be released on 31 Mar.
 <div align="center">
 
 # :tangerine: Tangerine :tangerine:
@@ -46,37 +45,44 @@
 - Blindly compiles all files that it founds, resulting in slow load times.
 
 # Installation
-1. create file `plugin/tangerine.lua` to bootstrap tangerine:
+1. Create file `plugin/tangerine.lua` to bootstrap tangerine:
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
 -- pick your plugin manager, default [standalone]
 local pack = "tangerine" or "packer" or "paq"
 
-local remote = "https://github.com/udayvir-singh/tangerine.nvim"
-local tangerine_path = vim.fn.stdpath "data" .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
+local function bootstrap (name, url, path)
+	if vim.fn.empty(vim.fn.glob(path)) > 0 then
+		print(name .. ": installing in data dir...")
 
-if vim.fn.empty(vim.fn.glob(tangerine_path)) > 0 then
-	print [[tangerine.nvim: installing in data dir... ]]
-	vim.fn.system {"git", "clone", remote, tangerine_path}
-	vim.cmd [[redraw]]
-	print [[tangerine.nvim: finished installing ]]
+		vim.fn.system {"git", "clone", url, path}
+
+		vim.cmd [[redraw]]
+		print(name .. ": finished installing")
+	end
 end
+
+bootstrap (
+	"tangerine.nvim",
+	"https://github.com/udayvir-singh/tangerine.nvim",
+	vim.fn.stdpath [[data]] .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
+)
 ```
-2. call tangerine `setup()` function, see below:
+2. Call tangerine `setup()` function:
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
 local tangerine = require [[tangerine]]
 
 tangerine.setup {
-	-- ...config
+	[[ config, see below ]]
 }
 ```
 
-3. invoke `:FnlCompile` manually or add [hooks](#setup) in setup
+3. Invoke `:FnlCompile` manually or add [hooks](#setup) in setup
 
-4. create `~/.config/nvim/init.fnl`, and start writing your config
+4. Create `~/.config/nvim/init.fnl`, and start writing your config
 
 ---
 
@@ -101,7 +107,7 @@ You can use packer to manage tangerine afterwards:
 
 # Setup
 ### Default config
-Tangerine comes with sane defaults so that you can get going without having to add much to your config.
+Tangerine comes with sane defaults so that you can get going without having to add much to your config:
 ```lua
 local nvim_dir = vim.stdpath [[config]]
 
@@ -201,7 +207,7 @@ If bang! is present then forcefully compiles all `source` files
 #### :FnlClean[!]
 Deletes stale or orphaned lua files in `target` dir
 
-If bang! is present then it deletes all lua files.
+If bang! is present then it deletes all compiled lua files.
 
 ## Evaluation
 <!-- doc=:Fnl -->
