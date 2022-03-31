@@ -67,7 +67,7 @@ ANISEED :HERB: ~
 2. Installation                                       *tangerine-installation*
 
 
-1. create file `plugin/tangerine.lua` to bootstrap tangerine:
+1. Create file `plugin/tangerine.lua` to bootstrap tangerine:
 
 
 >
@@ -76,20 +76,27 @@ ANISEED :HERB: ~
     -- pick your plugin manager, default [standalone]
     local pack = "tangerine" or "packer" or "paq"
     
-    local remote = "https://github.com/udayvir-singh/tangerine.nvim"
-    local tangerine_path = vim.fn.stdpath "data" .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
+    local function bootstrap (name, url, path)
+        if vim.fn.empty(vim.fn.glob(path)) > 0 then
+            print(name .. ": installing in data dir...")
     
-    if vim.fn.empty(vim.fn.glob(tangerine_path)) > 0 then
-        print [[tangerine.nvim: installing in data dir... ]]
-        vim.fn.system {"git", "clone", remote, tangerine_path}
-        vim.cmd [[redraw]]
-        print [[tangerine.nvim: finished installing ]]
+            vim.fn.system {"git", "clone", url, path}
+    
+            vim.cmd [[redraw]]
+            print(name .. ": finished installing")
+        end
     end
+    
+    bootstrap (
+        "tangerine.nvim",
+        "https://github.com/udayvir-singh/tangerine.nvim",
+        vim.fn.stdpath [[data]] .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
+    )
 <
 
 
 
-1. call tangerine `setup()` function, see below:
+1. Call tangerine `setup()` function:
 
 
 >
@@ -98,14 +105,14 @@ ANISEED :HERB: ~
     local tangerine = require [[tangerine]]
     
     tangerine.setup {
-        -- ...config
+        [[ config, see below ]]
     }
 <
 
 
 
-1. invoke `:FnlCompile` manually or add |tangerine-hooks| in setup
-2. create `~/.config/nvim/init.fnl`, and start writing your config
+1. Invoke `:FnlCompile` manually or add |tangerine-hooks| in setup
+2. Create `~/.config/nvim/init.fnl`, and start writing your config
 
 
 ------------------------------------------------------------------------------
@@ -141,7 +148,7 @@ Packer                                 You can use packer to manage tangerine
 DEFAULT CONFIG ~
 
 Tangerine comes with sane defaults so that you can get going without having to
-add much to your config.
+add much to your config:
 
 >
     local nvim_dir = vim.stdpath [[config]]
@@ -253,7 +260,7 @@ If bang! is present then forcefully compiles all `source` files
                                        `target` dir
 
 
-If bang! is present then it deletes all lua files.
+If bang! is present then it deletes all compiled lua files.
 
 EVALUATION                                              *tangerine-evaluation*
 
