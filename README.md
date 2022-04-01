@@ -73,16 +73,18 @@ bootstrap (
 ```lua
 -- ~/.config/nvim/plugin/tangerine.lua
 
-local tangerine = require [[tangerine]]
-
-tangerine.setup {
+require "tangerine".setup {
 	[[ config, see below ]]
 }
 ```
 
-3. Invoke `:FnlCompile` manually or add [hooks](#setup) in setup
+3. Invoke `:FnlCompile` manually or add hooks in [setup](#setup).
 
-4. Create `~/.config/nvim/init.fnl`, and start writing your config
+<br>
+
+Now start writing your config in `~/.config/nvim/init.fnl`
+
+Optionally you can install [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) for macros.
 
 ---
 
