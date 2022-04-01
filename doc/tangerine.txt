@@ -102,18 +102,20 @@ ANISEED :HERB: ~
 >
     -- ~/.config/nvim/plugin/tangerine.lua
     
-    local tangerine = require [[tangerine]]
-    
-    tangerine.setup {
+    require "tangerine".setup {
         [[ config, see below ]]
     }
 <
 
 
 
-1. Invoke `:FnlCompile` manually or add |tangerine-hooks| in setup
-2. Create `~/.config/nvim/init.fnl`, and start writing your config
+1. Invoke `:FnlCompile` manually or add hooks in |tangerine-setup|.
 
+
+Now start writing your config in `~/.config/nvim/init.fnl`
+
+Optionally you can install hibiscus
+<https://github.com/udayvir-singh/hibiscus.nvim> for macros.
 
 ------------------------------------------------------------------------------
 
