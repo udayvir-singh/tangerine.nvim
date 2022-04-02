@@ -31,7 +31,7 @@ local function setup(config)
   require("tangerine.vim.cmds")
   require("tangerine.vim.maps")
   load_hooks(require("tangerine.vim.hooks"))
-  vim.schedule_wrap(load_vimrc)()
+  load_vimrc()
   return true
 end
 return {setup = setup}
