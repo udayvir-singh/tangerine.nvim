@@ -56,7 +56,7 @@
     :return [ 
       exec
       "--spaces-inside-table-braces"
-      "--column-table-limit" 50
+      "--column-table-limit" (math.floor (/ width 1.7))
       "--column-limit" width
     ]))
 
