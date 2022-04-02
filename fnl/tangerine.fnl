@@ -38,7 +38,7 @@
   (require :tangerine.vim.maps)
   (load-hooks (require :tangerine.vim.hooks))
   ; load vimrc
-  ((vim.schedule_wrap load-vimrc))
+  (load-vimrc)
   :return true)
 
 
