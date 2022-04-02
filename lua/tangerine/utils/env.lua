@@ -71,7 +71,7 @@ end
 local function luafmt()
   local exec = vim.fn.expand("~/.luarocks/bin/lua-format")
   local width = vim.api.nvim_win_get_width(0)
-  return {exec, "--spaces-inside-table-braces", "--column-table-limit", 50, "--column-limit", width}
+  return {exec, "--spaces-inside-table-braces", "--column-table-limit", math.floor((width / 1.7)), "--column-limit", width}
 end
 local pre_schema = {source = resolve, target = resolve, vimrc = resolve, rtpdirs = rtpdirs, compiler = nil, eval = nil, keymaps = nil, highlight = nil}
 local schema = {source = "string", target = "string", vimrc = "string", rtpdirs = "list", compiler = {float = "boolean", clean = "boolean", force = "boolean", verbose = "boolean", globals = "list", version = {"oneof", {"latest", "1-0-0", "0-10-0", "0-9-2"}}, hooks = {"array", {"onsave", "onload", "oninit"}}}, eval = {float = "boolean", luafmt = "function", diagnostic = {virtual = "boolean", timeout = "number"}}, keymaps = {peak_buffer = "string", eval_buffer = "string", goto_output = "string", float = {next = "string", prev = "string", kill = "string", close = "string", resizef = "string", resizeb = "string"}}, highlight = {float = "string", success = "string", errors = "string"}}
