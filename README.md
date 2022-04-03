@@ -182,6 +182,7 @@ Here is config that I use in my dotfiles:
 ```lua
 {
 	-- save fnl output in a separate dir, it gets automatically added to package.path
+	-- WARN: packer's lazy loading won't work if you do this
 	target = vim.fn.stdpath [[data]] .. "/tangerine",
 
 	-- compile files in &rtp
@@ -313,6 +314,7 @@ tangerine.setup {
 **A:** change source in config:
 ```lua
 tangerine.setup {
+	-- WARN: packer's lazy loading won't work if you do this
 	source = "/path/to/your/dir"
 }
 ```
