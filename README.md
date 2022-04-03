@@ -95,7 +95,15 @@ You can use packer to manage tangerine afterwards:
 (local packer (require :packer))
 
 (packer.startup (fn []
-	(use :udayvir-singh/tangerine.nvim)))
+  (use :udayvir-singh/tangerine.nvim)))
+
+;; or by using hibiscus
+(require-macros :hibiscus.packer)
+
+(packer-setup)
+
+(packer
+  (use! :udayvir-singh/tangerine.nvim))
 ```
 
 #### Paq
@@ -103,7 +111,7 @@ You can use packer to manage tangerine afterwards:
 (local paq (require :paq))
 
 (paq {
-	:udayvir-singh/tangerine.nvim
+  :udayvir-singh/tangerine.nvim
 })
 ```
 
