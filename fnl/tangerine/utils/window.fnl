@@ -169,7 +169,7 @@
   (update-stack)
   ;; set options
   (vim.api.nvim_buf_set_option buffer :ft filetype)
-  (vim.api.nvim_win_set_option 0      :winhl (.. "Normal:" highlight))
+  (vim.api.nvim_win_set_option 0      :winhl (.. "Normal:" highlight ",FloatBorder:" highlight))
   ;; set keymaps
   (setup-mappings buffer)
   :return buffer))
