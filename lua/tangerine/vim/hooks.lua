@@ -19,15 +19,11 @@ local function augroup(name, ...)
   return true
 end
 hooks.run = function()
-  local function _1_()
-    local clean_3f = env.get("compiler", "clean")
-    if clean_3f then
-      _G.tangerine.api.clean.orphaned()
-    else
-    end
-    return _G.tangerine.api.compile.all()
+  if env.get("compiler", "clean") then
+    _G.tangerine.api.clean.orphaned()
+  else
   end
-  return vim.schedule_wrap(_1_)()
+  return _G.tangerine.api.compile.all()
 end
 local run_hooks = "lua require 'tangerine.vim.hooks'.run()"
 hooks.onsave = function()

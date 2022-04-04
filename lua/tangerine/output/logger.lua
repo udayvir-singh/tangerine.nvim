@@ -76,7 +76,10 @@ log.success = function(title, files, opts)
   else
   end
   if env.conf(opts, {"compiler", "float"}) then
-    log["float-success"](title, files)
+    local function _4_()
+      return log["float-success"](title, files)
+    end
+    vim.schedule_wrap(_4_)()
   elseif "else" then
     log["print-success"](title, files)
   else
@@ -89,7 +92,10 @@ log.failure = function(title, file, msg, opts)
   _G.assert((nil ~= file), "Missing argument file on fnl/tangerine/output/logger.fnl:95")
   _G.assert((nil ~= title), "Missing argument title on fnl/tangerine/output/logger.fnl:95")
   if env.conf(opts, {"compiler", "float"}) then
-    log["float-failure"](title, file, msg)
+    local function _6_()
+      return log["float-failure"](title, file, msg)
+    end
+    vim.schedule_wrap(_6_)()
   elseif "else" then
     log["print-failure"](title, file, msg)
   else

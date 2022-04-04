@@ -179,7 +179,7 @@ win["create-float"] = function(lineheight0, filetype, highlight)
   insert_stack(vim.api.nvim_get_current_win())
   update_stack()
   vim.api.nvim_buf_set_option(buffer, "ft", filetype)
-  vim.api.nvim_win_set_option(0, "winhl", ("Normal:" .. highlight))
+  vim.api.nvim_win_set_option(0, "winhl", ("Normal:" .. highlight .. ",FloatBorder:" .. highlight))
   setup_mappings(buffer)
   return buffer
 end
