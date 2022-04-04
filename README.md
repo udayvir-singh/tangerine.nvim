@@ -45,9 +45,9 @@
 - Blindly compiles all files that it founds, resulting in slow load times.
 
 # Installation
-1. Create file `plugin/tangerine.lua` to bootstrap tangerine:
+1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 ```lua
--- ~/.config/nvim/plugin/tangerine.lua
+-- ~/.config/nvim/plugin/0-tangerine.lua
 
 -- pick your plugin manager, default [standalone]
 local pack = "tangerine" or "packer" or "paq"
@@ -71,7 +71,7 @@ bootstrap (
 ```
 2. Call tangerine `setup()` function:
 ```lua
--- ~/.config/nvim/plugin/tangerine.lua
+-- ~/.config/nvim/plugin/0-tangerine.lua
 
 require "tangerine".setup {
 	[[ config, see below ]]
