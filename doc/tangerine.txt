@@ -67,11 +67,11 @@ ANISEED :HERB: ~
 2. Installation                                       *tangerine-installation*
 
 
-1. Create file `plugin/tangerine.lua` to bootstrap tangerine:
+1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
 
 >
-    -- ~/.config/nvim/plugin/tangerine.lua
+    -- ~/.config/nvim/plugin/0-tangerine.lua
     
     -- pick your plugin manager, default [standalone]
     local pack = "tangerine" or "packer" or "paq"
@@ -100,7 +100,7 @@ ANISEED :HERB: ~
 
 
 >
-    -- ~/.config/nvim/plugin/tangerine.lua
+    -- ~/.config/nvim/plugin/0-tangerine.lua
     
     require "tangerine".setup {
         [[ config, see below ]]
