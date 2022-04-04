@@ -87,7 +87,7 @@
           (not (env.conf opts [:compiler :verbose])))
       (lua :return))
   (if (env.conf opts [:compiler :float]) 
-      (log.float-success title files)
+      ((vim.schedule_wrap #(log.float-success title files)))
       :else
       (log.print-success title files))
   :return true)
@@ -96,7 +96,7 @@
   "logs error 'msg' for 'file' with heading 'title'."
   ;; opts { :float boolean }
   (if (env.conf opts [:compiler :float])
-      (log.float-failure title file msg)
+      ((vim.schedule_wrap #(log.float-failure title file msg)))
       :else
       (log.print-failure title file msg))
   :return true)

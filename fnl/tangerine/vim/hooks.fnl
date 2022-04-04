@@ -35,11 +35,9 @@
 ;; -------------------- ;;
 (lambda hooks.run []
   "base runner of hooks, calls compiler as defined in ENV."
-  ((vim.schedule_wrap
-    #(let [clean? (env.get :compiler :clean)]
-       (if clean?
-           (_G.tangerine.api.clean.orphaned))
-       (_G.tangerine.api.compile.all)))))
+  (if (env.get :compiler :clean)
+      (_G.tangerine.api.clean.orphaned))
+  (_G.tangerine.api.compile.all))
 
 (local run-hooks ; lua wrapper around hooks.run
        "lua require 'tangerine.vim.hooks'.run()")
