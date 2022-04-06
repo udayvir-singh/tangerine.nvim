@@ -145,7 +145,7 @@
 ;; -------------------- ;;
 ;;        Window        ;;
 ;; -------------------- ;;
-(lambda win.create-float [lineheight filetype highlight]
+(lambda win.create-float [lineheight filetype hl-normal ?hl-border]
   "defines a floating window with height 'lineheight'."
   (normalize-parent (vim.api.nvim_get_current_win))
   (let [buffer     (vim.api.nvim_create_buf false true)
@@ -169,16 +169,16 @@
   (update-stack)
   ;; set options
   (vim.api.nvim_buf_set_option buffer :ft filetype)
-  (vim.api.nvim_win_set_option 0      :winhl (.. "Normal:" highlight ",FloatBorder:" highlight))
+  (vim.api.nvim_win_set_option 0      :winhl (.. "Normal:" hl-normal ",FloatBorder:" (or ?hl-border hl-normal)))
   ;; set keymaps
   (setup-mappings buffer)
   :return buffer))
 
-(lambda win.set-float [lines filetype highlight]
+(lambda win.set-float [lines filetype hl-normal ?hl-border]
   "defines a floating windows for string of 'lines'."
   (let [lines  (vim.split lines "\n")
         nlines (lineheight lines)
-        buffer (win.create-float nlines filetype highlight)]
+        buffer (win.create-float nlines filetype hl-normal ?hl-border)]
     (vim.api.nvim_buf_set_lines buffer 0 -1 true lines)
     :return true))
 

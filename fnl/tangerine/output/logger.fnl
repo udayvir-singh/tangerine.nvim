@@ -72,7 +72,7 @@
     (-> (parse-title title)
         (.. "\n" failure-block file)
         (.. "\n" (indent msg (# failure-block)))))
-  (win.set-float out :text :Normal)
+  (win.set-float out :text :Normal hl-failure)
   (syn-match hl-failure failure-block)
   (syn-match hl-failure (indent ".*" (# failure-block))))
 
