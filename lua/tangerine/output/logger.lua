@@ -63,7 +63,7 @@ log["float-failure"] = function(title, file, msg)
   _G.assert((nil ~= file), "Missing argument file on fnl/tangerine/output/logger.fnl:69")
   _G.assert((nil ~= title), "Missing argument title on fnl/tangerine/output/logger.fnl:69")
   local out = ((parse_title(title) .. "\n" .. failure_block .. file) .. "\n" .. indent(msg, #failure_block))
-  win["set-float"](out, "text", "Normal")
+  win["set-float"](out, "text", "Normal", hl_failure)
   syn_match(hl_failure, failure_block)
   return syn_match(hl_failure, indent(".*", #failure_block))
 end
