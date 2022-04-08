@@ -20,8 +20,8 @@ DOWN_RIGHT="┘"
 
 CROSS="┼"
 
-PRIMARY_SIZE=30
-  BLOCK_SIZE=10
+PRIMARY_SIZE=${PRIMARY_SIZE:-30}
+  BLOCK_SIZE=${BLOCK_SIZE:-10}
 
 # --------------------- #
 #         UTILS         #

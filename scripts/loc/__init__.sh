@@ -109,15 +109,15 @@ for FILE in ${FILES}; do
 	if [ -n "${regex[Comment]-}" ]; then
 		Comment=$(count ${FILE} "${regex[Comment]}")
 
-		let Code-=${Comment}
-		let TOTAL[Comment]+=${Comment}
+		let Code-=${Comment} || true
+		let TOTAL[Comment]+=${Comment} || true
 	fi
 
 	if [ -n "${regex[Docs]-}" ]; then
 		Docs=$(count ${FILE} "${regex[Docs]}")
 
-		let Code-=${Docs}
-		let TOTAL[Docs]+=${Docs}
+		let Code-=${Docs} || true
+		let TOTAL[Docs]+=${Docs} || true
 	fi
 
 	let TOTAL[Blank]+=${Blank}
