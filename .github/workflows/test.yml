@@ -3,7 +3,9 @@ name: Test CI
 on: 
   pull_request:
   push:
-    paths: lua/**
+    paths:
+      - lua/**
+      - test/**
 
 jobs:
   test:
