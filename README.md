@@ -134,7 +134,7 @@ local nvim_dir = vim.stdpath [[config]]
 		verbose = true,     -- enable messages showing compiled files
 
 		globals = {...},    -- list of alowedGlobals
-		version = "latest", -- version of fennel to use, [ latest, 1-0-0, 0-10-0, 0-9-2 ]
+		version = "latest", -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
 
 		-- hooks for tangerine to compile on:
 		-- "onsave" run every time you save fennel file in {source} dir.
@@ -238,7 +238,7 @@ Evaluates {file} of fennel and outputs the result
 ```fennel
 :FnlFile path/source.fnl
 
-:FnlFile % ;; not recomended
+:FnlFile % ;; not recommended
 ```
 
 <!-- doc=:FnlBuffer -->
@@ -693,7 +693,7 @@ Closes all floating windows created by tangerine.
 
 Provides underlying fennel used by tangerine
 
-{version} can be one of [ `"latest"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
+{version} can be one of [ `"latest"` `"1-1-0"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
 
 # Development
 ## Requirements
