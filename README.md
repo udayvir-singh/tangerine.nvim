@@ -96,11 +96,13 @@ You can use packer to manage tangerine afterwards:
 
 (packer.startup (fn []
   (use :udayvir-singh/tangerine.nvim)))
+```
 
-;; or by using hibiscus
+With [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
+```fennel
 (require-macros :hibiscus.packer)
 
-(packer-setup)
+(packer-setup {}) ; bootstraps packer
 
 (packer
   (use! :udayvir-singh/tangerine.nvim))
@@ -145,7 +147,7 @@ local nvim_dir = vim.stdpath [[config]]
 
 	eval = {
 		float  = true,      -- show results in floating window
-		luafmt = function() -- function that returns formater for peaked lua
+		luafmt = function() -- function that returns formatter for peaked lua
 			return {"lua-format"}
 		end,
 

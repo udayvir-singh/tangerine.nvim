@@ -19,15 +19,19 @@ build: deps fnl fnldoc vimdoc
 
 watch-build:
 	watchexec -f "fnl/**/*.fnl" -f "README.md" -i "fnl/**/README.md" \
-		'make --no-print-directory clean build && 
+		'make --no-print-directory clean build &&
 		notify-send DONE "  ==> tangerine.nvim" ||
 		notify-send "BUILD ERROR" "$$(cat /tmp/tangerine-err)"'
 
 deps:
 	./scripts/link deps/lua lua/tangerine/fennel
 
-fnl: 
+fnl:
 	./scripts/fennel "$(FENNEL_BIN)" "$(SOURCE_DIR)"
+	echo "# ABOUT
+	Contains compiled output from [fennel](../fnl) dir.
+		
+	DON'T make direct changes to lua files since they will be deleted by build runner." > lua/README.md
 
 fnldoc:
 	./scripts/fnldoc fnl/tangerine
