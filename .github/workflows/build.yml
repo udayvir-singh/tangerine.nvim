@@ -39,7 +39,7 @@ jobs:
       run:  git config --global --add safe.directory /__w/tangerine.nvim/tangerine.nvim
 
     - name: FENNEL
-      run:  make loc-fennel LOC_HEAD="HEAD"
+      run:  make loc-fennel loc-test LOC_HEAD="HEAD"
 
     - name: BASH
       run:  make loc-bash LOC_HEAD="HEAD"
