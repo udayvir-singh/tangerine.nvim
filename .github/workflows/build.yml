@@ -34,7 +34,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 2
-        set-safe-directory: true
+
+    - name: Setup Repository
+      run:  git config --global --add safe.directory /__w/tangerine.nvim/tangerine.nvim
 
     - name: FENNEL
       run:  make loc-fennel LOC_HEAD="HEAD"
