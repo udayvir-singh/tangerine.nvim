@@ -44,7 +44,7 @@
   "clears all errors in current namespace."
   (if (not vim.diagnostic)
       (lua :return))
-  (let [nspace  (vim.api.nvim_create_namespace :tangerine)]
+  (let [nspace (vim.api.nvim_create_namespace :tangerine)]
     (vim.diagnostic.reset nspace)
     (vim.api.nvim_buf_clear_namespace 0 nspace 0 -1)))
 
@@ -93,7 +93,7 @@
   ; handle diagnostic
   (when (and (err.compile? msg) (number? opts.offset))
     (local (line msg) (err.parse msg opts.offset))
-    (err.send line msg 
+    (err.send line msg
               (env.conf opts [:eval :diagnostic :virtual])))
   ; display error
   (if (env.conf opts [:eval :float])

@@ -6,6 +6,7 @@ on:
     paths:
       - lua/**
       - test/**
+      - .github/**
 
 jobs:
   test:

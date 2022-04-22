@@ -28,12 +28,13 @@ jobs:
     steps:
     - name: Install requirements
       run: |
-        apk update && apk upgrade 
+        apk update && apk upgrade
         apk add make git bash curl coreutils findutils
 
     - uses: actions/checkout@v2
       with:
         fetch-depth: 2
+        set-safe-directory: true
 
     - name: FENNEL
       run:  make loc-fennel LOC_HEAD="HEAD"

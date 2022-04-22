@@ -82,7 +82,7 @@ require "tangerine".setup {
 
 <br>
 
-Now start writing your config in `~/.config/nvim/init.fnl`
+:tada: Now start writing your config in `~/.config/nvim/init.fnl`
 
 Optionally you can install [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) for macros.
 
