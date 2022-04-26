@@ -420,6 +420,12 @@ WINDOW                                                      *tangerine-window*
 <
 
 
+**Q: How to fix errors in macros while migrating from hotpot**
+
+**A:** make sure that macro files are suffixed with `-macros.fnl`,
+
+see #2 for more information
+
 ==============================================================================
 6. Api                                                         *tangerine-api*
 
