@@ -51,7 +51,10 @@
 -- pick your plugin manager, default [standalone]
 local pack = "tangerine" or "packer" or "paq"
 
-local function bootstrap (name, url, path)
+local function bootstrap (url)
+	local name = url:gsub(".*/", "")
+	local path = vim.fn.stdpath [[data]] .. "/site/pack/".. pack .. "/start/" .. name
+
 	if vim.fn.isdirectory(path) == 0 then
 		print(name .. ": installing in data dir...")
 
@@ -62,11 +65,7 @@ local function bootstrap (name, url, path)
 	end
 end
 
-bootstrap (
-	"tangerine.nvim",
-	"https://github.com/udayvir-singh/tangerine.nvim",
-	vim.fn.stdpath [[data]] .. "/site/pack/" .. pack .. "/start/tangerine.nvim"
-)
+bootstrap "https://github.com/udayvir-singh/tangerine.nvim"
 ```
 2. Call tangerine `setup()` function:
 ```lua
