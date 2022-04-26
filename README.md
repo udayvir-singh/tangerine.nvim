@@ -322,7 +322,7 @@ tangerine.setup {
 
 **A:** make sure that macro files are suffixed with `-macros.fnl`,
 
-see #2 for more information
+see [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) for more information
 
 # Api
 By default tangerine provides the following api:
