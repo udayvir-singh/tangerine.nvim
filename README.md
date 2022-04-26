@@ -22,7 +22,6 @@
 	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/tangerine.nvim/master/demo/demo.svg">
 </p>
 
-
 </div>
 <!-- ignore-end -->
 
@@ -318,6 +317,12 @@ tangerine.setup {
 	source = "/path/to/your/dir"
 }
 ```
+
+**Q: How to fix errors in macros while migrating from hotpot**
+
+**A:** make sure that macro files are suffixed with `-macros.fnl`,
+
+see #2 for more information
 
 # Api
 By default tangerine provides the following api:
