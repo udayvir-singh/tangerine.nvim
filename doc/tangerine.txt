@@ -424,7 +424,8 @@ WINDOW                                                      *tangerine-window*
 
 **A:** make sure that macro files are suffixed with `-macros.fnl`,
 
-see #2 for more information
+see #2 <https://github.com/udayvir-singh/tangerine.nvim/issues/2> for more
+information
 
 ==============================================================================
 6. Api                                                         *tangerine-api*
