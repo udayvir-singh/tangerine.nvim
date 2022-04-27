@@ -317,6 +317,22 @@ tangerine.setup {
 }
 ```
 
+**Q: How to use lua files interchangeably with fennel files**
+
+**A:** lua files can simply be stored in `fnl` dir:
+
+```
+fnl/
+├── options.lua
+└── autocmd.fnl
+```
+
+```fennel
+; just require both normally
+(require :options)
+(require :autocmd)
+```
+
 **Q: How to fix errors in macros while migrating from hotpot**
 
 **A:** make sure that macro files are suffixed with `-macros.fnl`,
