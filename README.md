@@ -311,10 +311,10 @@ tangerine.setup {
 
 **Q: How to tuck away compiled output in a separate directory**
 
-**A:** change source in config:
+**A:** change target in config:
 ```lua
 tangerine.setup {
-	source = "/path/to/your/dir"
+	target = "/path/to/your/dir"
 }
 ```
 
