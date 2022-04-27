@@ -307,6 +307,7 @@ tangerine.setup {
 }
 ```
 
+<br />
 
 **Q: How to tuck away compiled output in a separate directory**
 
@@ -316,6 +317,8 @@ tangerine.setup {
 	source = "/path/to/your/dir"
 }
 ```
+
+<br />
 
 **Q: How to use lua files interchangeably with fennel files**
 
@@ -332,6 +335,8 @@ fnl/
 (require :options)
 (require :autocmd)
 ```
+
+<br />
 
 **Q: How to fix errors in macros while migrating from hotpot**
 
