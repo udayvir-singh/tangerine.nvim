@@ -119,7 +119,7 @@ With [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
 ### Default config
 Tangerine comes with sane defaults so that you can get going without having to add much to your config:
 ```lua
-local nvim_dir = vim.stdpath [[config]]
+local nvim_dir = vim.fn.stdpath [[config]]
 
 {
 	vimrc   = nvim_dir .. "/init.fnl",
