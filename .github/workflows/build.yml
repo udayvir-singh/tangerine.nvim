@@ -1,6 +1,6 @@
 name: Build CI
 
-on: 
+on:
   pull_request:
   push:
     paths:
@@ -11,7 +11,7 @@ on:
       - scripts/**
       - .github/**
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
@@ -63,10 +63,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install requirements
       run: |
-        apk update && apk upgrade 
+        apk update && apk upgrade
         apk add make bash curl gawk coreutils findutils neovim
 
     - name: Clean previous build
@@ -90,10 +90,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install requirements
       run: |
-        apk update && apk upgrade 
+        apk update && apk upgrade
         apk add make bash curl coreutils findutils lua5.4
         # links lua5.4 -> lua
         ln -sv /usr/bin/lua5.4           /usr/bin/lua
@@ -108,7 +108,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: fennel-out
-        path: lua 
+        path: lua
 
   fnldoc:
     name:      fennel docs
@@ -118,10 +118,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install requirements
       run: |
-        apk update && apk upgrade 
+        apk update && apk upgrade
         apk add make bash curl coreutils findutils neovim
 
     - name: Clean previous build
@@ -144,15 +144,18 @@ jobs:
         name: fnldoc
         path: fnl/**/README.md
 
-  
+
   # -------------------- #
   #     COMMIT BUILD     #
   # -------------------- #
   commit:
-    name:    commit changes
-    needs:   [vimdoc, fnldoc, fennel]
+    name:  commit changes
+    needs: [vimdoc, fnldoc, fennel]
+
+    if: ${{ github.event_name == 'push' }}
+
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v2
       with:
