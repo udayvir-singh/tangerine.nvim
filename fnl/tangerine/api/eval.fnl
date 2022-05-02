@@ -49,8 +49,8 @@
   (let [fennel   (fennel.load)
         filename (or opts.filename :string)]
     (err.clear) ;; clear previous errors
-    (local (ok result) 
-      (xpcall #(fennel.eval str {: filename :compilerEnv _G}) 
+    (local (ok result)
+      (xpcall #(fennel.eval str {: filename :compilerEnv _G})
               #(err.handle $1 opts)))
     (if (not ok)
         (lua "return false"))
@@ -65,7 +65,7 @@
         sname (p.shortname path)]
     (assert (fs.readable? path)
             (.. "[tangerine]: error in 'eval-file', file not readable " path))
-    :eval (eval.string (fs.read path) 
+    :eval (eval.string (fs.read path)
                        (tbl-merge opts {:filename sname}))))
 
 (lambda eval.buffer [start end ?opts]
@@ -95,12 +95,12 @@
         lines   (get-lines start end)
         bufname (get-bufname)]
     (err.clear) ;; clear previous errors
-    (local (ok result) 
-      (xpcall #(fennel.compileString lines {:filename (or opts.filename bufname) :compilerEnv _G}) 
+    (local (ok result)
+      (xpcall #(fennel.compileString lines {:filename (or opts.filename bufname) :compilerEnv _G})
               #(err.handle $1 (tbl-merge {:offset start} opts))))
     (if (not ok)
         (lua "return false"))
-    (dp.show-lua result opts) 
+    (dp.show-lua result opts)
     :return result))
 
 ; EXAMPLES:

@@ -10,7 +10,7 @@
 
 ;; -------------------- ;;
 ;;      Serialize       ;;
-;; -------------------- ;; 
+;; -------------------- ;;
 (lambda primitive? [val]
   (or (= :string (type val))
       (= :number (type val))))
@@ -28,7 +28,7 @@
         (str:find inline)
         (parse-list (str:gsub inline "[%1]"))
         ;; multi-line list
-        (str:find nested) 
+        (str:find nested)
         (parse-list (str:gsub nested "[%1]"))
         :else str)))
 

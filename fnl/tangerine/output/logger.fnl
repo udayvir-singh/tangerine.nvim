@@ -19,7 +19,7 @@
   "checks if 'list' is empty."
   (if (not (vim.tbl_islist list))
       (error (.. "[tangerine]: error in logger, expected 'list' to be a valid list got " (type list) ".")))
-  :return 
+  :return
   (= (length list) 0))
 
 (lambda indent [str level]
@@ -86,7 +86,7 @@
   (if (or (empty? files)
           (not (env.conf opts [:compiler :verbose])))
       (lua :return))
-  (if (env.conf opts [:compiler :float]) 
+  (if (env.conf opts [:compiler :float])
       ((vim.schedule_wrap #(log.float-success title files)))
       :else
       (log.print-success title files))
@@ -103,10 +103,10 @@
 
 ; EXAMPLES:
 ; (log.success "COMPILED" ["tangerine.fnl" "lol/init.fnl" "lol/bazzz.fnl" "more/stuff/fooo.fnl"] {:float true :verbose true})
-; (log.failure "COMPILE ERROR" "tangerine.fnl" 
+; (log.failure "COMPILE ERROR" "tangerine.fnl"
 ; "SOME ERROR HAPPENED HERE
 ; # try doing foo
 ; # try doing baz" {:float true})
 
- 
+
 :return log

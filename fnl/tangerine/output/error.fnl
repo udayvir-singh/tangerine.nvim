@@ -23,7 +23,7 @@
 
 (lambda err.compile? [msg]
   "checks if 'msg' is an compile-time error."
-  (toboolean 
+  (toboolean
     (or (msg:match "^Parse error.*:([0-9]+)")
         (msg:match "^Compile error.*:([0-9]+)"))))
 
@@ -68,7 +68,7 @@
         :message msg
       }]
       (if virtual?
-        {:virtual_text {:spacing 1 :prefix ";;"}} 
+        {:virtual_text {:spacing 1 :prefix ";;"}}
         {:virtual_text false}))
     :cleanup
     (timer.get:start (* 1000 timeout) 0

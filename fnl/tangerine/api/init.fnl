@@ -11,7 +11,7 @@
 (lambda lazy [module func]
   "lazy require 'module' and call 'func' from it."
   (fn [...]
-      ((-> (require (.. prefix module)) 
+      ((-> (require (.. prefix module))
            (. func)) ...)))
 
 

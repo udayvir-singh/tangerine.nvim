@@ -9,8 +9,8 @@
 ;; -------------------- ;;
 ;;        Stack         ;;
 ;; -------------------- ;;
-(local win-stack { 
-  ; "contains list of active floats in [win conf] chunks" 
+(local win-stack {
+  ; "contains list of active floats in [win conf] chunks"
   :total 0
 })
 
@@ -47,7 +47,7 @@
 
 (let [{: timer} {:timer (vim.loop.new_timer)}] ;; cache timer
   "auto update win-stack every 200ms."
-  (timer:start 200 200 
+  (timer:start 200 200
                (vim.schedule_wrap update-stack)))
 
 
@@ -94,10 +94,10 @@
           (when (= win current)
             (vim.api.nvim_win_close win true)
             (update-stack)
-            (move-stack 
+            (move-stack
               (if (. win-stack idx) idx
-                  (. win-stack (+ idx 1)) (+ idx 1) 
-                  (- idx 1)) 
+                  (. win-stack (+ idx 1)) (+ idx 1)
+                  (- idx 1))
               (do :steps 0))))
     :return true))
 
@@ -155,7 +155,7 @@
         width      (- win-width bordersize)
         height     (math.max 1 (math.floor (math.min (/ win-height 1.5) lineheight)))]
   (vim.api.nvim_open_win buffer true {
-    : width 
+    : width
     : height
     :col 0
     :row (- win-height bordersize height win-stack.total)

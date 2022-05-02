@@ -81,7 +81,7 @@
   (let [fennel   (fennel.load)
         filename (or opts.filename "tangerine-out")
         globals  (env.conf opts [:compiler :globals])]
-    (fennel.compileString str 
+    (fennel.compileString str
                           {:filename filename :allowedGlobals globals :compilerEnv _G})))
 
 (lambda compile.file [source target ?opts]
@@ -91,7 +91,7 @@
   (let [source (p.resolve source)
         target (p.resolve target)
         sname  (p.shortname source)
-        opts   (tbl-merge opts {:filename sname})] 
+        opts   (tbl-merge opts {:filename sname})]
     (assert (fs.readable? source)
             (.. "[tangerine]: source " (or sname source) " is not readable."))
     :compile
@@ -109,8 +109,8 @@
   (each [_ source (ipairs (p.wildcard sourcedir "**/*.fnl"))]
         (local sname  (p.shortname source))
         (local opts   (tbl-merge {:filename sname} opts))
-        (local target 
-          (-> source 
+        (local target
+          (-> source
               (string.gsub :fnl$ :lua)
               (string.gsub (p.resolve sourcedir) (p.resolve targetdir))))
         :compile
@@ -140,10 +140,10 @@
   (let [bufname (vim.fn.expand :%:p)
         sname   (vim.fn.expand :%:t)
         target  (p.target bufname)]
-    :compile 
+    :compile
     (hpcall #(compile.file bufname target (tbl-merge opts {:filename sname}))
             #(log.failure "COMPILE ERROR" sname $1 opts))
-    :logger 
+    :logger
     (if (env.conf opts [:compiler :verbose])
         (compiled sname))
     :return true))
@@ -160,7 +160,7 @@
       :compile
       (hpcall #(compile.file source target opts)
               #(log.failure "COMPILE ERROR" sname $1 opts))
-      :logger 
+      :logger
       (table.insert logs sname)
       (if (env.conf opts [:compiler :verbose])
           (compiled sname)))
@@ -175,7 +175,7 @@
   :compile
   (each [_ dir (ipairs dirs)]
         (hmerge logs (compile.dir dir dir (tbl-merge {:verbose false} opts))))
-  :logger 
+  :logger
   (log.success "COMPILED RTP" logs opts)
   :return logs)
 

@@ -9,7 +9,7 @@
 
     (eval.string "1")
     (eql (float-lines) ":return 1")
-    
+
     (eval.string "foo" {:filename "test.fnl"})
     (fnd (float-lines) "test.fnl.+strict mode: foo"))
 
@@ -17,11 +17,11 @@
   (it "eval file"
     (let [source "/tmp/eval.fnl"]
       (fs.write source ":eval [1]")
-      
+
       (eql (eval.file source {:float false}) [1])
 
       (fs.remove source)))
-  
+
 
   (it "eval buffer"
     (with-buf [:test.fnl gl sl]

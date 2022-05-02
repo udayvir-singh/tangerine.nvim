@@ -18,7 +18,7 @@
   (each [idx val (ipairs opts)]
         (if (odd? idx)
             (set out (.. out "-" val))
-            :else 
+            :else
             (set out (.. out "=" val " "))))
   out)
 

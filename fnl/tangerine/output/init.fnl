@@ -7,6 +7,6 @@
   :err "tangerine.output.error"
 })
 
-:return (setmetatable {} { 
+:return (setmetatable {} {
   :__index #(require (. modules $2))
 })

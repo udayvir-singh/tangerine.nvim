@@ -37,7 +37,7 @@
 ;; -------------------- ;;
 ;;       Fennel         ;;
 ;; -------------------- ;;
-(local orig { 
+(local orig {
   ; "cache of original package.path."
   :path package.path
 })

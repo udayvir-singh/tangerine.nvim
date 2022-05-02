@@ -1,6 +1,6 @@
 ; ABOUT:
 ;   Contains diffing algorithm used by compiler.
-; 
+;
 ;   Works by creating marker that looks like `-- :fennel:<UTC>`,
 ;   compares UTC in marker to ftime(source).
 (local df {})
@@ -16,7 +16,7 @@
   (with-open [file (assert (io.open path "r"))]
     (local bytes  (or (file:read 21) ""))
     (local marker (bytes:match ":fennel:([0-9]+)"))
-    (if marker 
+    (if marker
         (tonumber marker)
         :else false)))
 

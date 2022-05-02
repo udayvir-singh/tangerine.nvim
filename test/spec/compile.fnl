@@ -3,7 +3,7 @@
 (test "COMPILER API"
   (module fs      :tangerine.utils.fs)
   (module compile :tangerine.api.compile)
-  
+
   ;; -------------------- ;;
   ;;        Utils         ;;
   ;; -------------------- ;;
@@ -30,8 +30,8 @@
 
     (err (compile.string ":return vim" {:filename "test.fnl" :globals []})
          "test.fnl.-unknown identifier in strict mode: vim"))
-  
-  
+
+
   (it "compile file"
     (let [parent :/tmp/compile
           source (.. parent "/a.fnl")
@@ -42,7 +42,7 @@
       (check target)
 
       (fs.remove parent)))
-  
+
 
   (it "compile dir"
     (let [source "/tmp/compile"
@@ -65,7 +65,7 @@
 
       (fs.remove vimrc target)))
 
-  
+
   (it "compile rtp"
     (let [dir (.. config "/rtp")]
       (setup dir)

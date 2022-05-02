@@ -1,6 +1,6 @@
 ; ABOUT:
 ;   Provides extra utils and syntactic sugar over main test library.
-;   
+;
 ; DEPENDS:
 ; (call)        test
 ; (float-lines) utils[window]
@@ -49,7 +49,7 @@
 ;; -------------------- ;;
 (lambda M.module [name mod]
   "defines test for module 'mod' and assigns return value to 'name'."
-  `(local ,name 
+  `(local ,name
      (it ,(.. "require " (string.gsub mod "^.+[%./]" ""))
          (require ,mod))))
 
@@ -86,7 +86,7 @@
          ; close window
          (vim.api.nvim_win_close w# true)
          (lua :break)))
-     ; bubble 
+     ; bubble
      (assert out# "current window is not a float.")
      :return
      (table.concat out# "\n")))

@@ -102,7 +102,7 @@ NFILES="$(wc -l <<< "${FILES}")"
 
 for FILE in ${FILES}; do
 	## Get Lines of code
-	Lines=$(lines ${FILE}) 
+	Lines=$(lines ${FILE})
 	Blank=$(count ${FILE} "${BLANK}")
 	Code=$(( Lines - Blank ))
 

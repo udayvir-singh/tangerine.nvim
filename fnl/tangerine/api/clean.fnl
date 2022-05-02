@@ -14,7 +14,7 @@
   : env
 } (require :tangerine.utils))
 
-(local { 
+(local {
   : log
 } (require :tangerine.output))
 
@@ -38,7 +38,7 @@
 ;;         MAIN         ;;
 ;; -------------------- ;;
 (lambda clean.target [source target ?opts]
-  "checks if lua:'target' is Marked and has a readable fnl:'source', 
+  "checks if lua:'target' is Marked and has a readable fnl:'source',
    if not then it deletes 'target'."
   ;; opts { :force boolean }
   (local opts (or ?opts {}))
@@ -74,7 +74,7 @@
   (merge logs
     (clean.rtp (tbl-merge {:verbose false} opts)))
   (each [_ target (ipairs (p.list-lua-files))]
-        (if (clean.target (p.source target) target opts) 
+        (if (clean.target (p.source target) target opts)
             (table.insert logs (p.shortname target))))
   :logger (log.success "CLEANED" logs opts)
   :return logs)

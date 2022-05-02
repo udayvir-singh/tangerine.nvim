@@ -32,7 +32,7 @@
 
 (lambda get-type [x]
   "returns type of x, correctly types lists."
-  (if (vim.tbl_islist x) 
+  (if (vim.tbl_islist x)
       (do "list")
       (type x)))
 
@@ -53,7 +53,7 @@
   "returns default lua formatter for ENV."
   (let [exec  (vim.fn.expand "~/.luarocks/bin/lua-format")
         width (vim.api.nvim_win_get_width 0)]
-    :return [ 
+    :return [
       exec
       "--spaces-inside-table-braces"
       "--column-table-limit" (math.floor (/ width 1.7))
@@ -64,7 +64,7 @@
 ;; -------------------- ;;
 ;;        Schema        ;;
 ;; -------------------- ;;
-(local pre-schema { 
+(local pre-schema {
   ; "pre processors called before setting ENV"
   :source  resolve
   :target  resolve
@@ -136,7 +136,7 @@
     :clean   true
     :force   false
     :verbose true
-    :version "latest"           
+    :version "latest"
     :globals (vim.tbl_keys _G)
     :hooks   []
   }
@@ -262,4 +262,4 @@
   :get  env-get
   :set  env-set
   :conf env-get-conf
-} 
+}

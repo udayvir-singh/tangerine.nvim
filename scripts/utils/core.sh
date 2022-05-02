@@ -21,8 +21,8 @@ log () {
 		echo "  ${HEADER} ${CONTENT}" > /tmp/tangerine-err
 	fi
 
-	echo -e "   \e[1;3${COLOR}m${HEADER}\e[0m \e[${BOLD}m${CONTENT}\e[0m" 
-} 
+	echo -e "   \e[1;3${COLOR}m${HEADER}\e[0m \e[${BOLD}m${CONTENT}\e[0m"
+}
 
 logcat () {
 	cat "${1}" | sed "s/^/       /" >&2

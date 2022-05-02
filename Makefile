@@ -62,7 +62,7 @@ install:
 uninstall:
 	rm -rf $(INSTALL_DIR)
 	echo :: UN-INSTALLED TANGERINE
-	
+
 
 # ------------------- #
 #       TESTING       #

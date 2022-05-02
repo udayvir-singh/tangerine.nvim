@@ -10,6 +10,6 @@
   :win "tangerine.utils.window"
 })
 
-:return (setmetatable {} { 
+:return (setmetatable {} {
   :__index #(require (. modules $2))
 })

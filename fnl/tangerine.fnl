@@ -43,5 +43,5 @@
 
 
 :return {
-  : setup 
+  : setup
 }

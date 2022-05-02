@@ -35,7 +35,7 @@ for SOURCE in ${SOURCES}; do
 	[ ! -d "${TARGET_DIR}" ] && mkdir -p "${TARGET_DIR}"
 
 	if compile "${SOURCE}" "${TARGET}"; then
-		log 2 "${TITLE}" 
+		log 2 "${TITLE}"
 	else
 		log 1 "${TITLE}" >&2
 		logcat "${LOGFILE}"

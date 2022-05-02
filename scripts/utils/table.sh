@@ -55,7 +55,7 @@ DRAW_BLOCK () {
 # --------------------- #
 #         MAIN          #
 # --------------------- #
-DRAW_LINE () { 
+DRAW_LINE () {
 	START="$1"
 	END="$2"
 	SEPARATOR="$3"
@@ -69,7 +69,7 @@ DRAW_LINE () {
 	ENDL
 }
 
-DRAW_HEADER () { 
+DRAW_HEADER () {
 	PRIMARY="${1-}"
 	shift 1
 	NO_BLOCKS="${#@}"

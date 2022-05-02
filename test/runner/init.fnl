@@ -72,8 +72,8 @@
   (log ":: TEST" name)
   :exec
   (xpcall func
-    (fn [err] 
-      (set stat.pass false) 
+    (fn [err]
+      (set stat.pass false)
       (log (.. "   [r1]INLINE ERROR:[0]\n[r]" (parse-err err 5) "[0]"))))
   :logs
   (if stat.pass
@@ -137,7 +137,7 @@
 (lambda M.err [func xs ?scope]
   "asserts if 'func' returns an error that matches 'xs'."
   (local (ok? res) (pcall func))
-  (M.asrt :ERROR 
+  (M.asrt :ERROR
           (and (not ok?) (or (string.find res xs) false))
           {:items [res xs] :scope ?scope}))
 

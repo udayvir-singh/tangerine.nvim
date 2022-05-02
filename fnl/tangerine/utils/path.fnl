@@ -59,7 +59,7 @@
   "open lua:target of current fennel buffer."
   (let [source (vim.fn.expand :%:p)
         target (p.target source)]
-    (if (and (= 1 (vim.fn.filereadable target)) 
+    (if (and (= 1 (vim.fn.filereadable target))
              (not= source target))
         (vim.cmd (.. "edit" target))
         :else
