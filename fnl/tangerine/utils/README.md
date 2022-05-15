@@ -33,13 +33,10 @@ Provides getter and setter so that multiple modules can have shared configuratio
 **EXPORTS**
 ```fennel
 :fs {
-  :dir-exists? (function 1)
-  :dirname (function 2)
-  :mkdir (function 3)
-  :read (function 4)
-  :readable? (function 5)
-  :remove (function 6)
-  :write (function 7)
+  :read (function 1)
+  :readable? (function 2)
+  :remove (function 3)
+  :write (function 4)
 }
 ```
 

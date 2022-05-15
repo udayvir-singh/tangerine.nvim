@@ -18,6 +18,8 @@ local function augroup(name, ...)
   exec("augroup", "END")
   return true
 end
+local flat = vim.tbl_flatten
+local map = vim.tbl_map
 hooks.run = function()
   if env.get("compiler", "clean") then
     _G.tangerine.api.clean.orphaned()
@@ -27,10 +29,12 @@ hooks.run = function()
 end
 local run_hooks = "lua require 'tangerine.vim.hooks'.run()"
 hooks.onsave = function()
-  local vimrc = env.get("vimrc")
-  local source = env.get("source")
-  local sources = (source .. "*.fnl," .. vimrc)
-  return augroup("tangerine-onsave", {{"BufWritePost", sources}, run_hooks})
+  local pat
+  local function _2_(_241)
+    return (_241 .. "*.fnl")
+  end
+  pat = {env.get("vimrc"), (env.get("source") .. "*.fnl"), map(_2_, map(vim.fn.resolve, env.get("rtpdirs")))}
+  return augroup("tangerine-onsave", {{"BufWritePost", table.concat(flat(pat), ",")}, run_hooks})
 end
 hooks.onload = function()
   return augroup("tangerine-onload", {{"VimEnter", "*"}, run_hooks})
@@ -38,4 +42,5 @@ end
 hooks.oninit = function()
   return hooks.run()
 end
+hooks.onsave()
 return hooks
