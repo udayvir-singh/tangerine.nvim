@@ -24,21 +24,21 @@ watch-build:
 		notify-send "BUILD ERROR" "$$(cat /tmp/tangerine-err)"'
 
 deps:
-	./scripts/link deps/lua lua/tangerine/fennel
+	./scripts/link deps/lua lua/tangerine/fennel || exit
 
 fnl:
-	./scripts/fennel "$(FENNEL_BIN)" "$(SOURCE_DIR)"
+	./scripts/fennel "$(FENNEL_BIN)" "$(SOURCE_DIR)" || exit
 	echo "# ABOUT
 	Contains compiled output from [fennel](../fnl) dir.
 		
 	DON'T make direct changes to lua files since they will be deleted by build runner." > lua/README.md
 
 fnldoc:
-	./scripts/fnldoc fnl/tangerine
+	./scripts/fnldoc fnl/tangerine || exit
 
 vimdoc:
 	[ -d doc ] || mkdir doc
-	./scripts/docs README.md ./doc/tangerine.txt
+	./scripts/docs README.md ./doc/tangerine.txt || exit
 ifndef NO_HELPTAGS
 	echo :: GENERATING HELPTAGS
 	nvim -n --noplugin --headless -c "helptags doc" -c "q" doc/tangerine.txt
