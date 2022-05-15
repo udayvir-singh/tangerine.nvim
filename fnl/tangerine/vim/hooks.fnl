@@ -29,6 +29,9 @@
   (exec :augroup "END")
   :return true)
 
+(local flat vim.tbl_flatten)
+(local map  vim.tbl_map)
+
 
 ;; -------------------- ;;
 ;;         AUGS         ;;
@@ -44,11 +47,14 @@
 
 (lambda hooks.onsave []
   "runs everytime fennel files in source dirs are saved."
-  (let [vimrc   (env.get :vimrc)
-        source  (env.get :source)
-        sources (.. source "*.fnl," vimrc )]
-    (augroup :tangerine-onsave
-             [[:BufWritePost sources] run-hooks])))
+  (local pat [
+    (env.get :vimrc)
+    (.. (env.get :source) "*.fnl")
+    (map #(.. $ "*.fnl")
+          (map vim.fn.resolve (env.get :rtpdirs)))
+  ])
+  (augroup :tangerine-onsave
+           [[:BufWritePost (table.concat (flat pat) ",")] run-hooks]))
 
 (lambda hooks.onload []
   "runs when VimEnter event fires."
@@ -60,4 +66,5 @@
   :call (hooks.run))
 
 
+(hooks.onsave)
 :return hooks
