@@ -42,5 +42,4 @@ end
 hooks.oninit = function()
   return hooks.run()
 end
-hooks.onsave()
 return hooks
