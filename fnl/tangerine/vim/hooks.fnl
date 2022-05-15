@@ -66,5 +66,4 @@
   :call (hooks.run))
 
 
-(hooks.onsave)
 :return hooks
