@@ -6,7 +6,7 @@
   :fs  "tangerine.utils.fs"
   :df  "tangerine.utils.diff"
   :env "tangerine.utils.env"
-  :log "tangerine.utils.logger"
+  :srl "tangerine.utils.srlize"
   :win "tangerine.utils.window"
 })
 

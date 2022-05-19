@@ -653,23 +653,18 @@ Peak lua output for lines {start} to {end} inside a scratch buffer.
 <pre lang="fennel"><code> (tangerine.api.goto_output)
 </pre></code>
 
-Open lua source of current fennel buffer in a new buffer
+Open lua source of current fennel buffer in a new buffer.
 
 <!-- doc=tangerine.api.serialize() -->
 #### serialize
-<pre lang="fennel"><code> (tangerine.api.serialize {val} {ret?})
+<pre lang="fennel"><code> (tangerine.api.serialize {...})
 </pre></code>
 
-Return a human-readable representation of given {val}.
+Returns human-readable representation of {...}.
 
-Appends return block if {ret?} is `true`
-
-##### Examples:
+##### Example:
 ```fennel
-(tangerine.api.serialize foo)
--> "[ 1 2 3 4 ]"
-
-(tangerine.api.serialize foo true)
+(tangerine.api.serialize example)
 -> ":return [ 1 2 3 4 ]"
 ```
 ## Windows Api

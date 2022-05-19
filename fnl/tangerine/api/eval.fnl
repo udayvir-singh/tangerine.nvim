@@ -50,12 +50,13 @@
         filename (or opts.filename :string)]
     (err.clear) ;; clear previous errors
     (local (ok result)
-      (xpcall #(fennel.eval str {: filename :compilerEnv _G})
+      (xpcall #[(fennel.eval str {: filename :compilerEnv _G})]
               #(err.handle $1 opts)))
     (if (not ok)
         (lua "return false"))
     (dp.show result opts)
-    :return result))
+    :return
+    (unpack result)))
 
 (lambda eval.file [path ?opts]
   "reads 'path' and passes it off for evaluation."

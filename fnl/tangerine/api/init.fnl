@@ -1,18 +1,18 @@
 ; DEPENDS:
 ; :return api[*]
 ; :return utils[path]
-; :return utils[logger]
+; :return utils[srlize]
 ; :return utils[window]
-(local prefix "tangerine.")
 
 ;; -------------------- ;;
 ;;         Utils        ;;
 ;; -------------------- ;;
-(lambda lazy [module func]
-  "lazy require 'module' and call 'func' from it."
+(lambda lazy [module ?func]
+  "lazy require 'module' and optionally calls 'func'."
   (fn [...]
-      ((-> (require (.. prefix module))
-           (. func)) ...)))
+    (local mod (require (.. "tangerine." module)))
+    :return
+    ((if ?func (. mod ?func) mod) ...)))
 
 
 ;; -------------------- ;;
@@ -48,5 +48,5 @@
     :killall (lazy :utils.window "killall")
   }
   :goto_output (lazy :utils.path "goto-output")
-  :serialize   (lazy :output.display "serialize")
+  :serialize   (lazy :utils.srlize)
 }

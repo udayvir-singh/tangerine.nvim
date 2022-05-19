@@ -5,6 +5,9 @@
 ;   compares UTC in marker to ftime(source).
 (local df {})
 
+;; -------------------- ;;
+;;         Main         ;;
+;; -------------------- ;;
 (lambda df.create-marker [source]
   "generates a comment tag from ftime of 'source'."
   (let [base "-- :fennel:"
