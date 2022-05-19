@@ -10,8 +10,8 @@ utils[env]
 **EXPORTS**
 ```fennel
 :fennel {
-  :load (function 1)
-  :patch-path (function 2)
+	:load (function 1)
+	:patch-path (function 2)
 }
 ```
 
@@ -25,7 +25,7 @@ utils[env]
 # output/
 | MODULE                                   | DESCRIPTION                                                  |
 | ---------------------------------------- | ------------------------------------------------------------ |
-|   [display.fnl](./output/display.fnl)    | Serializes evaluation results and pretty prints them.        |
+|   [display.fnl](./output/display.fnl)    | Displays serialized evaluation results.                      |
 |     [error.fnl](./output/error.fnl)      | Sends headache of errors made by devs' to the users.         |
 |    [logger.fnl](./output/logger.fnl)     | Displays compiler success/failure logs to the users.         |
 
@@ -36,6 +36,7 @@ utils[env]
 |       [env.fnl](./utils/env.fnl)         | Stores environment used by rest of tangerine                 |
 |        [fs.fnl](./utils/fs.fnl)          | Basic utils around file system handlers.                     |
 |      [path.fnl](./utils/path.fnl)        | Provides path manipulation and indexing functions            |
+|    [srlize.fnl](./utils/srlize.fnl)      | Serializes lua data structures into fennel syntax.           |
 |    [window.fnl](./utils/window.fnl)      | Contains functions to create and control floating windows.   |
 
 # vim/

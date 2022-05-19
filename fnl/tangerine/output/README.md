@@ -1,19 +1,18 @@
 # display.fnl
-> Serializes evaluation results and pretty prints them.
+> Displays serialized evaluation results.
 
 **DEPENDS:**
 ```
 utils[env]
+utils[srlize]
 utils[window]
 ```
 
 **EXPORTS**
 ```fennel
 :display {
-  :format (function 1)
-  :serialize (function 2)
-  :show (function 3)
-  :show-lua (function 4)
+	:show (function 1)
+	:show-lua (function 2)
 }
 ```
 
@@ -29,13 +28,13 @@ utils[window]
 **EXPORTS**
 ```fennel
 :error {
-  :clear (function 1)
-  :compile? (function 2)
-  :float (function 3)
-  :handle (function 4)
-  :parse (function 5)
-  :send (function 6)
-  :soft (function 7)
+	:clear (function 1)
+	:compile? (function 2)
+	:float (function 3)
+	:handle (function 4)
+	:parse (function 5)
+	:send (function 6)
+	:soft (function 7)
 }
 ```
 
@@ -51,12 +50,12 @@ utils[window]
 **EXPORTS**
 ```fennel
 :logger {
-  :failure (function 1)
-  :float-failure (function 2)
-  :float-success (function 3)
-  :print-failure (function 4)
-  :print-success (function 5)
-  :success (function 6)
+	:failure (function 1)
+	:float-failure (function 2)
+	:float-success (function 3)
+	:print-failure (function 4)
+	:print-success (function 5)
+	:success (function 6)
 }
 ```
 

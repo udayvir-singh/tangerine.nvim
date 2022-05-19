@@ -801,24 +801,19 @@ UTILS API                                                *tangerine-utils-api*
 goto_output                            (tangerine.api.goto_output)
 
 
-Open lua source of current fennel buffer in a new buffer
+Open lua source of current fennel buffer in a new buffer.
 
                              *tangerine-serialize* *tangerine.api.serialize()*
 
-serialize                              (tangerine.api.serialize {val} {ret*})
+serialize                              (tangerine.api.serialize {…})
 
 
-Return a human-readable representation of given {val}.
+Returns human-readable representation of {…}.
 
-Appends return block if {ret*} is `true`
-
-EXAMPLES: ~
+EXAMPLE: ~
 
 >
-    (tangerine.api.serialize foo)
-    -> "[ 1 2 3 4 ]"
-    
-    (tangerine.api.serialize foo true)
+    (tangerine.api.serialize example)
     -> ":return [ 1 2 3 4 ]"
 <
 

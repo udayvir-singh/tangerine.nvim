@@ -34,7 +34,7 @@ eval.string = function(str, _3fopts)
   err.clear()
   local ok, result = nil, nil
   local function _4_()
-    return fennel0.eval(str, {filename = filename, compilerEnv = _G})
+    return {fennel0.eval(str, {filename = filename, compilerEnv = _G})}
   end
   local function _5_(_241)
     return err.handle(_241, opts)
@@ -45,10 +45,10 @@ eval.string = function(str, _3fopts)
   else
   end
   dp.show(result, opts)
-  return result
+  return unpack(result)
 end
 eval.file = function(path, _3fopts)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/api/eval.fnl:60")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/api/eval.fnl:61")
   local opts = (_3fopts or {})
   local path0 = p.resolve(path)
   local sname = p.shortname(path0)
@@ -56,8 +56,8 @@ eval.file = function(path, _3fopts)
   return eval.string(fs.read(path0), tbl_merge(opts, {filename = sname}))
 end
 eval.buffer = function(start, _end, _3fopts)
-  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:71")
-  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:71")
+  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:72")
+  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:72")
   local opts = (_3fopts or {})
   local start0 = (start - 1)
   local lines = get_lines(start0, _end)
@@ -65,8 +65,8 @@ eval.buffer = function(start, _end, _3fopts)
   return eval.string(lines, tbl_merge(opts, {filename = bufname, offset = start0}))
 end
 eval.peak = function(start, _end, _3fopts)
-  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:89")
-  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:89")
+  _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:90")
+  _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:90")
   local opts = (_3fopts or {})
   local fennel0 = fennel.load()
   local start0 = (start - 1)
