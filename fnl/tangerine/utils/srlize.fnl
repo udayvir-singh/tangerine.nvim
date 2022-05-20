@@ -230,7 +230,8 @@
       (or (= :number  tv) (= :boolean tv))
       (tostring val)
       :else
-      (string.format "(%s %s)" tv (if ?dry :nil (add-ref val)))))
+      (or (get-ref val)
+          (string.format "(%s %s)" tv (if ?dry :nil (add-ref val))))))
 
 
 ; ---------------------- ;
