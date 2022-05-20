@@ -284,6 +284,31 @@
       (.. ":" x)
       (parse:this x (+ level 1))))
 
+(lambda key-padding [tbl]
+  "calculates padding after keys in 'tbl'."
+  (var out {})
+  (var buf [])
+  (var len 1)
+  (fn checkout []
+    "puts keys in 'buf' with 'len' to 'out'."
+    (each [_ key (ipairs buf)]
+      (tset out key (- len (length key))))
+    (set buf [])
+    (set len 1))
+  (each [key val (opairs tbl)]
+    (if (and (= :string (type key))
+             (not= :table (type val)))
+        ; push key in buffer and update len
+        (let [klen (+ 1 (# key))]
+          (table.insert buf key)
+          (if (> klen len)
+              (set len klen)))
+        ; checkout buffer to out
+        (do (checkout)
+            (tset out key 1))))
+  (checkout)
+  :return out)
+
 (lambda parse.table [tbl level]
   "parses key:val 'tbl' into human readable form."
   (gaurd (get-ref tbl))
@@ -293,10 +318,12 @@
       (set ref (string.format " ; (%s)" (add-ref tbl))))
   ; parse table
   (var out "")
+  (var pad (key-padding tbl))
   (each [k v (opairs tbl)]
     (append out
       (tab level)
-      (parse.key  k (+ level 1)) " "
+      (parse.key  k (+ level 1))
+      (string.rep " " (. pad k))
       (parse:this v (+ level 1))))
   ; parse metatable
   (local mtbl (parse.metatable tbl (+ level 1)))
@@ -328,7 +355,7 @@
 
 ; EXAMPLES:
 ; (local {: win} (require :tangerine.utils))
-; (win.set-float (serialize (tangerine.fennel)) :fennel :normal)
+; (win.set-float (serialize vim) :fennel :normal)
 ;
 ; (time :serialize 5 (serialize _G))
 
