@@ -1,7 +1,7 @@
 local env = require("tangerine.utils.env")
 local win = {}
 local win_stack = {total = 0}
-win._stack_ = win_stack
+win.__stack = win_stack
 local function insert_stack(win_2a)
   _G.assert((nil ~= win_2a), "Missing argument win* on fnl/tangerine/utils/window.fnl:19")
   return table.insert(win_stack, {win_2a, vim.api.nvim_win_get_config(win_2a)})

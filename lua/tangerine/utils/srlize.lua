@@ -275,9 +275,38 @@ parse.key = function(x, level)
     return parse:this(x, (level + 1))
   end
 end
-parse.table = function(tbl, level)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:287")
+local function key_padding(tbl)
   _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:287")
+  local out = {}
+  local buf = {}
+  local len = 1
+  local function checkout()
+    for _, key in ipairs(buf) do
+      out[key] = (len - #key)
+    end
+    buf = {}
+    len = 1
+    return nil
+  end
+  for key, val in opairs(tbl) do
+    if (("string" == type(key)) and ("table" ~= type(val))) then
+      local klen = (1 + #key)
+      table.insert(buf, key)
+      if (klen > len) then
+        len = klen
+      else
+      end
+    else
+      checkout()
+      do end (out)[key] = 1
+    end
+  end
+  checkout()
+  return out
+end
+parse.table = function(tbl, level)
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:312")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:312")
   do
     local out = get_ref(tbl)
     if get_ref(tbl) then
@@ -291,15 +320,16 @@ parse.table = function(tbl, level)
   else
   end
   local out = ""
+  local pad = key_padding(tbl)
   for k, v in opairs(tbl) do
-    out = (out .. (tab(level) or "") .. (parse.key(k, (level + 1)) or "") .. (" " or "") .. (parse:this(v, (level + 1)) or ""))
+    out = (out .. (tab(level) or "") .. (parse.key(k, (level + 1)) or "") .. (string.rep(" ", pad[k]) or "") .. (parse:this(v, (level + 1)) or ""))
   end
   local mtbl = parse.metatable(tbl, (level + 1))
   return ("{" .. ref .. out .. mtbl .. tab((level - 1)) .. "}")
 end
 parse.metatable = function(tbl, level)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:306")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:306")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:333")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:333")
   local mtbl = getmetatable(tbl)
   do
     local out = ""
