@@ -185,14 +185,14 @@ parse.primitive = function(val, _3fdry)
         return add_ref(val)
       end
     end
-    return string.format("(%s %s)", tv, _16_())
+    return (get_ref(val) or string.format("(%s %s)", tv, _16_()))
   else
     return nil
   end
 end
 local function multi_line_3f(list, level, _3fkey)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:239")
-  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:239")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:240")
+  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:240")
   do
     local out = recursive_3f(list)
     if recursive_3f(list) then
@@ -218,8 +218,8 @@ local function multi_line_3f(list, level, _3fkey)
   return (width > vim.api.nvim_win_get_width(0))
 end
 parse.list = function(list, level, _3fkey)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:252")
-  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:252")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:253")
+  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:253")
   do
     local out = get_ref(list)
     if get_ref(list) then
@@ -263,12 +263,12 @@ parse.list = function(list, level, _3fkey)
   return ("[" .. ref .. out .. mtbl .. _25_() .. "]")
 end
 local function keyword_3f(x)
-  _G.assert((nil ~= x), "Missing argument x on fnl/tangerine/utils/srlize.fnl:276")
+  _G.assert((nil ~= x), "Missing argument x on fnl/tangerine/utils/srlize.fnl:277")
   return (("string" == type(x)) and not string.find(x, "[%s%c%(%)%[%]%{%}\"'`,;@~]"))
 end
 parse.key = function(x, level)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:281")
-  _G.assert((nil ~= x), "Missing argument x on fnl/tangerine/utils/srlize.fnl:281")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:282")
+  _G.assert((nil ~= x), "Missing argument x on fnl/tangerine/utils/srlize.fnl:282")
   if keyword_3f(x) then
     return (":" .. x)
   else
@@ -276,7 +276,7 @@ parse.key = function(x, level)
   end
 end
 local function key_padding(tbl)
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:287")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:288")
   local out = {}
   local buf = {}
   local len = 1
@@ -305,8 +305,8 @@ local function key_padding(tbl)
   return out
 end
 parse.table = function(tbl, level)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:312")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:312")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:313")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:313")
   do
     local out = get_ref(tbl)
     if get_ref(tbl) then
@@ -328,8 +328,8 @@ parse.table = function(tbl, level)
   return ("{" .. ref .. out .. mtbl .. tab((level - 1)) .. "}")
 end
 parse.metatable = function(tbl, level)
-  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:333")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:333")
+  _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:334")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:334")
   local mtbl = getmetatable(tbl)
   do
     local out = ""
