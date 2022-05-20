@@ -14,7 +14,7 @@
   :total 0
 })
 
-(set win._stack_ win-stack)
+(set win.__stack win-stack)
 
 (lambda insert-stack [win*]
   "insert 'win*' into win-stack."

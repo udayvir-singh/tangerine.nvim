@@ -77,7 +77,7 @@
 
 (lambda M.float-lines []
   "returns lines in current floating window, auto closes it afterwards."
-  `(let [stack# (. ,window :_stack_)]
+  `(let [stack# (. ,window :__stack)]
      (var out# nil)
      ; search stack
      (each [i# [w#] (ipairs stack#)]
