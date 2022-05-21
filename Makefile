@@ -95,7 +95,7 @@ test:
 #         GIT         #
 # ------------------- #
 GIT := $(shell if command -v git &>/dev/null; then echo git; else echo true; fi)
- 
+
 LUA_FILES := $(shell $(GIT) ls-files lua)
 DOC_FILES := $(shell $(GIT) ls-files "fnl/*/README.md")
 
@@ -129,16 +129,16 @@ loc-fennel:
 loc-test:
 	./scripts/loc/fennel --dir test --title TEST $(LOC_ARGS)
 
-loc-bash: 
+loc-bash:
 	./scripts/loc/bash $(LOC_ARGS)
 
-loc-markdown: 
+loc-markdown:
 	./scripts/loc/markdown $(LOC_ARGS)
 
-loc-makefile: 
+loc-makefile:
 	./scripts/loc/makefile $(LOC_ARGS)
 
-loc-yaml: 
+loc-yaml:
 	./scripts/loc/yaml $(LOC_ARGS)
 
 
@@ -147,46 +147,46 @@ loc-yaml:
 # ------------------- #
 define HELP
 | Usage: make [target] ...
-| 
+|
 | Building:
 |   :fnl            compiles fennel files
 |   :deps           copy required deps in lua folder
 |   :vimdoc         runs panvimdoc to generate vimdocs
 |   :fnldoc         generates module level README
-| 
+|
 |   :build          combines :fnl :deps :fnldoc :vimdoc
 |   :watch-build    watches source dir, runs :build on changes
-| 
+|
 |   :install        install tangerine on this system
 |   :clean          deletes build and install dir
 |   :help           print this help
-| 
-| 
+|
+|
 | Testing:
 |   :runner         compiles test runner library
 |   :test           runs unit tests, pray before executing
-| 
-| 
+|
+|
 | Git helpers:
 |   - Hooks for git meant to be used in development,
 |   - run :git-skip before running :build to prevent output files in git index
-| 
+|
 |   :git-skip       make git ignore build dirs
 |   :git-unskip     reverts git-skip, run :build before executing
 |   :git-pull       clean build dirs before fetching to avoid conflicts
-| 
-| 
+|
+|
 | Lines of Code:
 |   - Pretty prints lines of code in source dirs, possible targets are:
-| 
+|
 |   :loc-fennel
 |   :loc-test
 |   :loc-bash
 |   :loc-markdown
 |   :loc-makefile
 |   :loc-yaml
-| 
-| 
+|
+|
 | Examples:
 |   make clean build
 |   make install
@@ -199,4 +199,3 @@ help:
 	else
 		echo "$(HELP)" | sed "s:^| ::" | less -F
 	fi
-

@@ -80,9 +80,9 @@ require "tangerine".setup {
 
 <br>
 
-:tada: Now start writing your config in `~/.config/nvim/init.fnl`
+:tanabata_tree: Now start writing your config in `~/.config/nvim/init.fnl`.
 
-Optionally you can install [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) for macros.
+:hibiscus: Optionally you can also install [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) for macros.
 
 ---
 
@@ -96,7 +96,7 @@ You can use packer to manage tangerine afterwards:
   (use :udayvir-singh/tangerine.nvim)))
 ```
 
-With [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
+Using [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
 ```fennel
 (require-macros :hibiscus.packer)
 
@@ -137,16 +137,16 @@ local nvim_dir = vim.fn.stdpath [[config]]
 		version = "latest", -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
 
 		-- hooks for tangerine to compile on:
-		-- "onsave" run every time you save fennel file in {source} dir.
+		-- "onsave" run every time you save fennel file in {source} dir
 		-- "onload" run on VimEnter event
 		-- "oninit" run before sourcing init.fnl [recommended than onload]
-		hooks   = []
+		hooks   = {}
 	},
 
 	eval = {
 		float  = true,      -- show results in floating window
-		luafmt = function() -- function that returns formatter for peaked lua
-			return {"lua-format"}
+		luafmt = function() -- function that returns formatter with flags for peaked lua
+			return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
 		end,
 
 		diagnostic = { 
@@ -217,7 +217,7 @@ If bang! is present then forcefully compiles all `source` files
 #### :FnlClean[!]
 Deletes stale or orphaned lua files in `target` dir
 
-If bang! is present then it deletes all compiled lua files.
+If bang! is present then it deletes all compiled lua files
 
 ## Evaluation
 <!-- doc=:Fnl -->
@@ -320,12 +320,26 @@ tangerine.setup {
 
 <br />
 
+**Q: How to make impatient work with tangerine**
+
+**A:** just bootstrap and require impatient before calling tangerine:
+
+```lua
+bootstrap "https://github.com/lewis6991/impatient.nvim"
+
+require [[impatient]]
+
+require [[tangerine]].setup {...}
+```
+
+<br />
+
 **Q: How to use lua files interchangeably with fennel files**
 
 **A:** lua files can simply be stored in `fnl` dir:
 
 ```
-fnl/
+fnl
 ├── options.lua
 └── autocmd.fnl
 ```
@@ -340,7 +354,12 @@ fnl/
 
 **Q: How to fix errors in macros while migrating from hotpot**
 
-**A:** make sure that macro files are suffixed with `-macros.fnl`,
+**A:** make sure that macro files are suffixed with `-macros.fnl`.
+```
+utils
+├── neovim-macros.fnl
+└── packer-macros.fnl
+```
 
 see [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) for more information
 
