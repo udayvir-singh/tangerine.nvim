@@ -195,7 +195,7 @@ endef
 
 help:
 	if command -v bat &>/dev/null; then
-		echo "$(HELP)" | sed "s:^| ::" | bat -p -l clj --theme=ansi
+		echo "$(HELP)" | sed "s:^| \{0,1\}::" | bat -p -l clj --theme=ansi
 	else
-		echo "$(HELP)" | sed "s:^| ::" | less -F
+		echo "$(HELP)" | sed "s:^| \{0,1\}::" | less -F
 	fi
