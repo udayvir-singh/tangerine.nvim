@@ -201,6 +201,7 @@ add much to your config:
         },
     
         keymaps = {
+            -- set them to <Nop> if you want to disable them
             eval_buffer = "gE",
             peak_buffer = "gL",
             goto_output = "gO",
@@ -396,7 +397,7 @@ WINDOW                                                      *tangerine-window*
 **A:** add hooks in config:
 
 >
-    tangerine.setup {
+    require [[tangerine]].setup {
         compiler = {
             -- if you want to compile before loading init.fnl (recommended)
             hooks = ["oninit"]
@@ -413,11 +414,29 @@ WINDOW                                                      *tangerine-window*
 **A:** change target in config:
 
 >
-    tangerine.setup {
+    require [[tangerine]].setup {
         target = "/path/to/your/dir"
     }
 <
 
+
+**Q: How to split an rtpdir into source and target dirs**
+
+**A:** use `tangerine.api.compile.dir` to make custom compilation rules:
+
+>
+    require [[tangerine]].setup {...}
+    
+    local nvim_dir = vim.fn.stdpath [[config]]
+    
+    _G.tangerine.api.compile.dir(
+        nvim_dir .. "/rtpdir/fnl",
+        nvim_dir .. "/rtpdir/lua"
+    )
+<
+
+
+see |tangerine-compile-dir| for more information
 
 **Q: How to make impatient work with tangerine**
 
