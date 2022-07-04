@@ -156,6 +156,7 @@ local nvim_dir = vim.fn.stdpath [[config]]
 	},
 
 	keymaps = {
+		-- set them to <Nop> if you want to disable them
 		eval_buffer = "gE",
 		peak_buffer = "gL",
 		goto_output = "gO",
@@ -296,7 +297,7 @@ Closes all floating windows made by tangerine
 
 **A:** add hooks in config:
 ```lua
-tangerine.setup {
+require [[tangerine]].setup {
 	compiler = {
 		-- if you want to compile before loading init.fnl (recommended)
 		hooks = ["oninit"]
@@ -313,10 +314,28 @@ tangerine.setup {
 
 **A:** change target in config:
 ```lua
-tangerine.setup {
+require [[tangerine]].setup {
 	target = "/path/to/your/dir"
 }
 ```
+
+<br />
+
+**Q: How to split an rtpdir into source and target dirs**
+
+**A:** use `tangerine.api.compile.dir` to make custom compilation rules:
+```lua
+require [[tangerine]].setup {...}
+
+local nvim_dir = vim.fn.stdpath [[config]]
+
+_G.tangerine.api.compile.dir(
+	nvim_dir .. "/rtpdir/fnl",
+	nvim_dir .. "/rtpdir/lua"
+)
+```
+
+see [compile-dir](#compile-dir) for more information
 
 <br />
 
