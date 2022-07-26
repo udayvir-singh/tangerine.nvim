@@ -178,8 +178,8 @@ add much to your config:
             force   = false,    -- disable diffing (not recommended)
             verbose = true,     -- enable messages showing compiled files
     
-            globals = {...},    -- list of alowedGlobals
-            version = "latest", -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
+            globals = vim.tbl_keys(_G), -- list of alowedGlobals
+            version = "latest",         -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
     
             -- hooks for tangerine to compile on:
             -- "onsave" run every time you save fennel file in {source} dir
@@ -194,7 +194,7 @@ add much to your config:
                 return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
             end,
     
-            diagnostic = { 
+            diagnostic = {
                 virtual = true,  -- show errors in virtual text
                 timeout = 10     -- how long should the error persist
             }
@@ -587,8 +587,8 @@ PARAMETERS: ~
 EXAMPLE: ~
 
 >
-    (tangerine.api.compile.dir 
-        :path/fnl 
+    (tangerine.api.compile.dir
+        :path/fnl
         :path/lua
         { :force false :float true :verbose true })
 <
@@ -991,7 +991,7 @@ EXAMPLE WORKFLOW: ~
     $ ...
     $ make clean build
     
-    # commit changes 
+    # commit changes
     $ git commit -a -m "<msg>"
     
     # cleanly fetch from origin
