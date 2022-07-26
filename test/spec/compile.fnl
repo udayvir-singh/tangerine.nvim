@@ -55,6 +55,19 @@
       (fs.remove source target)))
 
 
+  (it "compile custom"
+    (let [source  "/tmp/compile"
+          target1 "/tmp/output1"
+          target2 "/tmp/output2"]
+      (setup source)
+
+      (compile.custom {:custom [[source target1] [source target2]] :verbose false})
+      (check (.. target1 "/a.lua"))
+      (check (.. target2 "/b.lua"))
+
+      (fs.remove source target1 target2)))
+
+
   (it "compile vimrc"
     (let [vimrc  (.. config "/init.fnl")
           target (.. config "/lua/tangerine_vimrc.lua")]

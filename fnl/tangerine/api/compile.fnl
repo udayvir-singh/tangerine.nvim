@@ -28,14 +28,14 @@
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
-(lambda quoted [str]
+(lambda quote* [str]
   "surrounds 'str' with double quotes."
   (let [qt "\""]
     (.. qt str qt)))
 
 (lambda compiled [source]
   "prints compiled message for 'source'."
-  (print (quoted source) "compiled"))
+  (print (quote* source) "compiled"))
 
 (lambda compile? [source target opts]
   "if opts.force != true, then diffs 'source' against 'target'"
@@ -103,7 +103,7 @@
 
 (lambda compile.dir [sourcedir targetdir ?opts]
   "diff compiles fennel files in 'sourcedir' and outputs it to 'targetdir'."
-  ;; opts { :force boolean :verbose boolean :float boolean :globals list }
+  ;; opts { :force boolean :float boolean :verbose boolean :globals list }
   (local opts (or ?opts {}))
   (local logs [])
   (each [_ source (ipairs (p.wildcard sourcedir "**/*.fnl"))]
@@ -168,7 +168,7 @@
 
 (lambda compile.rtp [?opts]
   "diff compiles files in ENV.rtpdirs or 'opts.rtpdirs'"
-  ;; opt { :rtpdirs list :force boolean :float boolean :verbose boolean :globals list }
+  ;; opts { :rtpdirs list :force boolean :float boolean :verbose boolean :globals list }
   (local opts (or ?opts {}))
   (local logs [])
   (local dirs (env.conf opts [:rtpdirs]))
@@ -179,14 +179,29 @@
   (log.success "COMPILED RTP" logs opts)
   :return logs)
 
+(lambda compile.custom [?opts]
+  "diff compiles files in ENV.custom dirs."
+  ;; opts { :force boolean :float boolean :verbose boolean :globals list }
+  (local opts (or ?opts {}))
+  (local logs [])
+  (local args (env.conf opts [:custom]))
+  :compile
+  (each [_ [source target] (ipairs args)]
+    (hmerge logs (vim.tbl_map
+      #(.. (p.shortname source) $)
+      (compile.dir source target (tbl-merge {:verbose false} opts)))))
+  :logger
+  (log.success "COMPILED CUSTOM" logs opts)
+  :return logs)
+
 (lambda compile.all [?opts]
   "diff compiles all indexed fennel files in ENV."
-  ;; opt { :rtpdirs list :force boolean :float boolean :verbose boolean :globals list }
+  ;; opts { :rtpdirs list :force boolean :float boolean :verbose boolean :globals list }
   (local opts  (or ?opts {}))
-  (local copts (tbl-merge {:verbose false} opts))
+  (local opts* (tbl-merge {:verbose false} opts))
   (local logs  [])
   :compile
-  (hmerge logs (compile.vimrc copts))
+  (hmerge logs (compile.vimrc opts*))
   (each [_ source (ipairs (p.list-fnl-files))]
         (local target (p.target source))
         (local sname  (p.shortname source))
@@ -194,16 +209,18 @@
           (table.insert logs sname)
           (hpcall #(compile.file source target opts)
                   #(log.failure "COMPILE ERROR" sname $1 opts))))
-  (hmerge logs (compile.rtp copts))
+  (hmerge logs (compile.rtp opts*))
+  (hmerge logs (compile.custom opts*))
   :logger
   (log.success "COMPILED" logs opts)
   :return logs)
 
 ; EXAMPLES:
 ; (compile.buffer {:verbose true})
-; (compile.vimrc {:force true :verbose true})
-; (compile.rtp {:force true :verbose true :rtpdirs [:plugin]})
-; (compile.all {:force true :verbose true :rtpdirs [:plugin]})
+; (compile.vimrc  {:force true :verbose true})
+; (compile.rtp    {:force true :verbose true :rtpdirs [:plugin]})
+; (compile.custom {:force true :verbose true :rtpdirs [:plugin] :custom [["~/a/fnl" "~/a/lua"]]})
+; (compile.all    {:force false :verbose true :rtpdirs [:plugin] :custom [["~/a/fnl" "~/a/lua"]]})
 
 
 :return compile

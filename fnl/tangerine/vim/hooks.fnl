@@ -50,8 +50,8 @@
   (local pat [
     (env.get :vimrc)
     (.. (env.get :source) "*.fnl")
-    (map #(.. $ "*.fnl")
-          (map vim.fn.resolve (env.get :rtpdirs)))
+    (map #(.. $ "*.fnl") (env.get :rtpdirs))
+    (map #(.. $ "*.fnl") (icollect [_ [s t] (ipairs (env.get :custom))] s))
   ])
   (augroup :tangerine-onsave
            [[:BufWritePost (table.concat (flat pat) ",")] run-hooks]))

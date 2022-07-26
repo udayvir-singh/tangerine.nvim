@@ -24,7 +24,7 @@
 
 (lambda rtpdirs [dirs]
   "resolve list of 'dirs' to valid &rtp paths."
-  (icollect [_ dir (pairs dirs)]
+  (icollect [_ dir (ipairs dirs)]
     (let [path (resolve dir)]
       (if (vim.startswith path "/")
           (do path)
@@ -70,6 +70,7 @@
   :target  resolve
   :vimrc   resolve
   :rtpdirs rtpdirs
+  :custom  #(icollect [_ [s t] (ipairs $)] [(resolve s) (resolve t)])
   :compiler    nil
   :eval        nil
   :keymaps     nil
@@ -83,6 +84,8 @@
   :target  "string"
   :vimrc   "string"
   :rtpdirs [:string]
+
+  :custom [[:string]]
 
   :compiler {
     :float   "boolean"
@@ -130,6 +133,8 @@
   :source  (resolve (.. config-dir "/fnl/"))
   :target  (resolve (.. config-dir "/lua/"))
   :rtpdirs []
+
+  :custom []
 
   :compiler {
     :float   true

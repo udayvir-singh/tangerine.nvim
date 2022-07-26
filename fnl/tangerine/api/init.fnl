@@ -33,6 +33,7 @@
     :buffer (lazy :api.compile "buffer")
     :vimrc  (lazy :api.compile "vimrc")
     :rtp    (lazy :api.compile "rtp")
+    :custom (lazy :api.compile "custom")
     :all    (lazy :api.compile "all")
   }
   :clean {

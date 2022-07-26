@@ -127,6 +127,11 @@ local nvim_dir = vim.fn.stdpath [[config]]
 	target  = nvim_dir .. "/lua",
 	rtpdirs = {},
 
+	custom = {
+		-- list of custom [source target] chunks, for example:
+		-- {"~/.config/awesome/fnl", "~/.config/awesome/lua"}
+	},
+
 	compiler = {
 		float   = true,     -- show output in floating window
 		clean   = true,     -- delete stale lua files
@@ -321,24 +326,6 @@ require [[tangerine]].setup {
 
 <br />
 
-**Q: How to split an rtpdir into source and target dirs**
-
-**A:** use `tangerine.api.compile.dir` to make custom compilation rules:
-```lua
-require [[tangerine]].setup {...}
-
-local nvim_dir = vim.fn.stdpath [[config]]
-
-_G.tangerine.api.compile.dir(
-	nvim_dir .. "/rtpdir/fnl",
-	nvim_dir .. "/rtpdir/lua"
-)
-```
-
-see [compile-dir](#compile-dir) for more information
-
-<br />
-
 **Q: How to make impatient work with tangerine**
 
 **A:** just bootstrap and require impatient before calling tangerine:
@@ -391,32 +378,33 @@ By default tangerine provides the following api:
      :compile {
        :all    (function 0)
        :buffer (function 1)
-       :dir    (function 2)
-       :file   (function 3)
-       :rtp    (function 4)
-       :string (function 5)
-       :vimrc  (function 6)
+			 :custom (function 2)
+       :dir    (function 3)
+       :file   (function 4)
+       :rtp    (function 5)
+       :string (function 6)
+       :vimrc  (function 7)
      }
      :clean {
-       :rtp      (function 7)
-       :target   (function 8)
-       :orphaned (function 9)
+       :rtp      (function 8)
+       :target   (function 9)
+       :orphaned (function 10)
      }
      :eval {
-       :buffer (function 10)
-       :file   (function 11)
-       :peak   (function 12)
-       :string (function 13)
+       :buffer (function 11)
+       :file   (function 12)
+       :peak   (function 13)
+       :string (function 14)
      }
      :win {
-       :next    (function 14)
-       :prev    (function 15)
-       :close   (function 16)
-       :killall (function 17)
-       :resize  (function 18)
+       :next    (function 15)
+       :prev    (function 16)
+       :close   (function 17)
+       :killall (function 18)
+       :resize  (function 19)
      }
-     :goto_output (function 19)
-     :serialize   (function 20)
+     :goto_output (function 20)
+     :serialize   (function 21)
    }
 ```
 
@@ -525,11 +513,11 @@ Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 ##### Parameters:
 ```fennel
 {
+	:rtpdirs  <list>
 	:force    <boolean>
 	:float    <boolean>
 	:verbose  <boolean>
 	:globals  <list>
-	:rtpdirs  <list>
 }
 ```
 {opts.force} disables diffing if set to `true`
@@ -540,7 +528,35 @@ Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 	:force   false
 	:float   true
 	:verbose true
-	:rtpdirs [ "colors" "plugin" "$HOME/mydir" ]})
+	:rtpdirs ["colors" "plugin" "$HOME/mydir"]})
+```
+
+<!-- doc=tangerine.api.compile.custom() -->
+#### compile-custom
+<pre lang="fennel"><code> (compile.custom {opts?})
+</pre></code>
+
+Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
+
+##### Parameters:
+```fennel
+{
+	:custom   <list>
+	:force    <boolean>
+	:float    <boolean>
+	:verbose  <boolean>
+	:globals  <list>
+}
+```
+{opts.force} disables diffing if set to `true`
+
+##### Example:
+```fennel
+(tangerine.api.compile.custom {
+	:custom [ ["~/path/fnl" "~/path/lua"] ]
+	:force   false
+	:float   true
+	:verbose true })
 ```
 
 <!-- doc=tangerine.api.compile.all() -->
@@ -558,6 +574,7 @@ Diff compiles all indexed fennel files in `config`.
 	:verbose  <boolean>
 	:globals  <list>
 	:rtpdirs  <list>
+	:custom   <list>
 }
 ```
 {opts.force} disables diffing if set to `true`
