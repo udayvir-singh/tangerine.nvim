@@ -24,7 +24,7 @@ local function rtpdirs(dirs)
   _G.assert((nil ~= dirs), "Missing argument dirs on fnl/tangerine/utils/env.fnl:25")
   local tbl_15_auto = {}
   local i_16_auto = #tbl_15_auto
-  for _, dir in pairs(dirs) do
+  for _, dir in ipairs(dirs) do
     local val_17_auto
     do
       local path = resolve(dir)
@@ -73,18 +73,35 @@ local function luafmt()
   local width = vim.api.nvim_win_get_width(0)
   return {exec, "--spaces-inside-table-braces", "--column-table-limit", math.floor((width / 1.7)), "--column-limit", width}
 end
-local pre_schema = {source = resolve, target = resolve, vimrc = resolve, rtpdirs = rtpdirs, compiler = nil, eval = nil, keymaps = nil, highlight = nil}
-local schema = {source = "string", target = "string", vimrc = "string", rtpdirs = {"string"}, compiler = {float = "boolean", clean = "boolean", force = "boolean", verbose = "boolean", globals = {"string"}, version = {"oneof", {"latest", "1-1-0", "1-0-0", "0-10-0", "0-9-2"}}, hooks = {"array", {"onsave", "onload", "oninit"}}}, eval = {float = "boolean", luafmt = "function", diagnostic = {virtual = "boolean", timeout = "number"}}, keymaps = {peak_buffer = "string", eval_buffer = "string", goto_output = "string", float = {next = "string", prev = "string", kill = "string", close = "string", resizef = "string", resizeb = "string"}}, highlight = {float = "string", success = "string", errors = "string"}}
-local ENV = {vimrc = resolve((config_dir .. "/init.fnl")), source = resolve((config_dir .. "/fnl/")), target = resolve((config_dir .. "/lua/")), rtpdirs = {}, compiler = {float = true, clean = true, force = false, verbose = true, version = "latest", globals = vim.tbl_keys(_G), hooks = {}}, eval = {float = true, luafmt = luafmt, diagnostic = {virtual = true, timeout = 10}}, keymaps = {eval_buffer = "gE", peak_buffer = "gL", goto_output = "gO", float = {next = "<C-K>", prev = "<C-J>", kill = "<Esc>", close = "<Enter>", resizef = "<C-W>=", resizeb = "<C-W>-"}}, highlight = {float = "Normal", success = "String", errors = "DiagnosticError"}}
+local pre_schema
+local function _7_(_241)
+  local tbl_15_auto = {}
+  local i_16_auto = #tbl_15_auto
+  for _, _8_ in ipairs(_241) do
+    local _each_9_ = _8_
+    local s = _each_9_[1]
+    local t = _each_9_[2]
+    local val_17_auto = {resolve(s), resolve(t)}
+    if (nil ~= val_17_auto) then
+      i_16_auto = (i_16_auto + 1)
+      do end (tbl_15_auto)[i_16_auto] = val_17_auto
+    else
+    end
+  end
+  return tbl_15_auto
+end
+pre_schema = {source = resolve, target = resolve, vimrc = resolve, rtpdirs = rtpdirs, custom = _7_, compiler = nil, eval = nil, keymaps = nil, highlight = nil}
+local schema = {source = "string", target = "string", vimrc = "string", rtpdirs = {"string"}, custom = {{"string"}}, compiler = {float = "boolean", clean = "boolean", force = "boolean", verbose = "boolean", globals = {"string"}, version = {"oneof", {"latest", "1-1-0", "1-0-0", "0-10-0", "0-9-2"}}, hooks = {"array", {"onsave", "onload", "oninit"}}}, eval = {float = "boolean", luafmt = "function", diagnostic = {virtual = "boolean", timeout = "number"}}, keymaps = {peak_buffer = "string", eval_buffer = "string", goto_output = "string", float = {next = "string", prev = "string", kill = "string", close = "string", resizef = "string", resizeb = "string"}}, highlight = {float = "string", success = "string", errors = "string"}}
+local ENV = {vimrc = resolve((config_dir .. "/init.fnl")), source = resolve((config_dir .. "/fnl/")), target = resolve((config_dir .. "/lua/")), rtpdirs = {}, custom = {}, compiler = {float = true, clean = true, force = false, verbose = true, version = "latest", globals = vim.tbl_keys(_G), hooks = {}}, eval = {float = true, luafmt = luafmt, diagnostic = {virtual = true, timeout = 10}}, keymaps = {eval_buffer = "gE", peak_buffer = "gL", goto_output = "gO", float = {next = "<C-K>", prev = "<C-J>", kill = "<Esc>", close = "<Enter>", resizef = "<C-W>=", resizeb = "<C-W>-"}}, highlight = {float = "Normal", success = "String", errors = "DiagnosticError"}}
 local function validate_err(key, msg, ...)
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/utils/env.fnl:178")
-  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:178")
+  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/utils/env.fnl:183")
+  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:183")
   return error(("[tangerine]: bad argument to 'setup()' in key " .. key .. ": " .. table.concat({msg, ...}, " ") .. "."))
 end
 local function validate_type(key, val, scm)
-  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:184")
-  _G.assert((nil ~= val), "Missing argument val on fnl/tangerine/utils/env.fnl:184")
-  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:184")
+  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:189")
+  _G.assert((nil ~= val), "Missing argument val on fnl/tangerine/utils/env.fnl:189")
+  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:189")
   local tv = get_type(val)
   if (scm ~= tv) then
     return validate_err(key, scm, "expected got", tv)
@@ -93,9 +110,9 @@ local function validate_type(key, val, scm)
   end
 end
 local function validate_oneof(key, val, scm)
-  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:191")
-  _G.assert((nil ~= val), "Missing argument val on fnl/tangerine/utils/env.fnl:191")
-  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:191")
+  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:196")
+  _G.assert((nil ~= val), "Missing argument val on fnl/tangerine/utils/env.fnl:196")
+  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:196")
   if not vim.tbl_contains(scm, val) then
     return validate_err(key, "value expected to be one of", vim.inspect(scm), "got", vim.inspect(val))
   else
@@ -103,9 +120,9 @@ local function validate_oneof(key, val, scm)
   end
 end
 local function validate_array(key, array, scm)
-  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:197")
-  _G.assert((nil ~= array), "Missing argument array on fnl/tangerine/utils/env.fnl:197")
-  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:197")
+  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:202")
+  _G.assert((nil ~= array), "Missing argument array on fnl/tangerine/utils/env.fnl:202")
+  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:202")
   validate_type(key, array, "list")
   for _, val in ipairs(array) do
     validate_oneof(key, val, scm)
@@ -113,9 +130,9 @@ local function validate_array(key, array, scm)
   return nil
 end
 local function validate_list(key, list, scm)
-  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:204")
-  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/env.fnl:204")
-  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:204")
+  _G.assert((nil ~= scm), "Missing argument scm on fnl/tangerine/utils/env.fnl:209")
+  _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/env.fnl:209")
+  _G.assert((nil ~= key), "Missing argument key on fnl/tangerine/utils/env.fnl:209")
   validate_type(key, list, "list")
   for _, val in ipairs(list) do
     if ("list" == get_type(scm)) then
@@ -131,25 +148,25 @@ local function validate_list(key, list, scm)
   return nil
 end
 local function validate(tbl, schema0)
-  _G.assert((nil ~= schema0), "Missing argument schema on fnl/tangerine/utils/env.fnl:215")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:215")
+  _G.assert((nil ~= schema0), "Missing argument schema on fnl/tangerine/utils/env.fnl:220")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:220")
   for key, val in pairs(tbl) do
     local scm = (schema0)[key]
     if not scm then
       validate_err(key, "invalid", "key")
     else
     end
-    local _12_ = {get_type(scm), scm[1]}
-    if ((_G.type(_12_) == "table") and ((_12_)[1] == "string") and ((_12_)[2] == nil)) then
+    local _16_ = {get_type(scm), scm[1]}
+    if ((_G.type(_16_) == "table") and ((_16_)[1] == "string") and ((_16_)[2] == nil)) then
       validate_type(key, val, scm)
-    elseif ((_G.type(_12_) == "table") and ((_12_)[1] == "table") and ((_12_)[2] == nil)) then
+    elseif ((_G.type(_16_) == "table") and ((_16_)[1] == "table") and ((_16_)[2] == nil)) then
       validate(val, scm)
-    elseif ((_G.type(_12_) == "table") and ((_12_)[1] == "list") and ((_12_)[2] == "oneof")) then
+    elseif ((_G.type(_16_) == "table") and ((_16_)[1] == "list") and ((_16_)[2] == "oneof")) then
       validate_oneof(key, val, scm[2])
-    elseif ((_G.type(_12_) == "table") and ((_12_)[1] == "list") and ((_12_)[2] == "array")) then
+    elseif ((_G.type(_16_) == "table") and ((_16_)[1] == "list") and ((_16_)[2] == "array")) then
       validate_array(key, val, scm[2])
-    elseif ((_G.type(_12_) == "table") and ((_12_)[1] == "list") and true) then
-      local _ = (_12_)[2]
+    elseif ((_G.type(_16_) == "table") and ((_16_)[1] == "list") and true) then
+      local _ = (_16_)[2]
       validate_list(key, val, scm[1])
     else
     end
@@ -157,14 +174,14 @@ local function validate(tbl, schema0)
   return nil
 end
 local function pre_process(tbl, schema0)
-  _G.assert((nil ~= schema0), "Missing argument schema on fnl/tangerine/utils/env.fnl:229")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:229")
+  _G.assert((nil ~= schema0), "Missing argument schema on fnl/tangerine/utils/env.fnl:234")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:234")
   for key, val in pairs(tbl) do
     local pre = (schema0)[key]
-    local _14_ = type(pre)
-    if (_14_ == "table") then
+    local _18_ = type(pre)
+    if (_18_ == "table") then
       pre_process(val, pre)
-    elseif (_14_ == "function") then
+    elseif (_18_ == "function") then
       tbl[key] = pre(val)
     else
     end
@@ -172,8 +189,8 @@ local function pre_process(tbl, schema0)
   return tbl
 end
 local function rget(tbl, args)
-  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:242")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:242")
+  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:247")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:247")
   if (0 == #args) then
     return tbl
   else
@@ -189,8 +206,8 @@ local function env_get(...)
   return rget(ENV, {...})
 end
 local function env_get_conf(opts, args)
-  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:254")
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:254")
+  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:259")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:259")
   local last = args[#args]
   if (nil ~= opts[last]) then
     return pre_process(opts, pre_schema)[last]
@@ -199,7 +216,7 @@ local function env_get_conf(opts, args)
   end
 end
 local function env_set(tbl)
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:265")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:270")
   validate(tbl, schema)
   return deepcopy(pre_process(tbl, pre_schema), ENV)
 end

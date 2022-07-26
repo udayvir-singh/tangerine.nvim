@@ -38,11 +38,12 @@ utils[path]
 :compile {
 	:all    (function 1)
 	:buffer (function 2)
-	:dir    (function 3)
-	:file   (function 4)
-	:rtp    (function 5)
-	:string (function 6)
-	:vimrc  (function 7)
+	:custom (function 3)
+	:dir    (function 4)
+	:file   (function 5)
+	:rtp    (function 6)
+	:string (function 7)
+	:vimrc  (function 8)
 }
 ```
 

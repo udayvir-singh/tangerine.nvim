@@ -33,7 +33,26 @@ hooks.onsave = function()
   local function _2_(_241)
     return (_241 .. "*.fnl")
   end
-  pat = {env.get("vimrc"), (env.get("source") .. "*.fnl"), map(_2_, map(vim.fn.resolve, env.get("rtpdirs")))}
+  local function _3_(_241)
+    return (_241 .. "*.fnl")
+  end
+  local function _4_()
+    local tbl_15_auto = {}
+    local i_16_auto = #tbl_15_auto
+    for _, _5_ in ipairs(env.get("custom")) do
+      local _each_6_ = _5_
+      local s = _each_6_[1]
+      local t = _each_6_[2]
+      local val_17_auto = s
+      if (nil ~= val_17_auto) then
+        i_16_auto = (i_16_auto + 1)
+        do end (tbl_15_auto)[i_16_auto] = val_17_auto
+      else
+      end
+    end
+    return tbl_15_auto
+  end
+  pat = {env.get("vimrc"), (env.get("source") .. "*.fnl"), map(_2_, env.get("rtpdirs")), map(_3_, _4_())}
   return augroup("tangerine-onsave", {{"BufWritePost", table.concat(flat(pat), ",")}, run_hooks})
 end
 hooks.onload = function()

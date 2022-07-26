@@ -9,14 +9,14 @@ local _local_2_ = require("tangerine.output")
 local log = _local_2_["log"]
 local err = _local_2_["err"]
 local compile = {}
-local function quoted(str)
+local function quote_2a(str)
   _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/api/compile.fnl:31")
   local qt = "\""
   return (qt .. str .. qt)
 end
 local function compiled(source)
   _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:36")
-  return print(quoted(source), "compiled")
+  return print(quote_2a(source), "compiled")
 end
 local function compile_3f(source, target, opts)
   _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/api/compile.fnl:40")
@@ -161,12 +161,37 @@ compile.rtp = function(_3fopts)
   log.success("COMPILED RTP", logs, opts)
   return logs
 end
+compile.custom = function(_3fopts)
+  local opts = (_3fopts or {})
+  local logs = {}
+  local args = env.conf(opts, {"custom"})
+  for _, _17_ in ipairs(args) do
+    local _each_18_ = _17_
+    local source = _each_18_[1]
+    local target = _each_18_[2]
+    local out_2_auto
+    local function _19_(_241)
+      return (p.shortname(source) .. _241)
+    end
+    out_2_auto = (vim.tbl_map(_19_, compile.dir(source, target, tbl_merge({verbose = false}, opts))) or {})
+    do
+      local out_2_auto0 = out_2_auto
+      if ((0 == out_2_auto0) or (false == out_2_auto0)) then
+        return 0
+      else
+      end
+    end
+    merge(logs, out_2_auto)
+  end
+  log.success("COMPILED CUSTOM", logs, opts)
+  return logs
+end
 compile.all = function(_3fopts)
   local opts = (_3fopts or {})
-  local copts = tbl_merge({verbose = false}, opts)
+  local opts_2a = tbl_merge({verbose = false}, opts)
   local logs = {}
   do
-    local out_2_auto = (compile.vimrc(copts) or {})
+    local out_2_auto = (compile.vimrc(opts_2a) or {})
     do
       local out_2_auto0 = out_2_auto
       if ((0 == out_2_auto0) or (false == out_2_auto0)) then
@@ -182,13 +207,13 @@ compile.all = function(_3fopts)
     if compile_3f(source, target, opts) then
       table.insert(logs, sname)
       local out_2_auto
-      local function _18_()
+      local function _22_()
         return compile.file(source, target, opts)
       end
-      local function _19_(_241)
+      local function _23_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts)
       end
-      out_2_auto = xpcall(_18_, _19_)
+      out_2_auto = xpcall(_22_, _23_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else
@@ -197,7 +222,18 @@ compile.all = function(_3fopts)
     end
   end
   do
-    local out_2_auto = (compile.rtp(copts) or {})
+    local out_2_auto = (compile.rtp(opts_2a) or {})
+    do
+      local out_2_auto0 = out_2_auto
+      if ((0 == out_2_auto0) or (false == out_2_auto0)) then
+        return 0
+      else
+      end
+    end
+    merge(logs, out_2_auto)
+  end
+  do
+    local out_2_auto = (compile.custom(opts_2a) or {})
     do
       local out_2_auto0 = out_2_auto
       if ((0 == out_2_auto0) or (false == out_2_auto0)) then
