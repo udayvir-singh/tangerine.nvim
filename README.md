@@ -30,7 +30,7 @@
 
 ## Features
 - :fire:   *BLAZING* fast, compile times in milliseconds
-- :ocean:  200% support for interactive evaluation 
+- :ocean:  200% support for interactive evaluation
 - :bamboo: Control over when and how to compile
 - :ribbon: Natively loads `nvim/init.fnl`
 
@@ -133,8 +133,8 @@ local nvim_dir = vim.fn.stdpath [[config]]
 		force   = false,    -- disable diffing (not recommended)
 		verbose = true,     -- enable messages showing compiled files
 
-		globals = {...},    -- list of alowedGlobals
-		version = "latest", -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
+		globals = vim.tbl_keys(_G), -- list of alowedGlobals
+		version = "latest",         -- version of fennel to use, [ latest, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
 
 		-- hooks for tangerine to compile on:
 		-- "onsave" run every time you save fennel file in {source} dir
@@ -149,7 +149,7 @@ local nvim_dir = vim.fn.stdpath [[config]]
 			return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
 		end,
 
-		diagnostic = { 
+		diagnostic = {
 			virtual = true,  -- show errors in virtual text
 			timeout = 10     -- how long should the error persist
 		}
@@ -473,8 +473,8 @@ Diff compiles files in {source} dir and outputs to {target} dir.
 
 ##### Example:
 ```fennel
-(tangerine.api.compile.dir 
-	:path/fnl 
+(tangerine.api.compile.dir
+	:path/fnl
 	:path/lua
 	{ :force false :float true :verbose true })
 ```
@@ -711,7 +711,7 @@ Provides functions to interact with floating windows created by tangerine.
 This section describes function for `tangerine.api.win.{func}`
 
 <!-- doc=tangerine.api.win.next() -->
-#### win-next 
+#### win-next
 <pre lang="fennel"><code> (tangerine.api.win.next {steps?})
 </pre></code>
 
@@ -823,7 +823,7 @@ $ make git-skip # first thing that you should be running
 $ ...
 $ make clean build
 
-# commit changes 
+# commit changes
 $ git commit -a -m "<msg>"
 
 # cleanly fetch from origin

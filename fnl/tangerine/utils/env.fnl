@@ -82,14 +82,14 @@
   :source  "string"
   :target  "string"
   :vimrc   "string"
-  :rtpdirs "list"
+  :rtpdirs [:string]
 
   :compiler {
     :float   "boolean"
     :clean   "boolean"
     :force   "boolean"
     :verbose "boolean"
-    :globals "list"
+    :globals [:string]
     :version [:oneof ["latest" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
     :hooks   [:array ["onsave" "onload" "oninit"]]
   }
@@ -178,28 +178,38 @@
 (lambda validate-err [key msg ...]
   "shows validation failed error for 'key' with description 'msg'."
   (error
-    (.. "[tangerine]: bad argument to 'setup()' in :" key ", " (table.concat [msg ...] " ") ".")))
+    (.. "[tangerine]: bad argument to 'setup()' in key " key ": " (table.concat [msg ...] " ") ".")))
 
 
 (lambda validate-type [key val scm]
-  "checks if typeof 'val' = 'scm', else throws an error."
-  (local type* (get-type val))
-  (if (not= scm type*)
-      (validate-err key scm :expected :got type*)))
+  "checks if typeof 'val' == 'scm', else throws an error."
+  (local tv (get-type val))
+  (if (not= scm tv)
+      (validate-err key scm "expected got" tv)))
 
 
 (lambda validate-oneof [key val scm]
   "checks if 'val' is member of 'scm', else throws error."
-  (local expected (vim.inspect scm))
   (if (not (vim.tbl_contains scm val))
-      (validate-err key "expected to be one of" expected "got" (vim.inspect val))))
+      (validate-err key "value expected to be one of" (vim.inspect scm) "got" (vim.inspect val))))
 
 
 (lambda validate-array [key array scm]
   "checks if members of 'array' are present in 'scm'."
   (validate-type key array :list)
-  (each [_ val (pairs array)]
+  (each [_ val (ipairs array)]
         (validate-oneof key val scm)))
+
+
+(lambda validate-list [key list scm]
+  "recursively checks if all elements of 'list' are of type 'scm'."
+  (validate-type key list :list)
+  (each [_ val (ipairs list)]
+    (if (= :list (get-type scm))
+        (validate-list key val (. scm 1))
+        (let [tv (get-type val)]
+          (if (not= scm tv)
+              (validate-err key "member" (.. (vim.inspect val) ::) scm "expected got" tv))))))
 
 
 (lambda validate [tbl schema]
@@ -212,7 +222,8 @@
           [:string nil]    (validate-type  key val scm)
           [:table  nil]    (validate val scm)
           [:list   :oneof] (validate-oneof key val (. scm 2))
-          [:list   :array] (validate-array key val (. scm 2)))))
+          [:list   :array] (validate-array key val (. scm 2))
+          [:list   _]      (validate-list  key val (. scm 1)))))
 
 
 (lambda pre-process [tbl schema]
