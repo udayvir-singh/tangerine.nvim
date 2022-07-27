@@ -649,10 +649,10 @@ EXAMPLE: ~
 
 >
     (tangerine.api.compile.rtp {
+        :rtpdirs ["colors" "plugin" "$HOME/mydir"]
         :force   false
         :float   true
-        :verbose true
-        :rtpdirs ["colors" "plugin" "$HOME/mydir"]})
+        :verbose true })
 <
 
 
@@ -682,7 +682,7 @@ EXAMPLE: ~
 
 >
     (tangerine.api.compile.custom {
-        :custom [ ["~/path/fnl" "~/path/lua"] ]
+        :custom  [["~/path/fnl" "~/path/lua"]]
         :force   false
         :float   true
         :verbose true })

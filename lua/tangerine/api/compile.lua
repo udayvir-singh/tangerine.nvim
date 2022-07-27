@@ -167,13 +167,9 @@ compile.custom = function(_3fopts)
   local args = env.conf(opts, {"custom"})
   for _, _17_ in ipairs(args) do
     local _each_18_ = _17_
-    local source = _each_18_[1]
-    local target = _each_18_[2]
-    local out_2_auto
-    local function _19_(_241)
-      return (p.shortname(source) .. _241)
-    end
-    out_2_auto = (vim.tbl_map(_19_, compile.dir(source, target, tbl_merge({verbose = false}, opts))) or {})
+    local sourcedir = _each_18_[1]
+    local targetdir = _each_18_[2]
+    local out_2_auto = (compile.dir(sourcedir, targetdir, tbl_merge({verbose = false}, opts)) or {})
     do
       local out_2_auto0 = out_2_auto
       if ((0 == out_2_auto0) or (false == out_2_auto0)) then
@@ -207,13 +203,13 @@ compile.all = function(_3fopts)
     if compile_3f(source, target, opts) then
       table.insert(logs, sname)
       local out_2_auto
-      local function _22_()
+      local function _21_()
         return compile.file(source, target, opts)
       end
-      local function _23_(_241)
+      local function _22_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts)
       end
-      out_2_auto = xpcall(_22_, _23_)
+      out_2_auto = xpcall(_21_, _22_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else
