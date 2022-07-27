@@ -186,10 +186,8 @@
   (local logs [])
   (local args (env.conf opts [:custom]))
   :compile
-  (each [_ [source target] (ipairs args)]
-    (hmerge logs (vim.tbl_map
-      #(.. (p.shortname source) $)
-      (compile.dir source target (tbl-merge {:verbose false} opts)))))
+  (each [_ [sourcedir targetdir] (ipairs args)]
+        (hmerge logs (compile.dir sourcedir targetdir (tbl-merge {:verbose false} opts))))
   :logger
   (log.success "COMPILED CUSTOM" logs opts)
   :return logs)

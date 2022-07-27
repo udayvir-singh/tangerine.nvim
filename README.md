@@ -525,10 +525,10 @@ Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 ##### Example:
 ```fennel
 (tangerine.api.compile.rtp {
+	:rtpdirs ["colors" "plugin" "$HOME/mydir"]
 	:force   false
 	:float   true
-	:verbose true
-	:rtpdirs ["colors" "plugin" "$HOME/mydir"]})
+	:verbose true })
 ```
 
 <!-- doc=tangerine.api.compile.custom() -->
@@ -553,7 +553,7 @@ Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
 ##### Example:
 ```fennel
 (tangerine.api.compile.custom {
-	:custom [ ["~/path/fnl" "~/path/lua"] ]
+	:custom  [["~/path/fnl" "~/path/lua"]]
 	:force   false
 	:float   true
 	:verbose true })
