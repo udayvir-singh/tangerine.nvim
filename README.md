@@ -110,9 +110,9 @@ Using [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
 ```fennel
 (local paq (require :paq))
 
-(paq {
+(paq [
   :udayvir-singh/tangerine.nvim
-})
+])
 ```
 
 # Setup
