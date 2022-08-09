@@ -31,9 +31,9 @@
       (eql (float-lines) ":return 1")))
 
 
-  (it "eval peak"
+  (it "eval peek"
     (with-buf [:test.fnl gl sl]
       (sl ["(print 1)"])
 
-      (eval.peak 1 -1)
+      (eval.peek 1 -1)
       (eql (float-lines) "return print(1)"))))

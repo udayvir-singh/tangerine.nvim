@@ -1702,7 +1702,7 @@ transform: translateX(-14060px)
 <symbol id="124">
 <text x="0" y="1.67" class="l">│--</text>
 <text x="4.008" y="1.67" class="l">lua</text>
-<text x="8.016" y="1.67" class="l">peakable</text>
+<text x="8.016" y="1.67" class="l">peekable</text>
 <text x="73.146" y="1.67" class="l">│</text>
 </symbol>
 <symbol id="125">
@@ -4909,7 +4909,7 @@ transform: translateX(-14060px)
 <use xlink:href="#93" y="23.880999999999997"></use>
 <text x="0" y="27.722" class="l">│--</text>
 <text x="4.008" y="27.722" class="l">lua</text>
-<text x="8.016" y="27.722" class="l">pea</text>
+<text x="8.016" y="27.722" class="l">pee</text>
 <text x="73.146" y="27.722" class="l">│</text>
 <use xlink:href="#114" y="28.223000000000003"></use>
 <use xlink:href="#115" y="30.394"></use>
@@ -4938,7 +4938,7 @@ transform: translateX(-14060px)
 <use xlink:href="#93" y="23.880999999999997"></use>
 <text x="0" y="27.722" class="l">│--</text>
 <text x="4.008" y="27.722" class="l">lua</text>
-<text x="8.016" y="27.722" class="l">peak</text>
+<text x="8.016" y="27.722" class="l">peek</text>
 <text x="73.146" y="27.722" class="l">│</text>
 <use xlink:href="#114" y="28.223000000000003"></use>
 <use xlink:href="#115" y="30.394"></use>
@@ -4967,7 +4967,7 @@ transform: translateX(-14060px)
 <use xlink:href="#93" y="23.880999999999997"></use>
 <text x="0" y="27.722" class="l">│--</text>
 <text x="4.008" y="27.722" class="l">lua</text>
-<text x="8.016" y="27.722" class="l">peaka</text>
+<text x="8.016" y="27.722" class="l">peeka</text>
 <text x="73.146" y="27.722" class="l">│</text>
 <use xlink:href="#114" y="28.223000000000003"></use>
 <use xlink:href="#115" y="30.394"></use>
@@ -4996,7 +4996,7 @@ transform: translateX(-14060px)
 <use xlink:href="#93" y="23.880999999999997"></use>
 <text x="0" y="27.722" class="l">│--</text>
 <text x="4.008" y="27.722" class="l">lua</text>
-<text x="8.016" y="27.722" class="l">peakab</text>
+<text x="8.016" y="27.722" class="l">peekab</text>
 <text x="73.146" y="27.722" class="l">│</text>
 <use xlink:href="#114" y="28.223000000000003"></use>
 <use xlink:href="#115" y="30.394"></use>
@@ -5025,7 +5025,7 @@ transform: translateX(-14060px)
 <use xlink:href="#93" y="23.880999999999997"></use>
 <text x="0" y="27.722" class="l">│--</text>
 <text x="4.008" y="27.722" class="l">lua</text>
-<text x="8.016" y="27.722" class="l">peakabl</text>
+<text x="8.016" y="27.722" class="l">peekabl</text>
 <text x="73.146" y="27.722" class="l">│</text>
 <use xlink:href="#114" y="28.223000000000003"></use>
 <use xlink:href="#115" y="30.394"></use>

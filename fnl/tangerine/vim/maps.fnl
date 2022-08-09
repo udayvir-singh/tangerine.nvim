@@ -8,7 +8,7 @@
 
 (local {
   : eval_buffer
-  : peak_buffer
+  : peek_buffer
   : goto_output
 } (env.get :keymaps))
 
@@ -28,8 +28,8 @@
 (nmap! eval_buffer :FnlBuffer)
 (vmap! eval_buffer :FnlBuffer)
 
-(nmap! peak_buffer :FnlPeak)
-(vmap! peak_buffer :FnlPeak)
+(nmap! peek_buffer :FnlPeek)
+(vmap! peek_buffer :FnlPeek)
 
 (nmap! goto_output :FnlGotoOutput)
 

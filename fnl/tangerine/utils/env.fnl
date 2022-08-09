@@ -107,7 +107,7 @@
   }
 
   :keymaps {
-    :peak_buffer "string"
+    :peek_buffer "string"
     :eval_buffer "string"
     :goto_output "string"
     :float {
@@ -157,7 +157,7 @@
 
   :keymaps {
     :eval_buffer "gE"
-    :peak_buffer "gL"
+    :peek_buffer "gL"
     :goto_output "gO"
     :float {
       :next    "<C-K>"

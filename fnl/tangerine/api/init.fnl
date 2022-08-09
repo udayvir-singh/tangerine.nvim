@@ -24,7 +24,7 @@
     :string (lazy :api.eval "string")
     :file   (lazy :api.eval "file")
     :buffer (lazy :api.eval "buffer")
-    :peak   (lazy :api.eval "peak")
+    :peek   (lazy :api.eval "peek")
   }
   :compile {
     :string (lazy :api.compile "string")

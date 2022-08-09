@@ -4,9 +4,9 @@
 ; DEPENDS:
 ; (-file)         utils[fs]
 ; (-file)         utils[path]
-; (-string -peak) fennel
-; (-string -peak) output[display]
-; (-string -peak) output[error]
+; (-string -peek) fennel
+; (-string -peek) output[display]
+; (-string -peek) output[error]
 (local fennel (require :tangerine.fennel))
 (local {
   : p
@@ -85,9 +85,9 @@
 
 
 ;; -------------------- ;;
-;;       Peaking        ;;
+;;       Peeking        ;;
 ;; -------------------- ;;
-(lambda eval.peak [start end ?opts]
+(lambda eval.peek [start end ?opts]
   "lookup lua output for lines 'start' to 'end' inside scratch buffer."
   ;; opts { :filename string :float boolean :virtual boolean }
   (local opts (or ?opts {}))
@@ -105,7 +105,7 @@
     :return result))
 
 ; EXAMPLES:
-; (eval.peak 1 -8 {:float true :virtual true :filename "FILE"})
+; (eval.peek 1 -8 {:float true :virtual true :filename "FILE"})
 
 
 :return eval

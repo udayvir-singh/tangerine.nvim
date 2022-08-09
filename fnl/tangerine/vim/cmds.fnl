@@ -43,7 +43,7 @@
 (command! :Fnl        "eval.string"          "(<q-args>)"  [:nargs "*"])
 (command! :FnlFile    "eval.file"            "(<q-args>)"  [:nargs 1 :complete "file"])
 (command! :FnlBuffer  "eval.buffer"  "(<line1>, <line2>)"  [:range "%"])
-(command! :FnlPeak    "eval.peak"    "(<line1>, <line2>)"  [:range "%"])
+(command! :FnlPeek    "eval.peek"    "(<line1>, <line2>)"  [:range "%"])
 
 
 (command! :FnlWinKill    "win.killall"  nil                   [])

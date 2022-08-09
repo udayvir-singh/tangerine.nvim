@@ -150,7 +150,7 @@ local nvim_dir = vim.fn.stdpath [[config]]
 
 	eval = {
 		float  = true,      -- show results in floating window
-		luafmt = function() -- function that returns formatter with flags for peaked lua
+		luafmt = function() -- function that returns formatter with flags for peeked lua
 			return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
 		end,
 
@@ -163,7 +163,7 @@ local nvim_dir = vim.fn.stdpath [[config]]
 	keymaps = {
 		-- set them to <Nop> if you want to disable them
 		eval_buffer = "gE",
-		peak_buffer = "gL",
+		peek_buffer = "gL",
 		goto_output = "gO",
 		float = {
 			next    = "<C-K>",
@@ -253,10 +253,10 @@ Evaluates all lines or [range] in current fennel buffer
 
 > mapped to `gE` by default.
 
-## Peaking
-<!-- doc=:FnlPeak -->
-#### :[range]FnlPeak
-Peak lua output for [range] in current fennel buffer
+## Peeking
+<!-- doc=:FnlPeek -->
+#### :[range]FnlPeek
+Peek lua output for [range] in current fennel buffer
 
 > mapped to `gL` by default.
 
@@ -393,7 +393,7 @@ By default tangerine provides the following api:
      :eval {
        :buffer (function 11)
        :file   (function 12)
-       :peak   (function 13)
+       :peek   (function 13)
        :string (function 14)
      }
      :win {
@@ -675,7 +675,7 @@ Evaluates {path} of fennel, pretty prints the output.
 <pre lang="fennel"><code> (eval.buffer {start} {end} {opts?})
 </pre></code>
 
-Evalutes lines {start} to {end} in current fennel buffer.
+Evaluates lines {start} to {end} in current fennel buffer.
 
 ##### Parameters:
 ```fennel
@@ -686,12 +686,12 @@ Evalutes lines {start} to {end} in current fennel buffer.
 }
 ```
 
-<!-- doc=tangerine.api.eval.peak() -->
-#### eval-peak
-<pre lang="fennel"><code> (eval.peak {start} {end} {opts?})
+<!-- doc=tangerine.api.eval.peek() -->
+#### eval-peek
+<pre lang="fennel"><code> (eval.peek {start} {end} {opts?})
 </pre></code>
 
-Peak lua output for lines {start} to {end} inside a scratch buffer.
+Peek lua output for lines {start} to {end} inside a scratch buffer.
 
 ##### Parameters:
 ```fennel
