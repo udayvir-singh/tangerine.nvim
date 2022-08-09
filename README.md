@@ -92,7 +92,7 @@ You can use packer to manage tangerine afterwards:
 ```fennel
 (local packer (require :packer))
 
-(packer.startup (fn []
+(packer.startup (lambda [use]
   (use :udayvir-singh/tangerine.nvim)))
 ```
 
