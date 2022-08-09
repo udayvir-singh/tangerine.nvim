@@ -64,7 +64,7 @@ utils[path]
 :eval {
 	:buffer (function 1)
 	:file   (function 2)
-	:peak   (function 3)
+	:peek   (function 3)
 	:string (function 4)
 }
 ```

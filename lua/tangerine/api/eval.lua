@@ -64,7 +64,7 @@ eval.buffer = function(start, _end, _3fopts)
   local bufname = get_bufname()
   return eval.string(lines, tbl_merge(opts, {filename = bufname, offset = start0}))
 end
-eval.peak = function(start, _end, _3fopts)
+eval.peek = function(start, _end, _3fopts)
   _G.assert((nil ~= _end), "Missing argument end on fnl/tangerine/api/eval.fnl:90")
   _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/api/eval.fnl:90")
   local opts = (_3fopts or {})

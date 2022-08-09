@@ -11,7 +11,7 @@ Table of Contents                                *tangerine-table-of-contents*
 4. Commands                                               |tangerine-commands|
   - Compiling                                            |tangerine-compiling|
   - Evaluation                                          |tangerine-evaluation|
-  - Peaking                                                |tangerine-peaking|
+  - Peeking                                                |tangerine-peeking|
   - Window                                                  |tangerine-window|
 5. FAQ                                                         |tangerine-faq|
 6. Api                                                         |tangerine-api|
@@ -195,7 +195,7 @@ add much to your config:
     
         eval = {
             float  = true,      -- show results in floating window
-            luafmt = function() -- function that returns formatter with flags for peaked lua
+            luafmt = function() -- function that returns formatter with flags for peeked lua
                 return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
             end,
     
@@ -208,7 +208,7 @@ add much to your config:
         keymaps = {
             -- set them to <Nop> if you want to disable them
             eval_buffer = "gE",
-            peak_buffer = "gL",
+            peek_buffer = "gL",
             goto_output = "gO",
             float = {
                 next    = "<C-K>",
@@ -320,11 +320,11 @@ EVALUATION                                              *tangerine-evaluation*
   mapped to `gE` by default.
 
 
-PEAKING                                                    *tangerine-peaking*
+PEEKING                                                    *tangerine-peeking*
 
-                                               *tangerine-:FnlPeak* *:FnlPeak*
+                                               *tangerine-:FnlPeek* *:FnlPeek*
 
-:[range]FnlPeak                        Peak lua output for [range] in current
+:[range]FnlPeek                        Peek lua output for [range] in current
                                        fennel buffer
 
 
@@ -497,7 +497,7 @@ By default tangerine provides the following api:
          :eval {
            :buffer (function 11)
            :file   (function 12)
-           :peak   (function 13)
+           :peek   (function 13)
            :string (function 14)
          }
          :win {
@@ -824,7 +824,7 @@ PARAMETERS: ~
 eval-buffer                            (eval.buffer {start} {end} {opts*})
 
 
-Evalutes lines {start} to {end} in current fennel buffer.
+Evaluates lines {start} to {end} in current fennel buffer.
 
 PARAMETERS: ~
 
@@ -837,12 +837,12 @@ PARAMETERS: ~
 <
 
 
-                             *tangerine-eval-peak* *tangerine.api.eval.peak()*
+                             *tangerine-eval-peek* *tangerine.api.eval.peek()*
 
-eval-peak                              (eval.peak {start} {end} {opts*})
+eval-peek                              (eval.peek {start} {end} {opts*})
 
 
-Peak lua output for lines {start} to {end} inside a scratch buffer.
+Peek lua output for lines {start} to {end} inside a scratch buffer.
 
 PARAMETERS: ~
 
