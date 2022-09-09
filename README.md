@@ -19,7 +19,7 @@
 [About](#about) • [Installation](#installation) • [Setup](#setup) • [Commands](#commands) • [API](#api) • [Development](#development)
 
 <p align="center">
-	<img width="700" src="https://raw.githubusercontent.com/udayvir-singh/tangerine.nvim/master/demo/demo.svg">
+	<img width="700" src="https://user-images.githubusercontent.com/97400310/189345791-4ab2c6cc-3eb6-452a-937b-ace7fdeab9f5.svg">
 </p>
 
 </div>
