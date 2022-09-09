@@ -261,32 +261,27 @@ Here is config that I use in my dotfiles:
 
 COMPILING                                                *tangerine-compiling*
 
-                             *tangerine-:FnlCompileBuffer* *:FnlCompileBuffer*
+{doc=:FnlCompileBuffer} #### :FnlCompileBuffer
 
-:FnlCompileBuffer                      Compiles current active fennel buffer
+Compiles current active fennel buffer
 
+{doc=:FnlCompile} #### :FnlCompile[!]
 
-                                         *tangerine-:FnlCompile* *:FnlCompile*
-
-:FnlCompile[!]                         Diff compiles all indexed fennel files
-
+Diff compiles all indexed fennel files
 
 If bang! is present then forcefully compiles all `source` files
 
-                                             *tangerine-:FnlClean* *:FnlClean*
+{doc=:FnlClean} #### :FnlClean[!]
 
-:FnlClean[!]                           Deletes stale or orphaned lua files in
-                                       `target` dir
-
+Deletes stale or orphaned lua files in `target` dir
 
 If bang! is present then it deletes all compiled lua files
 
 EVALUATION                                              *tangerine-evaluation*
 
-                                                       *tangerine-:Fnl* *:Fnl*
+{doc=:Fnl} #### :Fnl {expr}
 
-:Fnl {expr}                            Executes and Evalutate {expr} of fennel
-
+Executes and Evalutate {expr} of fennel
 
 >
     :Fnl (print "Hello World")
@@ -297,11 +292,9 @@ EVALUATION                                              *tangerine-evaluation*
 <
 
 
-                                               *tangerine-:FnlFile* *:FnlFile*
+{doc=:FnlFile} #### :FnlFile {file}
 
-:FnlFile {file}                        Evaluates {file} of fennel and outputs
-                                       the result
-
+Evaluates {file} of fennel and outputs the result
 
 >
     :FnlFile path/source.fnl
@@ -310,11 +303,9 @@ EVALUATION                                              *tangerine-evaluation*
 <
 
 
-                                           *tangerine-:FnlBuffer* *:FnlBuffer*
+{doc=:FnlBuffer} #### :[range]FnlBuffer
 
-:[range]FnlBuffer                      Evaluates all lines or [range] in
-                                       current fennel buffer
-
+Evaluates all lines or [range] in current fennel buffer
 
 
   mapped to `gE` by default.
@@ -322,21 +313,17 @@ EVALUATION                                              *tangerine-evaluation*
 
 PEEKING                                                    *tangerine-peeking*
 
-                                               *tangerine-:FnlPeek* *:FnlPeek*
+{doc=:FnlPeek} #### :[range]FnlPeek
 
-:[range]FnlPeek                        Peek lua output for [range] in current
-                                       fennel buffer
-
+Peek lua output for [range] in current fennel buffer
 
 
   mapped to `gL` by default.
 
 
-                                   *tangerine-:FnlGotoOutput* *:FnlGotoOutput*
+{doc=:FnlGotoOutput} #### :FnlGotoOutput
 
-:FnlGotoOutput                         Open lua output of current fennel buffer
-                                       in a new buffer
-
+Open lua output of current fennel buffer in a new buffer
 
 
   mapped to `gO` by default.
@@ -344,51 +331,41 @@ PEEKING                                                    *tangerine-peeking*
 
 WINDOW                                                      *tangerine-window*
 
-                                         *tangerine-:FnlWinNext* *:FnlWinNext*
+{doc=:FnlWinNext} #### :FnlWinNext [N]
 
-:FnlWinNext [N]                        Jump to [N]th next floating window
-                                       created by tangerine
-
+Jump to [N]th next floating window created by tangerine
 
 
   mapped to `CTRL-K` in floats by default.
 
 
-                                         *tangerine-:FnlWinPrev* *:FnlWinPrev*
+{doc=:FnlWinPrev} #### :FnlWinPrev [N]
 
-:FnlWinPrev [N]                        Jump to [N]th previous floating window
-                                       created by tangerine
-
+Jump to [N]th previous floating window created by tangerine
 
 
   mapped to `CTRL-J` in floats by default.
 
 
-                                     *tangerine-:FnlWinResize* *:FnlWinResize*
+{doc=:FnlWinResize} #### :FnlWinResize [N]
 
-:FnlWinResize [N]                      Increase or Decrease floating window
-                                       height by [N] factor
-
+Increase or Decrease floating window height by [N] factor
 
 
   mapped to `CTRL-W =` to increase and `CTRL-W -` decrease by default.
 
 
-                                       *tangerine-:FnlWinClose* *:FnlWinClose*
+{doc=:FnlWinClose} #### :FnlWinClose
 
-:FnlWinClose                           Closes current floating window under
-                                       cursor
-
+Closes current floating window under cursor
 
 
   mapped to `ENTER` in floats by default.
 
 
-                                         *tangerine-:FnlWinKill* *:FnlWinKill*
+{doc=:FnlWinKill} #### :FnlWinKill
 
-:FnlWinKill                            Closes all floating windows made by
-                                       tangerine
-
+Closes all floating windows made by tangerine
 
 
   mapped to `ESC` in floats by default.
@@ -517,10 +494,9 @@ COMPILER API                                          *tangerine-compiler-api*
 
 This section describes function for `tangerine.api.compile.{func}`
 
-                   *tangerine-compile-string* *tangerine.api.compile.string()*
+{doc=tangerine.api.compile.string()} #### compile-string
 
-compile-string                         (compile.string {str} {opts*})
-
+(compile.string {str} {opts*})
 
 Compiles string {str} of fennel, returns string of lua.
 
@@ -534,10 +510,9 @@ PARAMETERS: ~
 <
 
 
-                       *tangerine-compile-file* *tangerine.api.compile.file()*
+{doc=tangerine.api.compile.file()} #### compile-file
 
-compile-file                           (compile.file {source} {target} {opts*})
-
+(compile.file {source} {target} {opts*})
 
 Compiles fennel {source} and writes output to {target}.
 
@@ -551,10 +526,9 @@ PARAMETERS: ~
 <
 
 
-                         *tangerine-compile-dir* *tangerine.api.compile.dir()*
+{doc=tangerine.api.compile.dir()} #### compile-dir
 
-compile-dir                            (compile-dir {source} {target} {opts*})
-
+(compile-dir {source} {target} {opts*})
 
 Diff compiles files in {source} dir and outputs to {target} dir.
 
@@ -582,10 +556,9 @@ EXAMPLE: ~
 <
 
 
-                   *tangerine-compile-buffer* *tangerine.api.compile.buffer()*
+{doc=tangerine.api.compile.buffer()} #### compile-buffer
 
-compile-buffer                         (compile-buffer {opts*})
-
+(compile-buffer {opts*})
 
 Compiles the current active fennel buffer.
 
@@ -601,10 +574,9 @@ PARAMETERS: ~
 <
 
 
-                     *tangerine-compile-vimrc* *tangerine.api.compile.vimrc()*
+{doc=tangerine.api.compile.vimrc()} #### compile-vimrc
 
-compile-vimrc                          (compile-vimrc {opts*})
-
+(compile-vimrc {opts*})
 
 Diff compiles `config.vimrc` to `config.target` dir.
 
@@ -623,10 +595,9 @@ PARAMETERS: ~
 
 {opts.force} disables diffing if set to `true`
 
-                         *tangerine-compile-rtp* *tangerine.api.compile.rtp()*
+{doc=tangerine.api.compile.rtp()} #### compile-rtp
 
-compile-rtp                            (compile.rtp {opts*})
-
+(compile.rtp {opts*})
 
 Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 
@@ -656,10 +627,9 @@ EXAMPLE: ~
 <
 
 
-                   *tangerine-compile-custom* *tangerine.api.compile.custom()*
+{doc=tangerine.api.compile.custom()} #### compile-custom
 
-compile-custom                         (compile.custom {opts*})
-
+(compile.custom {opts*})
 
 Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
 
@@ -689,10 +659,9 @@ EXAMPLE: ~
 <
 
 
-                         *tangerine-compile-all* *tangerine.api.compile.all()*
+{doc=tangerine.api.compile.all()} #### compile-all
 
-compile-all                            (compile.all {opts*})
-
+(compile.all {opts*})
 
 Diff compiles all indexed fennel files in `config`.
 
@@ -718,10 +687,9 @@ Provides functions to clean stale / orphaned lua files in target dirs.
 
 This section describes function for `tangerine.api.clean.{func}`
 
-                       *tangerine-clean-target* *tangerine.api.clean.target()*
+{doc=tangerine.api.clean.target()} #### clean-target
 
-clean-target                           (clean.target {source} {target} {opts*})
-
+(clean.target {source} {target} {opts*})
 
 Deletes orphaned? {target} after comparing against {source}.
 
@@ -757,10 +725,9 @@ PARAMETERS: ~
 
 {opts.force} deletes all compiled files if set to `true`
 
-                   *tangerine-clean-orphaned* *tangerine.api.clean.orphaned()*
+{doc=tangerine.api.clean.orphaned()} #### clean-orphaned
 
-clean-orphaned                         (clean.orphaned {opts*})
-
+(clean.orphaned {opts*})
 
 Deletes all orphaned lua files indexed inside `target` dirs.
 
@@ -782,10 +749,9 @@ EVALUATION API                                      *tangerine-evaluation-api*
 
 This section describes function for `tangerine.api.eval.{func}`
 
-                         *tangerine-eval-string* *tangerine.api.eval.string()*
+{doc=tangerine.api.eval.string()} #### eval-string
 
-eval-string                            (eval.string {str} {opts*})
-
+(eval.string {str} {opts*})
 
 Evaluates string {str} of fennel, pretty prints the output.
 
@@ -801,10 +767,9 @@ PARAMETERS: ~
 <
 
 
-                             *tangerine-eval-file* *tangerine.api.eval.file()*
+{doc=tangerine.api.eval.file()} #### eval-file
 
-eval-file                              (eval.file {path} {opts*})
-
+(eval.file {path} {opts*})
 
 Evaluates {path} of fennel, pretty prints the output.
 
@@ -819,10 +784,9 @@ PARAMETERS: ~
 <
 
 
-                         *tangerine-eval-buffer* *tangerine.api.eval.buffer()*
+{doc=tangerine.api.eval.buffer()} #### eval-buffer
 
-eval-buffer                            (eval.buffer {start} {end} {opts*})
-
+(eval.buffer {start} {end} {opts*})
 
 Evaluates lines {start} to {end} in current fennel buffer.
 
@@ -837,10 +801,9 @@ PARAMETERS: ~
 <
 
 
-                             *tangerine-eval-peek* *tangerine.api.eval.peek()*
+{doc=tangerine.api.eval.peek()} #### eval-peek
 
-eval-peek                              (eval.peek {start} {end} {opts*})
-
+(eval.peek {start} {end} {opts*})
 
 Peek lua output for lines {start} to {end} inside a scratch buffer.
 
@@ -857,17 +820,15 @@ PARAMETERS: ~
 
 UTILS API                                                *tangerine-utils-api*
 
-                         *tangerine-goto_output* *tangerine.api.goto_output()*
+{doc=tangerine.api.goto_output()} #### goto_output
 
-goto_output                            (tangerine.api.goto_output)
-
+(tangerine.api.goto_output)
 
 Open lua source of current fennel buffer in a new buffer.
 
-                             *tangerine-serialize* *tangerine.api.serialize()*
+{doc=tangerine.api.serialize()} #### serialize
 
-serialize                              (tangerine.api.serialize {…})
-
+(tangerine.api.serialize {…})
 
 Returns human-readable representation of {…}.
 
@@ -885,47 +846,41 @@ Provides functions to interact with floating windows created by tangerine.
 
 This section describes function for `tangerine.api.win.{func}`
 
-                               *tangerine-win-next* *tangerine.api.win.next()*
+{doc=tangerine.api.win.next()} #### win-next
 
-win-next                               (tangerine.api.win.next {steps*})
-
+(tangerine.api.win.next {steps*})
 
 Switch to next floating window by 1 or N {steps*}.
 
-                               *tangerine-win-prev* *tangerine.api.win.prev()*
+{doc=tangerine.api.win.prev()} #### win-prev
 
-win-prev                               (tangerine.api.win.prev {steps*})
-
+(tangerine.api.win.prev {steps*})
 
 Switch to previous floating window by 1 or N {steps*}.
 
-                           *tangerine-win-resize* *tangerine.api.win.resize()*
+{doc=tangerine.api.win.resize()} #### win-resize
 
-win-resize                             (tangerine.api.win.resize {factor})
-
+(tangerine.api.win.resize {factor})
 
 Changes height of current floating window by {factor} of N.
 
-                             *tangerine-win-close* *tangerine.api.win.close()*
+{doc=tangerine.api.win.close()} #### win-close
 
-win-close                              (tangerine.api.win.close)
-
+(tangerine.api.win.close)
 
 Closes current floating window, switching to nearest neighbor afterwards.
 
-                         *tangerine-win-killall* *tangerine.api.win.killall()*
+{doc=tangerine.api.win.killall()} #### win-killall
 
-win-killall                            (tangerine.api.win.killall)
-
+(tangerine.api.win.killall)
 
 Closes all floating windows created by tangerine.
 
 FENNEL API                                              *tangerine-fennel-api*
 
-                                  *tangerine-fennel-load* *tangerine.fennel()*
+{doc=tangerine.fennel()} #### fennel-load
 
-fennel-load                            (tangerine.fennel {version*})
-
+(tangerine.fennel {version*})
 
 Provides underlying fennel used by tangerine
 
