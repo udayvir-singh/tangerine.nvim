@@ -21,18 +21,25 @@
   "converts 'x' to a boolean based on it truthiness."
   (if x true false))
 
-(lambda err.compile? [msg]
+(lambda err.compile? [msg ?raw]
   "checks if 'msg' is an compile-time error."
+  (local e (if ?raw "[0-9?]+" "[0-9]+"))
   (toboolean
-    (or (msg:match "^Parse error.*:([0-9]+)")
-        (msg:match "^Compile error.*:([0-9]+)"))))
+    (or (msg:match (.. "^[%s\t]*Parse error.*:" e))
+        (msg:match (.. "^[%s\t]*Compile error.*:" e)))))
 
 (lambda err.parse [msg offset]
-  "parses raw error 'msg' to (line msg) values."
+  "parses raw error 'msg' to (line shortmsg) values."
   (let [lines (vim.split msg "\n")
-        line  (string.match (. lines 1) ".*:([0-9]+)")
-        msg   (string.gsub  (. lines 2) "^ +" "")]
-    (values (+ (tonumber line) offset -1) msg)))
+        line  (string.match (. lines 1) ".-:([0-9]+)")]
+    ; get shortmsg
+    (var shortmsg "")
+    (each [_ line (ipairs lines)]
+      (when (not (err.compile? line true))
+        (set shortmsg (line:gsub "^[%s\t]+" ""))
+        (lua :break)))
+    :return
+    (values (+ (tonumber line) offset -1) shortmsg)))
 
 
 ;; -------------------- ;;
@@ -90,6 +97,7 @@
 (lambda err.handle [msg opts]
   "handler for fennel errors, meant to be used with xpcall."
   ;; opts { :float boolean :virtual boolean :offset number }
+  (local msg (msg:gsub "%c%[[0-9]m" ""))
   ; handle diagnostic
   (when (and (err.compile? msg) (number? opts.offset))
     (local (line msg) (err.parse msg opts.offset))
@@ -102,8 +110,8 @@
   :return true)
 
 ; EXAMPLES:
-; (err.handle "Compile error:0\n  example message"
-;             {:float true :virtual true :offset 99})
+;; (err.handle "Compile error:0\n  Compile error:1\n    example message"
+;;             {:float true :virtual true :offset 18})
 
 
 :return err

@@ -93,7 +93,7 @@
     :force   "boolean"
     :verbose "boolean"
     :globals [:string]
-    :version [:oneof ["latest" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
+    :version [:oneof ["latest" "1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
     :hooks   [:array ["onsave" "onload" "oninit"]]
   }
 
