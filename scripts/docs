@@ -71,6 +71,12 @@ panvimdoc () {
 			$(NF + 1)="~"
 		}
 
+		# strip quotes
+		gsub("^> ", "", $0)
+
+		# strip emoji
+		gsub(":[a-z_]+:", "", $0)
+
 		# strip html blocks
 		if (! code && $1 ~ "^```") {
 			code="Yes"
