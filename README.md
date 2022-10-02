@@ -219,7 +219,7 @@ Here is config that I use in my dotfiles:
 		verbose = false,
 
 		-- compile every time changed are made to fennel files or on entering vim
-		hooks = ["onsave", "oninit"]
+		hooks = {"onsave", "oninit"}
 	}
 }
 ```
@@ -343,10 +343,10 @@ Closes all floating windows made by tangerine
 require [[tangerine]].setup {
 	compiler = {
 		-- if you want to compile before loading init.fnl (recommended)
-		hooks = ["oninit"]
+		hooks = {"oninit"}
 
 		-- if you only want after VimEnter event has fired
-		hooks = ["onenter"]
+		hooks = {"onenter"}
 	}
 }
 ```
@@ -420,7 +420,7 @@ By default tangerine provides the following api:
      :compile {
        :all    (function 0)
        :buffer (function 1)
-			 :custom (function 2)
+       :custom (function 2)
        :dir    (function 3)
        :file   (function 4)
        :rtp    (function 5)
