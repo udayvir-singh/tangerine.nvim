@@ -219,7 +219,10 @@ Here is config that I use in my dotfiles:
 		verbose = false,
 
 		-- compile every time changed are made to fennel files or on entering vim
-		hooks = ["onsave", "oninit"]
+		hooks = {
+			"onsave",
+			"oninit"
+		}
 	}
 }
 ```
