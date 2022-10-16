@@ -31,7 +31,7 @@ jobs:
         apk update && apk upgrade
         apk add make git bash curl coreutils findutils
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 2
 
@@ -62,7 +62,7 @@ jobs:
     container: pandoc/minimal:2.17-alpine
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install requirements
       run: |
@@ -75,7 +75,7 @@ jobs:
     - name: Build vimdoc
       run:  make vimdoc NO_HELPTAGS=1
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: vimdoc
         path: doc
@@ -89,7 +89,7 @@ jobs:
     container: alpine
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install requirements
       run: |
@@ -105,7 +105,7 @@ jobs:
     - name: Build fennel
       run:  make fnl
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: fennel-out
         path: lua
@@ -117,7 +117,7 @@ jobs:
     container: alpine
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install requirements
       run: |
@@ -128,7 +128,7 @@ jobs:
       run:  make clean
 
     - name: Download fennel:out
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: fennel-out
         path: lua
@@ -139,7 +139,7 @@ jobs:
     - name: Build fennel docs
       run:  make fnldoc
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: fnldoc
         path: fnl/**/README.md
@@ -157,7 +157,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.PAT || github.token }}
 
@@ -165,19 +165,19 @@ jobs:
       run:  make clean
 
     - name: Download vimdoc
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: vimdoc
         path: doc
 
     - name: Download fennel docs
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: fnldoc
         path: fnl
 
     - name: Download fennel:out
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: fennel-out
         path: lua
