@@ -3469,7 +3469,7 @@ package.preload["fennel.friend"] = package.preload["fennel.friend"] or function(
     else
       eol = string.len(codeline)
     end
-    return (sub(codeline, 1, col) .. "\27[7m" .. sub(codeline, (col + 1), (endcol + 1)) .. "\27[0m" .. sub(codeline, (endcol + 2), eol))
+    return (sub(codeline, 1, col) .. sub(codeline, (col + 1), (endcol + 1)) .. sub(codeline, (endcol + 2), eol))
   end
   local function friendly_msg(msg, _182_, source)
     local _arg_183_ = _182_

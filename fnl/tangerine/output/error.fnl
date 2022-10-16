@@ -97,7 +97,6 @@
 (lambda err.handle [msg opts]
   "handler for fennel errors, meant to be used with xpcall."
   ;; opts { :float boolean :virtual boolean :offset number }
-  (local msg (msg:gsub "%c%[[0-9]m" ""))
   ; handle diagnostic
   (when (and (err.compile? msg) (number? opts.offset))
     (local (line msg) (err.parse msg opts.offset))
