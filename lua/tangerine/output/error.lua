@@ -80,16 +80,15 @@ end
 err.handle = function(msg, opts)
   _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/error.fnl:97")
   _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:97")
-  local msg0 = msg:gsub("%c%[[0-9]m", "")
-  if (err["compile?"](msg0) and number_3f(opts.offset)) then
-    local line, msg1 = err.parse(msg0, opts.offset)
-    err.send(line, msg1, env.conf(opts, {"eval", "diagnostic", "virtual"}))
+  if (err["compile?"](msg) and number_3f(opts.offset)) then
+    local line, msg0 = err.parse(msg, opts.offset)
+    err.send(line, msg0, env.conf(opts, {"eval", "diagnostic", "virtual"}))
   else
   end
   if env.conf(opts, {"eval", "float"}) then
-    err.float(msg0)
+    err.float(msg)
   else
-    err.soft(msg0)
+    err.soft(msg)
   end
   return true
 end
