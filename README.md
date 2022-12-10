@@ -58,21 +58,28 @@
 -- pick your plugin manager, default [standalone]
 local pack = "tangerine" or "packer" or "paq"
 
-local function bootstrap (url)
+local function bootstrap(url, ref)
 	local name = url:gsub(".*/", "")
 	local path = vim.fn.stdpath [[data]] .. "/site/pack/".. pack .. "/start/" .. name
 
 	if vim.fn.isdirectory(path) == 0 then
 		print(name .. ": installing in data dir...")
 
-		vim.fn.system {"git", "clone", "--depth", "1", url, path}
+		vim.fn.system {"git", "clone", url, path}
+		if ref then
+			vim.fn.system {"git", "-C", path, "checkout", ref}
+		end
 
 		vim.cmd [[redraw]]
 		print(name .. ": finished installing")
 	end
 end
 
-bootstrap "https://github.com/udayvir-singh/tangerine.nvim"
+-- for git head
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
+
+-- for stable version
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.2")
 ```
 
 2. Call tangerine `setup()` function:
@@ -97,7 +104,7 @@ require "tangerine".setup {
 
 #### Packer
 
-You can use packer to manage tangerine afterwards:
+You can use packer to manage tangerine afterwards [only do this if you haven't used ref option in bootstrap]:
 
 ```fennel
 (local packer (require :packer))
