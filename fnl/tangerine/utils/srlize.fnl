@@ -32,8 +32,8 @@
 
 (macro gaurd [expr val]
   "returns 'val' from current scope if 'expr' is truthy."
-  `(let [,(sym :out) ,(or val expr)]
-     (if ,expr (lua "return out"))))
+  `(let [,(sym :__out) ,(or val expr)]
+     (if ,expr (lua "return __out"))))
 
 
 ;; -------------------- ;;
@@ -253,7 +253,7 @@
 (lambda parse.list [list level ?key]
   "parses 'list' of definite dimensions."
   (gaurd (get-ref list))
-  (gaurd (= 0 (# list)) "{}")
+  (gaurd (and (= 0 (# list)) (not (getmetatable list))) "{}")
   ; check for recursion
   (var ref "")
   (if (recursive? list)
