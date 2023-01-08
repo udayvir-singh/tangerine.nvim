@@ -188,35 +188,26 @@ local function pre_process(tbl, schema0)
   end
   return tbl
 end
-local function rget(tbl, args)
-  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:247")
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:247")
-  if (0 == #args) then
-    return tbl
-  else
-  end
-  local rest = tbl[table.remove(args, 1)]
-  if (nil ~= rest) then
-    return rget(rest, args)
-  else
-    return nil
-  end
-end
 local function env_get(...)
-  return rget(ENV, {...})
+  local keys = {...}
+  local cur = ENV
+  while ((nil ~= cur) and (0 < #keys)) do
+    cur = cur[table.remove(keys, 1)]
+  end
+  return cur
 end
-local function env_get_conf(opts, args)
-  _G.assert((nil ~= args), "Missing argument args on fnl/tangerine/utils/env.fnl:259")
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:259")
-  local last = args[#args]
+local function env_get_conf(opts, keys)
+  _G.assert((nil ~= keys), "Missing argument keys on fnl/tangerine/utils/env.fnl:255")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/utils/env.fnl:255")
+  local last = keys[#keys]
   if (nil ~= opts[last]) then
     return pre_process(opts, pre_schema)[last]
   else
-    return rget(ENV, args)
+    return env_get(unpack(keys))
   end
 end
 local function env_set(tbl)
-  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:270")
+  _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/env.fnl:266")
   validate(tbl, schema)
   return deepcopy(pre_process(tbl, pre_schema), ENV)
 end

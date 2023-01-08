@@ -96,9 +96,9 @@ default_store = _8_
 local store = default_store()
 local function add_cycle(x)
   do
-    local out = not table_3f(x)
+    local __out = not table_3f(x)
     if not table_3f(x) then
-      return out
+      return __out
     else
     end
   end
@@ -150,9 +150,9 @@ local function _11_(parse0, val, level)
 end
 local function _13_(parse0, val, level)
   do
-    local out = "nil"
+    local __out = "nil"
     if (nil == val) then
-      return out
+      return __out
     else
     end
   end
@@ -194,16 +194,16 @@ local function multi_line_3f(list, level, _3fkey)
   _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:240")
   _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:240")
   do
-    local out = recursive_3f(list)
+    local __out = recursive_3f(list)
     if recursive_3f(list) then
-      return out
+      return __out
     else
     end
   end
   do
-    local out = getmetatable(list)
+    local __out = getmetatable(list)
     if getmetatable(list) then
-      return out
+      return __out
     else
     end
   end
@@ -221,16 +221,16 @@ parse.list = function(list, level, _3fkey)
   _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:253")
   _G.assert((nil ~= list), "Missing argument list on fnl/tangerine/utils/srlize.fnl:253")
   do
-    local out = get_ref(list)
+    local __out = get_ref(list)
     if get_ref(list) then
-      return out
+      return __out
     else
     end
   end
   do
-    local out = "{}"
-    if (0 == #list) then
-      return out
+    local __out = "{}"
+    if ((0 == #list) and not getmetatable(list)) then
+      return __out
     else
     end
   end
@@ -308,9 +308,9 @@ parse.table = function(tbl, level)
   _G.assert((nil ~= level), "Missing argument level on fnl/tangerine/utils/srlize.fnl:313")
   _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:313")
   do
-    local out = get_ref(tbl)
+    local __out = get_ref(tbl)
     if get_ref(tbl) then
-      return out
+      return __out
     else
     end
   end
@@ -332,9 +332,9 @@ parse.metatable = function(tbl, level)
   _G.assert((nil ~= tbl), "Missing argument tbl on fnl/tangerine/utils/srlize.fnl:334")
   local mtbl = getmetatable(tbl)
   do
-    local out = ""
+    local __out = ""
     if (nil == mtbl) then
-      return out
+      return __out
     else
     end
   end
@@ -343,9 +343,9 @@ end
 local function serialize(...)
   local args = {...}
   do
-    local out = (":return " .. parse(args[1], 1))
+    local __out = (":return " .. parse(args[1], 1))
     if (1 >= #args) then
-      return out
+      return __out
     else
     end
   end
