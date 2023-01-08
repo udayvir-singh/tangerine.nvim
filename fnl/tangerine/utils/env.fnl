@@ -244,24 +244,20 @@
 ;; -------------------- ;;
 ;;        Getters       ;;
 ;; -------------------- ;;
-(lambda rget [tbl args]
-  "recursively gets value in 'tbl' from list of args."
-  (if (= 0 (# args))
-      (lua "return tbl"))
-  (let [rest (. tbl (table.remove args 1))]
-    (if (not= nil rest)
-        (rget rest args))))
-
 (lambda env-get [...]
   "getter for de' table ENV."
-  (rget ENV [...]))
+  (local keys [...])
+  (var   cur ENV)
+  (while (and (not= nil cur) (< 0 (# keys)))
+    (set cur (. cur (table.remove keys 1))))
+  :return cur)
 
-(lambda env-get-conf [opts args]
-  "getter for 'opts', returns value of last key in 'args' fallbacks to ENV."
-  (let [last (. args (# args))]
+(lambda env-get-conf [opts keys]
+  "getter for 'opts', returns value of last key in 'keys' fallbacks to ENV."
+  (let [last (. keys (# keys))]
     (if (not= nil (. opts last))
         (. (pre-process opts pre-schema) last)
-        (rget ENV args))))
+        (env-get (unpack keys)))))
 
 
 ;; -------------------- ;;
