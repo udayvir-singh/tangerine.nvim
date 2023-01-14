@@ -81,7 +81,7 @@ end
 bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
 
 -- for stable version
-bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.2")
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.3")
 ```
 
 2. Call tangerine `setup()` function:
