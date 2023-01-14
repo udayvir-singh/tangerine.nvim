@@ -52,6 +52,8 @@
 
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
+> NOTE: if you are using [lazy](https://github.com/folke/lazy.nvim) plugin manager, you should create `/init.lua` instead.
+
 ```lua
 -- ~/.config/nvim/plugin/0-tangerine.lua
 
