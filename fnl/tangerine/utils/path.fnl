@@ -28,7 +28,9 @@
 (lambda p.from-x-to-y [path [from ext1] [to ext2]]
   "changes 'path's extension and parent-dir from 'ext1' to 'ext2'."
   (let [from (env.get from)
+        from (from:gsub "%p" "%%%1")
         to   (env.get to)
+        to (to:gsub "%p" "%%%1")
         path (path:gsub (.. ext1 "$") ext2)]
        (if (vim.startswith path from)
            (path:gsub from to)
