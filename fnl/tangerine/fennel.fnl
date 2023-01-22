@@ -37,10 +37,7 @@
 ;; -------------------- ;;
 ;;       Fennel         ;;
 ;; -------------------- ;;
-(local orig {
-  ; "cache of original package.path."
-  :path package.path
-})
+(local original-path package.path)
 
 (lambda fennel.load [?version]
   "require fennel of 'version' and setups it paths."
@@ -55,7 +52,7 @@
   "appends fennel source and target dirs into package.path."
   (let [target (get-path :lua false)
         source (format-path (env.get :target) :lua false)]
-    (tset package :path (.. orig.path ";" target ";" source))
+    (tset package :path (.. original-path ";" target ";" source))
     :return package.path))
 
 

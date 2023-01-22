@@ -45,7 +45,7 @@
   (tset win-stack :total total)
   :return true)
 
-(let [{: timer} {:timer (vim.loop.new_timer)}] ;; cache timer
+(let [timer (vim.loop.new_timer)]
   "auto update win-stack every 200ms."
   (timer:start 200 200
                (vim.schedule_wrap update-stack)))
