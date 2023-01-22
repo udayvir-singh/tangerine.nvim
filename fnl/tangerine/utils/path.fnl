@@ -25,31 +25,32 @@
 ;; ------------------------- ;;
 (local vimrc-out (-> (env.get :target) (.. "tangerine_vimrc.lua")))
 
-(lambda p.from-x-to-y [path [from ext1] [to ext2]]
-  "changes 'path's extension and parent-dir from 'ext1' to 'ext2'."
-  (let [from (env.get from)
-        to   (env.get to)
-        path (path:gsub (.. ext1 "$") ext2)]
-       (if (vim.startswith path from)
+(lambda esc-regex [str]
+  "escapes magic characters from 'str'."
+  (str:gsub "[%%%^%$%(%)%[%]%.%*%+%-%?]" "%%%1"))
+
+(lambda p.transform-path [path [key1 ext1] [key2 ext2]]
+  "changes path's parent dir and extension."
+  (let [from (.. "^" (esc-regex (env.get key1)))
+        to   (esc-regex (env.get key2))
+        path (path:gsub (.. "%." ext1 "$") (.. "." ext2))]
+       (if (path:find from)
            (path:gsub from to)
-           :else
-           (path:gsub (.. "/" ext1 "/") (.. "/" ext2 "/"))))  )
+           (path:gsub (.. "/" ext1 "/") (.. "/" ext2 "/")))))
 
 (lambda p.target [path]
   "converts fnl:'path' to valid target path."
   (let [vimrc (env.get :vimrc)]
     (if (= path vimrc)
         vimrc-out
-        :else
-        (p.from-x-to-y path [:source "fnl"] [:target "lua"]))))
+        (p.transform-path path [:source "fnl"] [:target "lua"]))))
 
 (lambda p.source [path]
   "converts lua:'path' to valid source path."
   (let [vimrc (env.get :vimrc)]
     (if (= path vimrc-out)
         vimrc
-        :else
-        (p.from-x-to-y path [:target "lua"] [:source "fnl"]))))
+        (p.transform-path path [:target "lua"] [:source "fnl"]))))
 
 
 ;; -------------------- ;;
@@ -80,10 +81,10 @@
     (vim.tbl_filter #(not (string.find $1 "macros.fnl$")) out)))
 
 (fn p.list-lua-files []
-  "return array of .fnl files present in target dir."
+  "return array of .lua files present in target dir."
   (let [target (env.get :target)
         out    (p.wildcard target "**/*.lua")]
-    out))
+    :return out))
 
 
 :return p
