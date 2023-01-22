@@ -51,18 +51,17 @@ local function update_stack()
   return true
 end
 do
-  local _let_10_ = {timer = vim.loop.new_timer()}
-  local timer = _let_10_["timer"]
+  local timer = vim.loop.new_timer()
   timer:start(200, 200, vim.schedule_wrap(update_stack))
 end
 local function move_stack(start, steps)
   _G.assert((nil ~= steps), "Missing argument steps on fnl/tangerine/utils/window.fnl:57")
   _G.assert((nil ~= start), "Missing argument start on fnl/tangerine/utils/window.fnl:57")
   local index = start
-  for idx, _11_ in ipairs(win_stack) do
-    local _each_12_ = _11_
-    local win0 = _each_12_[1]
-    local conf = _each_12_[2]
+  for idx, _10_ in ipairs(win_stack) do
+    local _each_11_ = _10_
+    local win0 = _each_11_[1]
+    local conf = _each_11_[2]
     local idx_2a = (idx + steps)
     if ((win0 == vim.api.nvim_get_current_win()) and win_stack[idx_2a]) then
       index = idx_2a
@@ -85,10 +84,10 @@ win.resize = function(n)
   _G.assert((nil ~= n), "Missing argument n on fnl/tangerine/utils/window.fnl:75")
   local n0 = n
   local idx_2a = (#win_stack + 1)
-  for idx, _15_ in ipairs(win_stack) do
-    local _each_16_ = _15_
-    local win0 = _each_16_[1]
-    local conf = _each_16_[2]
+  for idx, _14_ in ipairs(win_stack) do
+    local _each_15_ = _14_
+    local win0 = _each_15_[1]
+    local conf = _each_15_[2]
     if (win0 == vim.api.nvim_get_current_win()) then
       if (0 >= (conf.height + n0)) then
         n0 = (1 - conf.height)
@@ -108,25 +107,25 @@ win.resize = function(n)
 end
 win.close = function()
   local current = vim.api.nvim_get_current_win()
-  for idx, _20_ in ipairs(win_stack) do
-    local _each_21_ = _20_
-    local win0 = _each_21_[1]
-    local conf = _each_21_[2]
+  for idx, _19_ in ipairs(win_stack) do
+    local _each_20_ = _19_
+    local win0 = _each_20_[1]
+    local conf = _each_20_[2]
     if (win0 == current) then
       vim.api.nvim_win_close(win0, true)
       update_stack()
-      local _22_
+      local _21_
       if win_stack[idx] then
-        _22_ = idx
+        _21_ = idx
       elseif win_stack[(idx + 1)] then
-        _22_ = (idx + 1)
+        _21_ = (idx + 1)
       else
-        _22_ = (idx - 1)
+        _21_ = (idx - 1)
       end
-      local function _24_()
+      local function _23_()
         return 0
       end
-      move_stack(_22_, _24_())
+      move_stack(_21_, _23_())
     else
     end
   end
@@ -151,10 +150,10 @@ local function lineheight(lines)
 end
 local function nmap_21(buffer, ...)
   _G.assert((nil ~= buffer), "Missing argument buffer on fnl/tangerine/utils/window.fnl:128")
-  for _, _26_ in ipairs({...}) do
-    local _each_27_ = _26_
-    local lhs = _each_27_[1]
-    local rhs = _each_27_[2]
+  for _, _25_ in ipairs({...}) do
+    local _each_26_ = _25_
+    local lhs = _each_26_[1]
+    local rhs = _each_26_[2]
     vim.api.nvim_buf_set_keymap(buffer, "n", lhs, ("<cmd>" .. rhs .. "<CR>"), {silent = true, noremap = true})
   end
   return nil

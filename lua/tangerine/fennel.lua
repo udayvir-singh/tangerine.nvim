@@ -29,7 +29,7 @@ local function get_path(ext, macro_path_3f)
   end
   return table.concat(out, ";")
 end
-local orig = {path = package.path}
+local original_path = package.path
 fennel.load = function(_3fversion)
   local version = (_3fversion or env.get("compiler", "version"))
   local fennel0 = require(("tangerine.fennel." .. version))
@@ -40,7 +40,7 @@ end
 fennel["patch-path"] = function()
   local target = get_path("lua", false)
   local source = format_path(env.get("target"), "lua", false)
-  do end (package)["path"] = (orig.path .. ";" .. target .. ";" .. source)
+  do end (package)["path"] = (original_path .. ";" .. target .. ";" .. source)
   return package.path
 end
 return fennel
