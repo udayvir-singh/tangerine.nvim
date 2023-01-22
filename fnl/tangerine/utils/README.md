@@ -51,14 +51,14 @@ utils[env]
 **EXPORTS**
 ```fennel
 :path {
-	:from-x-to-y    (function 1)
-	:goto-output    (function 2)
-	:list-fnl-files (function 3)
-	:list-lua-files (function 4)
-	:resolve        (function 5)
-	:shortname      (function 6)
-	:source         (function 7)
-	:target         (function 8)
+	:goto-output    (function 1)
+	:list-fnl-files (function 2)
+	:list-lua-files (function 3)
+	:resolve        (function 4)
+	:shortname      (function 5)
+	:source         (function 6)
+	:target         (function 7)
+	:transform-path (function 8)
 	:wildcard       (function 9)
 }
 ```
