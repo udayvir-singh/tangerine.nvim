@@ -60,7 +60,7 @@ count () {
 	local FILE="${1-}"
 	local REGEX="${2-}"
 
-	egrep -c "${REGEX}" < "${FILE}" || true
+	grep -E -c "${REGEX}" < "${FILE}" || true
 }
 
 changes () {
