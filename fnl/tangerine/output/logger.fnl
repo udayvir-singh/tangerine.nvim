@@ -78,7 +78,7 @@
 
 
 ;; -------------------- ;;
-;;         MAIN         ;;
+;;         Main         ;;
 ;; -------------------- ;;
 (lambda log.success [title files opts]
   "logs successful list of 'file' with heading 'title'."

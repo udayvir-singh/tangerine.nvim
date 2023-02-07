@@ -35,7 +35,7 @@
 
 
 ;; -------------------- ;;
-;;         MAIN         ;;
+;;         Main         ;;
 ;; -------------------- ;;
 (lambda clean.target [source target ?opts]
   "checks if lua:'target' is Marked and has a readable fnl:'source',
@@ -73,7 +73,7 @@
   :clean
   (merge logs
     (clean.rtp (tbl-merge {:verbose false} opts)))
-  (each [_ target (ipairs (p.list-lua-files))]
+  (each [_ target (ipairs (p.wildcard (env.get :target) "**/*.lua"))]
         (if (clean.target (p.source target) target opts)
             (table.insert logs (p.shortname target))))
   :logger (log.success "CLEANED" logs opts)

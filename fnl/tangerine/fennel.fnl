@@ -17,14 +17,19 @@
       path :?/ (if macro? "init-macros." "init.") ext))
 
 (lambda get-path [ext macro-path?]
-  "formats paths in &rtp and source dir for package and fennel paths."
+  "formats paths in env for package and fennel paths."
   (local out [])
   (let [source (env.get :source)
+        custom (env.get :custom)
         rtps   (.. vim.o.runtimepath ",")]
     ; relative paths
     (table.insert out (format-path "./" ext macro-path?))
     ; source dirs
     (table.insert out (format-path source ext macro-path?))
+    ; custom dirs
+    (each [_ [s t] (ipairs custom)]
+      (table.insert out (format-path s ext macro-path?))
+      (table.insert out (format-path t ext macro-path?)))
     ; rtp dirs
     (each [entry (rtps:gmatch "(.-),")]
           (local glob (vim.fn.glob (.. entry "/fnl/") 0 1))

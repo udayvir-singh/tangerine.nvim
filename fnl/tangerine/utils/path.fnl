@@ -74,17 +74,5 @@
   "expands wildcard 'pat' inside of 'dir' and return array of paths."
   (vim.fn.glob (.. dir pat) 0 1))
 
-(fn p.list-fnl-files []
-  "return array of .fnl files present in source dir."
-  (let [source (env.get :source)
-        out    (p.wildcard source "**/*.fnl")]
-    (vim.tbl_filter #(not (string.find $1 "macros.fnl$")) out)))
-
-(fn p.list-lua-files []
-  "return array of .lua files present in target dir."
-  (let [target (env.get :target)
-        out    (p.wildcard target "**/*.lua")]
-    :return out))
-
 
 :return p

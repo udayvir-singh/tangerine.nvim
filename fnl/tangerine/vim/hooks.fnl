@@ -51,7 +51,7 @@
     (env.get :vimrc)
     (.. (env.get :source) "*.fnl")
     (map #(.. $ "*.fnl") (env.get :rtpdirs))
-    (map #(.. $ "*.fnl") (icollect [_ [s t] (ipairs (env.get :custom))] s))
+    (map #(.. $ "*.fnl") (icollect [_ [s] (ipairs (env.get :custom))] s))
   ])
   (augroup :tangerine-onsave
            [[:BufWritePost (table.concat (flat pat) ",")] run-hooks]))

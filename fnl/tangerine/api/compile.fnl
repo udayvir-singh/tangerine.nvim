@@ -39,7 +39,8 @@
 
 (lambda compile? [source target opts]
   "if opts.force != true, then diffs 'source' against 'target'"
-  (and (fs.readable? source)
+  (and (not (source:find "macros%.fnl$"))
+       (fs.readable? source)
        (or (env.conf opts [:compiler :force])
            (df.stale? source target))))
 
@@ -200,7 +201,7 @@
   (local logs  [])
   :compile
   (hmerge logs (compile.vimrc opts*))
-  (each [_ source (ipairs (p.list-fnl-files))]
+  (each [_ source (ipairs (p.wildcard (env.get :source) "**/*.fnl"))]
         (local target (p.target source))
         (local sname  (p.shortname source))
         (when (compile? source target opts)
