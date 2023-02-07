@@ -42,7 +42,6 @@ hooks.onsave = function()
     for _, _5_ in ipairs(env.get("custom")) do
       local _each_6_ = _5_
       local s = _each_6_[1]
-      local t = _each_6_[2]
       local val_17_auto = s
       if (nil ~= val_17_auto) then
         i_16_auto = (i_16_auto + 1)

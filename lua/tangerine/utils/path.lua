@@ -68,17 +68,4 @@ p.wildcard = function(dir, pat)
   _G.assert((nil ~= dir), "Missing argument dir on fnl/tangerine/utils/path.fnl:73")
   return vim.fn.glob((dir .. pat), 0, 1)
 end
-p["list-fnl-files"] = function()
-  local source = env.get("source")
-  local out = p.wildcard(source, "**/*.fnl")
-  local function _9_(_241)
-    return not string.find(_241, "macros.fnl$")
-  end
-  return vim.tbl_filter(_9_, out)
-end
-p["list-lua-files"] = function()
-  local target = env.get("target")
-  local out = p.wildcard(target, "**/*.lua")
-  return out
-end
 return p

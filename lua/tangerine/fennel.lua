@@ -18,9 +18,17 @@ local function get_path(ext, macro_path_3f)
   _G.assert((nil ~= ext), "Missing argument ext on fnl/tangerine/fennel.fnl:19")
   local out = {}
   local source = env.get("source")
+  local custom = env.get("custom")
   local rtps = (vim.o.runtimepath .. ",")
   table.insert(out, format_path("./", ext, macro_path_3f))
   table.insert(out, format_path(source, ext, macro_path_3f))
+  for _, _2_ in ipairs(custom) do
+    local _each_3_ = _2_
+    local s = _each_3_[1]
+    local t = _each_3_[2]
+    table.insert(out, format_path(s, ext, macro_path_3f))
+    table.insert(out, format_path(t, ext, macro_path_3f))
+  end
   for entry in rtps:gmatch("(.-),") do
     local glob = vim.fn.glob((entry .. "/fnl/"), 0, 1)
     for _, path in ipairs(glob) do

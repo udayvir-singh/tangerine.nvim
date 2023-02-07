@@ -55,7 +55,7 @@ clean.orphaned = function(_3fopts)
   local opts = (_3fopts or {})
   local logs = {}
   merge(logs, clean.rtp(tbl_merge({verbose = false}, opts)))
-  for _, target in ipairs(p["list-lua-files"]()) do
+  for _, target in ipairs(p.wildcard(env.get("target"), "**/*.lua")) do
     if clean.target(p.source(target), target, opts) then
       table.insert(logs, p.shortname(target))
     else
