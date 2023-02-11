@@ -34,7 +34,7 @@ eval.string = function(str, _3fopts)
   err.clear()
   local ok, result = nil, nil
   local function _4_()
-    return {fennel0.eval(str, {filename = filename, compilerEnv = _G})}
+    return {fennel0.eval(str, {filename = filename, compilerEnv = _G, useBitLib = true})}
   end
   local function _5_(_241)
     return err.handle(_241, opts)
@@ -75,7 +75,7 @@ eval.peek = function(start, _end, _3fopts)
   err.clear()
   local ok, result = nil, nil
   local function _7_()
-    return fennel0.compileString(lines, {filename = (opts.filename or bufname), compilerEnv = _G})
+    return fennel0.compileString(lines, {filename = (opts.filename or bufname), compilerEnv = _G, useBitLib = true})
   end
   local function _8_(_241)
     return err.handle(_241, tbl_merge({offset = start0}, opts))

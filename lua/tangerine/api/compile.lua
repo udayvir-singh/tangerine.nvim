@@ -38,7 +38,7 @@ compile.string = function(str, _3fopts)
   local fennel0 = fennel.load()
   local filename = (opts.filename or "tangerine-out")
   local globals = env.conf(opts, {"compiler", "globals"})
-  return fennel0.compileString(str, {filename = filename, allowedGlobals = globals, compilerEnv = _G})
+  return fennel0.compileString(str, {filename = filename, allowedGlobals = globals, compilerEnv = _G, useBitLib = true})
 end
 compile.file = function(source, target, _3fopts)
   _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:83")
