@@ -23,32 +23,25 @@
   "generates string with 'n' number of tabs."
   (.. "\n" (string.rep "\t" n)))
 
-(macro append [name ...]
+(macro append! [name ...]
   "append 'str' to variable 'name'."
   (local out [])
   (each [_ val (ipairs [...])]
     (table.insert out `(or ,val "")))
   `(set-forcibly! ,name (.. ,name ,(unpack out))))
 
-(macro gaurd [expr val]
+(macro gaurd! [expr val]
   "returns 'val' from current scope if 'expr' is truthy."
   `(let [,(sym :__out) ,(or val expr)]
      (if ,expr (lua "return __out"))))
 
-
-;; -------------------- ;;
-;;        DEBUG         ;;
-;; -------------------- ;;
-(lambda time* [name runs handler]
-  "times function 'handler' for n 'runs'."
-  (local start (os.clock))
-  (for [i 1 runs]
-    (handler))
-  (local end (os.clock))
-  (print (string.format "%-8s: %s" name (/ (- end start) runs))))
-
-(macro time [name runs ...]
-  `(time* ,name ,runs (fn [] ,...)))
+(macro time! [name ...]
+  "evaluates '...' and calculates its runtime."
+  '(let [start# (os.clock)
+         out#   (do ,...)
+         end#   (os.clock)]
+     (print (string.format "%s: %.1fms" ,name (* (- end# start#) 1000)))
+     :return out#))
 
 
 ;; -------------------- ;;
@@ -134,7 +127,7 @@
 
 (fn add-cycle [x]
   "recursively adds count of cycles in 'x' to store."
-  (gaurd (not (table? x)))
+  (gaurd! (not (table? x)))
   (let [count (. store.cycles x)]
     ; increment count
     (tset store.cycles x (+ 1 (or count 0)))
@@ -145,7 +138,7 @@
         (add-cycle k)
         (add-cycle v)))))
 
-(lambda recursive? [tbl]
+(lambda seen? [tbl]
   "checks if 'tbl' is seen more than one times."
   (not= 1 (or (. store.cycles tbl) 1)))
 
@@ -177,7 +170,7 @@
     :table     nil
     :metatable nil
 
-    :this
+    :any
     (lambda [parse val level]
       (if (list? val)
           (parse.list val level)
@@ -190,10 +183,10 @@
     :__call
     (fn [parse val level]
       "converts 'val' into human readable form."
-      (gaurd (= nil val) :nil)
+      (gaurd! (= nil val) :nil)
       ; parse value
       (add-cycle val)
-      (local out (parse:this val level))
+      (local out (parse:any val level))
       ; reset store
       (set store (default-store))
       :return out)
@@ -239,8 +232,8 @@
 ; ---------------------- ;
 (lambda multi-line? [list level ?key]
   "determines if 'list' should be displayed on multiple lines."
-  (gaurd (recursive? list))
-  (gaurd (getmetatable list))
+  (gaurd! (seen? list))
+  (gaurd! (getmetatable list))
   ; estimate width of output
   (var width (+ 3 (# (or ?key "")) (* level vim.o.shiftwidth)))
   (each [_ val (ipairs list)]
@@ -252,19 +245,18 @@
 
 (lambda parse.list [list level ?key]
   "parses 'list' of definite dimensions."
-  (gaurd (get-ref list))
-  (gaurd (and (= 0 (# list)) (not (getmetatable list))) "{}")
+  (gaurd! (get-ref list))
+  (gaurd! (and (= 0 (# list)) (not (getmetatable list))) "{}")
   ; check for recursion
   (var ref "")
-  (if (recursive? list)
+  (if (seen? list)
       (set ref (string.format " ; (%s)" (add-ref list))))
   ; parse list
   (var ml  (multi-line? list level ?key))
   (var out "")
   (each [idx val (ipairs list)]
     (local sep (if ml (tab level) (not= idx 1) " "))
-    (append out sep
-            (parse:this val (+ 1 level))))
+    (append! out sep (parse:any val (+ 1 level))))
   ; parse metatable
   (local mtbl (parse.metatable list (+ level 1)))
   :return
@@ -283,7 +275,7 @@
   "parses 'key' of a table."
   (if (keyword? x)
       (.. ":" x)
-      (parse:this x (+ level 1))))
+      (parse:any x (+ level 1))))
 
 (lambda key-padding [tbl]
   "calculates padding after keys in 'tbl'."
@@ -312,20 +304,20 @@
 
 (lambda parse.table [tbl level]
   "parses key:val 'tbl' into human readable form."
-  (gaurd (get-ref tbl))
+  (gaurd! (get-ref tbl))
   ; check for recursion
   (var ref "")
-  (if (recursive? tbl)
+  (if (seen? tbl)
       (set ref (string.format " ; (%s)" (add-ref tbl))))
   ; parse table
   (var out "")
   (var pad (key-padding tbl))
   (each [k v (opairs tbl)]
-    (append out
+    (append! out
       (tab level)
       (parse.key  k (+ level 1))
       (string.rep " " (. pad k))
-      (parse:this v (+ level 1))))
+      (parse:any v (+ level 1))))
   ; parse metatable
   (local mtbl (parse.metatable tbl (+ level 1)))
   :return
@@ -334,9 +326,9 @@
 (lambda parse.metatable [tbl level]
   "parses value of metatable in 'tbl'."
   (local mtbl (getmetatable tbl))
-  (gaurd (= nil mtbl) "")
+  (gaurd! (= nil mtbl) "")
   :return
-  (.. (tab (- level 1)) "(metatable) " (parse:this mtbl level)))
+  (.. (tab (- level 1)) "(metatable) " (parse:any mtbl level)))
 
 
 ;; -------------------- ;;
@@ -346,19 +338,19 @@
   "returns human-readable representation of {...}."
   (local args [...])
   ; parse single value
-  (gaurd (>= 1 (# args))
+  (gaurd! (>= 1 (# args))
          (.. ":return " (parse (. args 1) 1)))
   ; parse multiple values
   (var out "")
   (each [_ val (ipairs args)]
-    (append out (tab 1) (parse val 2)))
+    (append! out (tab 1) (parse val 2)))
   (.. "(values" out "\n)"))
 
 ; EXAMPLES:
 ; (local {: win} (require :tangerine.utils))
 ; (win.set-float (serialize vim) :fennel :normal)
 ;
-; (time :serialize 5 (serialize _G))
+; (time! :serialize (serialize _G))
 
 
 :return serialize

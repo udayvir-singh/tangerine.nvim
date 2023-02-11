@@ -28,14 +28,9 @@
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
-(lambda quote* [str]
-  "surrounds 'str' with double quotes."
-  (let [qt "\""]
-    (.. qt str qt)))
-
 (lambda compiled [source]
   "prints compiled message for 'source'."
-  (print (quote* source) "compiled"))
+  (print (.. "\34" source "\34 compiled")))
 
 (lambda compile? [source target opts]
   "if opts.force != true, then diffs 'source' against 'target'"
@@ -54,21 +49,21 @@
   "merges 'tbl1' onto 'tbl2'."
   (vim.tbl_extend "keep" (or tbl1 {}) tbl2))
 
-(macro halt [x]
+(macro halt! [x]
   "halts current scope if list 'x' returns 0 or false."
   `(let [out# ,x]
      (if (or (= 0 out#) (= false out#))
          (lua "return 0"))
      out#))
 
-(macro hpcall [func handler]
+(macro hpcall! [func handler]
   "safely calls 'func', runs 'handler' on error and halts current scope."
-  `(halt (xpcall ,func ,handler)))
+  `(halt! (xpcall ,func ,handler)))
 
-(macro hmerge [lst x]
+(macro hmerge! [lst x]
   "merge output of 'x' onto 'lst', halts current scope on error."
   `(let [out# (or ,x [])]
-     (halt out#)
+     (halt! out#)
      (merge ,lst out#)))
 
 
@@ -117,8 +112,8 @@
         :compile
         (when (compile? source target opts)
           (table.insert logs sname)
-          (hpcall #(compile.file source target opts)
-                  #(log.failure "COMPILE ERROR" sname $1 opts))))
+          (hpcall! #(compile.file source target opts)
+                   #(log.failure "COMPILE ERROR" sname $1 opts))))
   :logger (log.success "COMPILED" logs opts)
   :return logs)
 
@@ -142,8 +137,8 @@
         sname   (vim.fn.expand :%:t)
         target  (p.target bufname)]
     :compile
-    (hpcall #(compile.file bufname target (tbl-merge opts {:filename sname}))
-            #(log.failure "COMPILE ERROR" sname $1 opts))
+    (hpcall! #(compile.file bufname target (tbl-merge opts {:filename sname}))
+             #(log.failure "COMPILE ERROR" sname $1 opts))
     :logger
     (if (env.conf opts [:compiler :verbose])
         (compiled sname))
@@ -159,8 +154,8 @@
         sname  (p.shortname source)]
     (when (compile? source target opts)
       :compile
-      (hpcall #(compile.file source target opts)
-              #(log.failure "COMPILE ERROR" sname $1 opts))
+      (hpcall! #(compile.file source target opts)
+               #(log.failure "COMPILE ERROR" sname $1 opts))
       :logger
       (table.insert logs sname)
       (if (env.conf opts [:compiler :verbose])
@@ -175,7 +170,7 @@
   (local dirs (env.conf opts [:rtpdirs]))
   :compile
   (each [_ dir (ipairs dirs)]
-        (hmerge logs (compile.dir dir dir (tbl-merge {:verbose false} opts))))
+        (hmerge! logs (compile.dir dir dir (tbl-merge {:verbose false} opts))))
   :logger
   (log.success "COMPILED RTP" logs opts)
   :return logs)
@@ -188,7 +183,7 @@
   (local args (env.conf opts [:custom]))
   :compile
   (each [_ [sourcedir targetdir] (ipairs args)]
-        (hmerge logs (compile.dir sourcedir targetdir (tbl-merge {:verbose false} opts))))
+        (hmerge! logs (compile.dir sourcedir targetdir (tbl-merge {:verbose false} opts))))
   :logger
   (log.success "COMPILED CUSTOM" logs opts)
   :return logs)
@@ -200,16 +195,16 @@
   (local opts* (tbl-merge {:verbose false} opts))
   (local logs  [])
   :compile
-  (hmerge logs (compile.vimrc opts*))
+  (hmerge! logs (compile.vimrc opts*))
   (each [_ source (ipairs (p.wildcard (env.get :source) "**/*.fnl"))]
         (local target (p.target source))
         (local sname  (p.shortname source))
         (when (compile? source target opts)
           (table.insert logs sname)
-          (hpcall #(compile.file source target opts)
-                  #(log.failure "COMPILE ERROR" sname $1 opts))))
-  (hmerge logs (compile.rtp opts*))
-  (hmerge logs (compile.custom opts*))
+          (hpcall! #(compile.file source target opts)
+                   #(log.failure "COMPILE ERROR" sname $1 opts))))
+  (hmerge! logs (compile.rtp opts*))
+  (hmerge! logs (compile.custom opts*))
   :logger
   (log.success "COMPILED" logs opts)
   :return logs)
