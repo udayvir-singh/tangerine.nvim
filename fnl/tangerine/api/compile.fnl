@@ -78,7 +78,7 @@
         filename (or opts.filename "tangerine-out")
         globals  (env.conf opts [:compiler :globals])]
     (fennel.compileString str
-                          {:filename filename :allowedGlobals globals :compilerEnv _G})))
+                          {:filename filename :allowedGlobals globals :compilerEnv _G :useBitLib true})))
 
 (lambda compile.file [source target ?opts]
   "slurps fnl:'source' and compiles it to lua:'target'."
