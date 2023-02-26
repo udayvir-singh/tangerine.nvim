@@ -986,5 +986,7 @@ $ make loc-bash
 ---
 
 <!-- ignore-start -->
-<center> :: おれとして白眼くらする蛙かな :: </center>
+<p align="center">
+:: おれとして白眼くらする蛙かな ::
+</p>
 <!-- ignore-end -->
