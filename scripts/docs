@@ -99,4 +99,3 @@ else
 	logcat "${LOGFILE}"
 	exit 1
 fi
-
