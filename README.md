@@ -40,12 +40,12 @@
 
 ##### HOTPOT :stew:
 
-- Abstracts too much away from user.
+- Abstracts too much away from the user.
 - Hooks onto lua package searchers to compile [harder to debug]
 
 ##### ANISEED :herb:
 
-- Excessively feature rich to be used for dotfiles.
+- Excessively feature rich for use in dotfiles.
 - Blindly compiles all files that it founds, resulting in slow load times.
 
 # Installation
@@ -104,9 +104,9 @@ require "tangerine".setup {
 
 ---
 
-#### Packer
+### Packer
 
-You can use packer to manage tangerine afterwards [only do this if you haven't used ref option in bootstrap]:
+You can use packer to manage tangerine afterwards [use this if you haven't used `ref` option in bootstrap]:
 
 ```fennel
 (local packer (require :packer))
@@ -126,7 +126,7 @@ Using [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
   (use! :udayvir-singh/tangerine.nvim))
 ```
 
-#### Paq
+### Paq
 
 ```fennel
 (local paq (require :paq))
@@ -227,7 +227,7 @@ Here is config that I use in my dotfiles:
 		-- disable popup showing compiled files
 		verbose = false,
 
-		-- compile every time changed are made to fennel files or on entering vim
+		-- compile every time you change fennel files or on entering vim
 		hooks = {"onsave", "oninit"}
 	}
 }
@@ -240,28 +240,28 @@ Here is config that I use in my dotfiles:
 <!-- doc=:FnlCompileBuffer -->
 #### :FnlCompileBuffer
 
-Compiles current active fennel buffer
+Compiles current active fennel buffer.
 
 <!-- doc=:FnlCompile -->
 #### :FnlCompile[!]
 
-Diff compiles all indexed fennel files
+Diff compiles all indexed fennel files.
 
-If bang! is present then forcefully compiles all `source` files
+If bang! is present then forcefully compiles all `source` files.
 
 <!-- doc=:FnlClean -->
 #### :FnlClean[!]
 
-Deletes stale or orphaned lua files in `target` dir
+Deletes stale or orphaned lua files in `target` dir.
 
-If bang! is present then it deletes all compiled lua files
+If bang! is present then it deletes all compiled lua files.
 
 ## Evaluation
 
 <!-- doc=:Fnl -->
 #### :Fnl {expr}
 
-Executes and Evalutate {expr} of fennel
+Executes and Evalutate {expr} of fennel.
 
 ```fennel
 :Fnl (print "Hello World")
@@ -274,7 +274,7 @@ Executes and Evalutate {expr} of fennel
 <!-- doc=:FnlFile -->
 #### :FnlFile {file}
 
-Evaluates {file} of fennel and outputs the result
+Evaluates {file} of fennel and outputs the result.
 
 ```fennel
 :FnlFile path/source.fnl
@@ -285,7 +285,7 @@ Evaluates {file} of fennel and outputs the result
 <!-- doc=:FnlBuffer -->
 #### :[range]FnlBuffer
 
-Evaluates all lines or [range] in current fennel buffer
+Evaluates all lines or [range] in current fennel buffer.
 
 > mapped to `gE` by default.
 
@@ -294,14 +294,14 @@ Evaluates all lines or [range] in current fennel buffer
 <!-- doc=:FnlPeek -->
 #### :[range]FnlPeek
 
-Peek lua output for [range] in current fennel buffer
+Peek lua output for [range] in current fennel buffer.
 
 > mapped to `gL` by default.
 
 <!-- doc=:FnlGotoOutput -->
 #### :FnlGotoOutput
 
-Open lua output of current fennel buffer in a new buffer
+Open lua output of current fennel buffer in a new buffer.
 
 > mapped to `gO` by default.
 
@@ -310,35 +310,35 @@ Open lua output of current fennel buffer in a new buffer
 <!-- doc=:FnlWinNext -->
 #### :FnlWinNext [N]
 
-Jump to [N]th next floating window created by tangerine
+Jump to [N]th next floating window created by tangerine..
 
 > mapped to `CTRL-K` in floats by default.
 
 <!-- doc=:FnlWinPrev -->
 #### :FnlWinPrev [N]
 
-Jump to [N]th previous floating window created by tangerine
+Jump to [N]th previous floating window created by tangerine.
 
 > mapped to `CTRL-J` in floats by default.
 
 <!-- doc=:FnlWinResize -->
 #### :FnlWinResize [N]
 
-Increase or Decrease floating window height by [N] factor
+Increase or Decrease floating window height by [N] factor.
 
 > mapped to `CTRL-W =` to increase and `CTRL-W -` decrease by default.
 
 <!-- doc=:FnlWinClose -->
 #### :FnlWinClose
 
-Closes current floating window under cursor
+Closes current floating window under cursor.
 
 > mapped to `ENTER` in floats by default.
 
 <!-- doc=:FnlWinKill -->
 #### :FnlWinKill
 
-Closes all floating windows made by tangerine
+Closes all floating windows made by tangerine.
 
 > mapped to `ESC` in floats by default.
 
@@ -354,7 +354,7 @@ require [[tangerine]].setup {
 		-- if you want to compile before loading init.fnl (recommended)
 		hooks = {"oninit"}
 
-		-- if you only want after VimEnter event has fired
+		-- if you want to compile after VimEnter event has fired
 		hooks = {"onenter"}
 	}
 }
@@ -376,7 +376,7 @@ require [[tangerine]].setup {
 
 **Q: How to make impatient work with tangerine**
 
-**A:** just bootstrap and require impatient before calling tangerine:
+**A:** bootstrap and require impatient before calling tangerine:
 
 ```lua
 bootstrap "https://github.com/lewis6991/impatient.nvim"
@@ -399,7 +399,7 @@ fnl
 ```
 
 ```fennel
-; just require both normally
+; require both as normal modules in your config
 (require :options)
 (require :autocmd)
 ```
@@ -460,8 +460,6 @@ By default tangerine provides the following api:
 ```
 
 ## Compiler Api
-
-This section describes function for `tangerine.api.compile.{func}`
 
 <!-- doc=tangerine.api.compile.string() -->
 #### compile-string
@@ -659,8 +657,6 @@ Diff compiles all indexed fennel files in `config`.
 
 Provides functions to clean stale / orphaned lua files in target dirs.
 
-This section describes function for `tangerine.api.clean.{func}`
-
 <!-- doc=tangerine.api.clean.target() -->
 #### clean-target
 
@@ -721,8 +717,6 @@ Deletes all orphaned lua files indexed inside `target` dirs.
 {opts.force} deletes all compiled files if set to `true`
 
 ## Evaluation Api
-
-This section describes function for `tangerine.api.eval.{func}`
 
 <!-- doc=tangerine.api.eval.string() -->
 #### eval-string
@@ -826,8 +820,6 @@ Returns human-readable representation of {...}.
 
 Provides functions to interact with floating windows created by tangerine.
 
-This section describes function for `tangerine.api.win.{func}`
-
 <!-- doc=tangerine.api.win.next() -->
 #### win-next
 
@@ -876,9 +868,11 @@ Closes all floating windows created by tangerine.
 <pre lang="fennel"><code> (tangerine.fennel {version?})
 </pre></code>
 
-Provides underlying fennel used by tangerine
+Provides access to fennel compiler used by tangerine.
 
 {version} can be one of [ `"latest"` `"1-2-1"` `"1-2-0"` `"1-1-0"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
+
+<!-- ignore-start -->
 
 # Development
 
@@ -893,7 +887,7 @@ Provides underlying fennel used by tangerine
 | [bash](https://www.gnu.org/software/bash)           | runs shell scripts            |
 | utils                                               | coreutils findutils gawk curl |
 
-> only GNU/utils work, 9base or busybox should not work
+> only GNU utils work; 9base or busybox should not work
 
 ## Building from source
 
@@ -987,12 +981,10 @@ $ make loc-fennel
 $ make loc-bash
 ```
 
-# End Credits
+<!-- ignore-end -->
 
-- **myself**: for making this plugin
-- **myself**: for refactoring this plugin
-- **myself**: for bloating this plugin...
+---
 
-```
-:: おれとして白眼くらする蛙かな ::
-```
+<!-- ignore-start -->
+<center> :: おれとして白眼くらする蛙かな :: </center>
+<!-- ignore-end -->

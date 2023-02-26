@@ -59,7 +59,7 @@ jobs:
   # -------------------- #
   vimdoc:
     runs-on:   ubuntu-latest
-    container: pandoc/minimal:2.17-alpine
+    container: pandoc/minimal:3-alpine
 
     steps:
     - uses: actions/checkout@v3
