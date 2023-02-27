@@ -903,21 +903,21 @@ see `make help` or [below](#make-targets) for information on targets.
 
 ## Make Targets
 
-| Target         | Description                                  |
-| -------------- | -------------------------------------------- |
-| `:fnl`         | compiles fennel files                        |
-| `:deps`        | copy required deps in lua folder             |
-| `:vimdoc`      | runs panvimdoc to generate vimdocs           |
-| `:fnldoc`      | generates module level documentation         |
-|                |                                              |
-| `:build`       | combines `:fnl` `:deps` `:vimdoc` `:fnldoc`  |
-| `:watch-build` | watches source dir, runs `:build` on changes |
-|                |                                              |
-| `:clean`       | deletes build and install dir                |
-| `:install`     | install tangerine on this system             |
-|                |                                              |
-| `:runner`      | compiles test runner library                 |
-| `:test`        | runs unit tests, will erase nvim config      |
+| Target        | Description                                  |
+| ------------- | -------------------------------------------- |
+| `fnl`         | compiles fennel files                        |
+| `deps`        | copy required deps in lua folder             |
+| `vimdoc`      | runs panvimdoc to generate vimdocs           |
+| `fnldoc`      | generates module level documentation         |
+|               |                                              |
+| `build`       | combines `fnl` `deps` `vimdoc` `fnldoc`      |
+| `watch-build` | watches source dir, runs `:build` on changes |
+|               |                                              |
+| `clean`       | deletes build and install dir                |
+| `install`     | install tangerine on this system             |
+|               |                                              |
+| `runner`      | compiles test runner library                 |
+| `test`        | runs unit tests, will erase nvim config      |
 
 To build tangerine run:
 
