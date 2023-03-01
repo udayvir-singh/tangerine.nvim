@@ -149,16 +149,14 @@
   "defines a floating window with height 'lineheight'."
   (normalize-parent (vim.api.nvim_get_current_win))
   (let [buffer     (vim.api.nvim_create_buf false true)
-        win-width  (vim.api.nvim_win_get_width 0)
         win-height (vim.api.nvim_win_get_height 0)
         bordersize 2
-        width      (- win-width bordersize)
         height     (math.max 1 (math.floor (math.min (/ win-height 1.5) lineheight)))]
   (vim.api.nvim_open_win buffer true {
-    : width
-    : height
-    :col 0
     :row (- win-height bordersize height win-stack.total)
+    :col 0
+    :height height
+    :width 360
     :style "minimal"
     :anchor "NW"
     :border "single"
