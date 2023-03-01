@@ -62,7 +62,7 @@ local pack = "tangerine" or "packer" or "paq"
 
 local function bootstrap(url, ref)
 	local name = url:gsub(".*/", "")
-	local path = vim.fn.stdpath [[data]] .. "/site/pack/".. pack .. "/start/" .. name
+	local path = vim.fn.stdpath("data") .. "/site/pack/".. pack .. "/start/" .. name
 
 	if vim.fn.isdirectory(path) == 0 then
 		print(name .. ": installing in data dir...")
@@ -72,26 +72,24 @@ local function bootstrap(url, ref)
 			vim.fn.system {"git", "-C", path, "checkout", ref}
 		end
 
-		vim.cmd [[redraw]]
+		vim.cmd "redraw"
 		print(name .. ": finished installing")
 	end
 end
 
+-- for stable version [recommended]
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.4")
+
 -- for git head
 bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
-
--- for stable version
-bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.4")
 ```
 
-2. Call tangerine `setup()` function:
+2. Call tangerine `setup()` function, see [config](#default-config) for valid options:
 
 ```lua
 -- ~/.config/nvim/plugin/0-tangerine.lua
 
-require "tangerine".setup {
-	[[ config, see below ]]
-}
+require "tangerine".setup {}
 ```
 
 3. Invoke `:FnlCompile` manually or add hooks in [setup](#setup).
