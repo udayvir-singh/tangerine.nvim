@@ -17,7 +17,7 @@
 
 (lambda resolve [path]
   "resolves 'path' to POSIX complaint absolute path."
-  (let [out (vim.fn.resolve (vim.fn.expand path))]
+  (let [out (: (vim.fn.resolve (vim.fn.expand path)) :gsub "\\" "/")]
        (if (endswith out ["/" ".fnl" ".lua"])
            (do out)
            (.. out "/"))))

@@ -17,7 +17,7 @@
 
 (lambda p.resolve [path]
   "resolves 'path' to POSIX complaint path."
-  (vim.fn.resolve (vim.fn.expand path)))
+  (: (vim.fn.resolve (vim.fn.expand path)) :gsub "\\" "/"))
 
 
 ;; ------------------------- ;;
@@ -31,9 +31,9 @@
 
 (lambda p.transform-path [path [key1 ext1] [key2 ext2]]
   "changes path's parent dir and extension."
-  (let [from (.. "^" (esc-regex (env.get key1)))
-        to   (esc-regex (env.get key2))
-        path (path:gsub (.. "%." ext1 "$") (.. "." ext2))]
+  (let [from (.. "^" (esc-regex (p.resolve (env.get key1))))
+        to   (esc-regex (p.resolve (env.get key2)))
+        path (: (p.resolve path) :gsub (.. "%." ext1 "$") (.. "." ext2))]
        (if (path:find from)
            (path:gsub from to)
            (path:gsub (.. "/" ext1 "/") (.. "/" ext2 "/")))))
