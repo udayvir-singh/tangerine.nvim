@@ -30,7 +30,6 @@ Tangerine provides a painless way to add fennel to your config.
 
 FEATURES                                                  *tangerine-features*
 
-
 - _BLAZING_ fast, compile times in milliseconds
 - 200% support for interactive evaluation
 - Control over when and how to compile
@@ -42,13 +41,11 @@ COMPARISON TO OTHER PLUGINS            *tangerine-comparison-to-other-plugins*
 
 HOTPOT ~
 
-
 - Abstracts too much away from the user.
 - Hooks onto lua package searchers to compile [harder to debug]
 
 
 ANISEED ~
-
 
 - Excessively feature rich for use in dotfiles.
 - Blindly compiles all files that it founds, resulting in slow load times.
@@ -57,11 +54,11 @@ ANISEED ~
 ==============================================================================
 2. Installation                                       *tangerine-installation*
 
-
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
 NOTE: if you are using lazy <https://github.com/folke/lazy.nvim> plugin
-manager, you should create `/init.lua` instead.
+manager, you should create `/init.lua` instead. see |tangerine-bellow| for more
+information.
 
 >lua
     -- ~/.config/nvim/plugin/0-tangerine.lua
@@ -93,7 +90,6 @@ manager, you should create `/init.lua` instead.
     bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
 <
 
-
 1. Call tangerine `setup()` function, see |tangerine-config| for valid options:
 
 >lua
@@ -101,7 +97,6 @@ manager, you should create `/init.lua` instead.
     
     require "tangerine".setup {}
 <
-
 
 1. Invoke `:FnlCompile` manually or add hooks in |tangerine-setup|.
 
@@ -114,8 +109,8 @@ Optionally you can also install hibiscus
 
 PACKER ~
 
-You can use packer to manage tangerine afterwards [use this if you haven’t
-used `ref` option in bootstrap]:
+You can use packer to manage tangerine afterwards [only do this if you
+haven’t used `ref` option in bootstrap]:
 
 >fennel
     (local packer (require :packer))
@@ -133,6 +128,32 @@ Using hibiscus <https://github.com/udayvir-singh/hibiscus.nvim> macros:
     
     (packer
       (use! :udayvir-singh/tangerine.nvim))
+<
+
+
+LAZY ~
+
+Lazy requires some extra setup to get working, because it interferes with
+package.path.
+
+1. Move tangerine’s bootstrap code to `~/.config/nvim/init.lua` instead of using
+`plugin/` dir to prevent an infinite loop caused by lazy.
+
+
+2. Disable `reset_packpath` in lazy’s config when calling the setup function:
+
+
+
+>fennel
+    (local lazy (require :lazy))
+    
+    (lazy.setup [
+      :udayvir-singh/tangerine.nvim
+    ] {
+      :performance {
+        :reset_packpath false
+      }
+    })
 <
 
 
