@@ -4813,9 +4813,6 @@ package.preload["fennel"] = package.preload["fennel"] or function(...)
     ;; The code for these macros is somewhat idiosyncratic because it cannot use any
     ;; macros which have not yet been defined.
     
-    ;; TODO: some of these macros modify their arguments; we should stop doing that,
-    ;; but in a way that preserves file/line metadata.
-    
     (fn ->* [val ...]
       "Thread-first macro.
     Take the first value and splice it into the second form as its first argument.

@@ -104,6 +104,3 @@
            [])
 
       (fs.remove rtpdir source target vimrc))))
-
-
-;; TODO: compile-buffer
