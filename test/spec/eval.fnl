@@ -11,7 +11,7 @@
     (eql (float-lines) ":return 1")
 
     (eval.string "foo" {:filename "test.fnl"})
-    (fnd (float-lines) "test.fnl.+strict mode: foo"))
+    (fnd (float-lines) "test.fnl.-unknown identifier.-foo"))
 
 
   (it "eval file"

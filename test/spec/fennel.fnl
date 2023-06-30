@@ -4,8 +4,8 @@
   (module fennel :tangerine.fennel)
 
   (it "loads fennel"
-    (eql (. (fennel.load)         :version) "1.2.1")
-    (eql (. (fennel.load :latest) :version) "1.2.1")
+    (eql (. (fennel.load)         :version) "1.3.0")
+    (eql (. (fennel.load :latest) :version) "1.3.0")
     (eql (. (fennel.load :0-10-0) :version) "0.10.0"))
 
   (it "setup fennel.path"

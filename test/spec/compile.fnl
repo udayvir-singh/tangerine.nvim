@@ -29,7 +29,7 @@
     (eql (compile.string ":return 1") "return 1")
 
     (err (compile.string ":return vim" {:filename "test.fnl" :globals []})
-         "test.fnl.-unknown identifier in strict mode: vim"))
+         "test.fnl.-unknown identifier.-vim"))
 
 
   (it "compile file"
