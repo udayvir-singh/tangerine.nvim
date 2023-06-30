@@ -7,7 +7,6 @@
 ;;        Utils         ;;
 ;; -------------------- ;;
 (local config-dir (vim.fn.stdpath :config))
-(local a "")
 
 (lambda endswith [str args]
   "checks if 'str' ends with one of arr::'args'."
@@ -93,7 +92,7 @@
     :force   "boolean"
     :verbose "boolean"
     :globals [:string]
-    :version [:oneof ["latest" "1-2-1""1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
+    :version [:oneof ["latest" "1-3-0" "1-2-1" "1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
     :hooks   [:array ["onsave" "onload" "oninit"]]
   }
 
