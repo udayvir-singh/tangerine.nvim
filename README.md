@@ -78,7 +78,7 @@ local function bootstrap(url, ref)
 end
 
 -- for stable version [recommended]
-bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.5")
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.6")
 
 -- for git head
 bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
