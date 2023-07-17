@@ -7,6 +7,7 @@ Table of Contents                                *tangerine-table-of-contents*
   - Features                                              |tangerine-features|
   - Comparison to other plugins        |tangerine-comparison-to-other-plugins|
 2. Installation                                       |tangerine-installation|
+  - Package Management                          |tangerine-package-management|
 3. Setup                                                     |tangerine-setup|
 4. Commands                                               |tangerine-commands|
   - Compiling                                            |tangerine-compiling|
@@ -31,21 +32,19 @@ Tangerine provides a painless way to add fennel to your config.
 FEATURES                                                  *tangerine-features*
 
 - _BLAZING_ fast, compile times in milliseconds
-- 200% support for interactive evaluation
+- 100% support for interactive evaluation
 - Control over when and how to compile
 - Natively loads `nvim/init.fnl`
 
 
 COMPARISON TO OTHER PLUGINS            *tangerine-comparison-to-other-plugins*
 
-
-HOTPOT ~
+HOTPOT
 
 - Abstracts too much away from the user.
-- Hooks onto lua package searchers to compile [harder to debug]
+- Hooks onto lua package searchers to compile [harder to debug].
 
-
-ANISEED ~
+ANISEED
 
 - Excessively feature rich for use in dotfiles.
 - Blindly compiles all files that it founds, resulting in slow load times.
@@ -105,12 +104,13 @@ Now start writing your config in `~/.config/nvim/init.fnl`.
 Optionally you can also install hibiscus
 <https://github.com/udayvir-singh/hibiscus.nvim> for macros.
 
-------------------------------------------------------------------------------
 
-PACKER ~
+PACKAGE MANAGEMENT                              *tangerine-package-management*
 
-You can use packer to manage tangerine afterwards [only do this if you
-haven’t used `ref` option in bootstrap]:
+Only use a package manager if you haven’t used `ref` option in bootstrap
+function.
+
+Packer
 
 >fennel
     (local packer (require :packer))
@@ -130,8 +130,17 @@ Using hibiscus <https://github.com/udayvir-singh/hibiscus.nvim> macros:
       (use! :udayvir-singh/tangerine.nvim))
 <
 
+Paq
 
-LAZY ~
+>fennel
+    (local paq (require :paq))
+    
+    (paq [
+      :udayvir-singh/tangerine.nvim
+    ])
+<
+
+Lazy
 
 Lazy requires some extra setup to get working, because it interferes with
 package.path.
@@ -154,17 +163,6 @@ package.path.
         :reset_packpath false
       }
     })
-<
-
-
-PAQ ~
-
->fennel
-    (local paq (require :paq))
-    
-    (paq [
-      :udayvir-singh/tangerine.nvim
-    ])
 <
 
 
@@ -513,8 +511,8 @@ PARAMETERS: ~
 
 >fennel
     {
-        :filename <string>
-        :globals  <list>
+      :filename <string>
+      :globals  <list>
     }
 <
 
@@ -530,8 +528,8 @@ PARAMETERS: ~
 
 >fennel
     {
-        :filename <string>
-        :globals  <list>
+      :filename <string>
+      :globals  <list>
     }
 <
 
@@ -547,10 +545,10 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force   <boolean>
-        :float   <boolean>
-        :verbose <boolean>
-        :globals <list>
+      :force   <boolean>
+      :float   <boolean>
+      :verbose <boolean>
+      :globals <list>
     }
 <
 
@@ -561,9 +559,9 @@ EXAMPLE: ~
 
 >fennel
     (tangerine.api.compile.dir
-        :path/fnl
-        :path/lua
-        { :force false :float true :verbose true })
+      :path/fnl
+      :path/lua
+      {:force false :float true :verbose true})
 <
 
 
@@ -578,10 +576,10 @@ PARAMETERS: ~
 
 >fennel
     {
-        :float    <boolean>
-        :verbose  <boolean>
-        :filename <string>
-        :globals  <list>
+      :float    <boolean>
+      :verbose  <boolean>
+      :filename <string>
+      :globals  <list>
     }
 <
 
@@ -597,11 +595,11 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :filename <string>
-        :globals  <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :filename <string>
+      :globals  <list>
     }
 <
 
@@ -619,11 +617,11 @@ PARAMETERS: ~
 
 >fennel
     {
-        :rtpdirs  <list>
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :globals  <list>
+      :rtpdirs  <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :globals  <list>
     }
 <
 
@@ -634,10 +632,10 @@ EXAMPLE: ~
 
 >fennel
     (tangerine.api.compile.rtp {
-        :rtpdirs ["colors" "plugin" "$HOME/mydir"]
-        :force   false
-        :float   true
-        :verbose true })
+      :rtpdirs ["colors" "plugin" "$HOME/mydir"]
+      :force   false
+      :float   true
+      :verbose true })
 <
 
 
@@ -652,11 +650,11 @@ PARAMETERS: ~
 
 >fennel
     {
-        :custom   <list>
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :globals  <list>
+      :custom   <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :globals  <list>
     }
 <
 
@@ -667,10 +665,10 @@ EXAMPLE: ~
 
 >fennel
     (tangerine.api.compile.custom {
-        :custom  [["~/path/fnl" "~/path/lua"]]
-        :force   false
-        :float   true
-        :verbose true })
+      :custom  [["~/path/fnl" "~/path/lua"]]
+      :force   false
+      :float   true
+      :verbose true })
 <
 
 
@@ -685,12 +683,12 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :globals  <list>
-        :rtpdirs  <list>
-        :custom   <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :globals  <list>
+      :rtpdirs  <list>
+      :custom   <list>
     }
 <
 
@@ -713,7 +711,7 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force <boolean>
+      :force <boolean>
     }
 <
 
@@ -731,10 +729,10 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :rtpdirs  <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :rtpdirs  <list>
     }
 <
 
@@ -752,10 +750,10 @@ PARAMETERS: ~
 
 >fennel
     {
-        :force    <boolean>
-        :float    <boolean>
-        :verbose  <boolean>
-        :rtpdirs  <list>
+      :force    <boolean>
+      :float    <boolean>
+      :verbose  <boolean>
+      :rtpdirs  <list>
     }
 <
 
@@ -776,10 +774,10 @@ PARAMETERS: ~
 
 >fennel
     {
-        :float    <boolean>
-        :virtual  <boolean>
-        :filename <string>
-        :offset   <number> ;; line offset for errors
+      :float    <boolean>
+      :virtual  <boolean>
+      :filename <string>
+      :offset   <number> ;; line offset for errors
     }
 <
 
@@ -795,9 +793,9 @@ PARAMETERS: ~
 
 >fennel
     {
-        :float    <boolean>
-        :virtual  <boolean>
-        :filename <string>
+      :float    <boolean>
+      :virtual  <boolean>
+      :filename <string>
     }
 <
 
@@ -813,9 +811,9 @@ PARAMETERS: ~
 
 >fennel
     {
-        :float    <boolean>
-        :virtual  <boolean>
-        :filename <string>
+      :float    <boolean>
+      :virtual  <boolean>
+      :filename <string>
     }
 <
 
@@ -831,9 +829,9 @@ PARAMETERS: ~
 
 >fennel
     {
-        :float    <boolean>
-        :virtual  <boolean>
-        :filename <string>
+      :float    <boolean>
+      :virtual  <boolean>
+      :filename <string>
     }
 <
 
