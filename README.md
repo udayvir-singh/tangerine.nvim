@@ -56,14 +56,21 @@
 > you should create `/init.lua` instead. see [below](#package-management) for more information.
 
 ```lua
--- ~/.config/nvim/plugin/0-tangerine.lua
+-- ~/.config/nvim/plugin/0-tangerine.lua or ~/.config/nvim/init.lua
 
--- pick your plugin manager, default [standalone]
-local pack = "tangerine" or "packer" or "paq"
+-- pick your plugin manager
+local pack = "tangerine" or "packer" or "paq" or "lazy"
 
 local function bootstrap(url, ref)
     local name = url:gsub(".*/", "")
-    local path = vim.fn.stdpath("data") .. "/site/pack/".. pack .. "/start/" .. name
+    local path
+
+    if pack == "lazy" then
+        path = vim.fn.stdpath("data") .. "/lazy/" .. name
+        vim.opt.rtp:prepend(path)
+    else
+        path = vim.fn.stdpath("data") .. "/site/pack/".. pack .. "/start/" .. name
+    end
 
     if vim.fn.isdirectory(path) == 0 then
         print(name .. ": installing in data dir...")
