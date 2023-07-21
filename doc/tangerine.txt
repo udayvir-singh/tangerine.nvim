@@ -509,7 +509,7 @@ COMPILER API                                          *tangerine-compiler-api*
 
 compile-string                                *tangerine.api.compile.string()*
 
-(compile.string {str} {opts*})
+(tangerine.api.compile.string {str} {opts*})
 
 Compiles string {str} of fennel, returns string of lua.
 
@@ -526,7 +526,7 @@ PARAMETERS: ~
 
 compile-file                                    *tangerine.api.compile.file()*
 
-(compile.file {source} {target} {opts*})
+(tangerine.api.compile.file {source} {target} {opts*})
 
 Compiles fennel {source} and writes output to {target}.
 
@@ -543,7 +543,7 @@ PARAMETERS: ~
 
 compile-dir                                      *tangerine.api.compile.dir()*
 
-(compile-dir {source} {target} {opts*})
+(tangerine.api.compile.dir {source} {target} {opts*})
 
 Diff compiles files in {source} dir and outputs to {target} dir.
 
@@ -574,7 +574,7 @@ EXAMPLE: ~
 
 compile-buffer                                *tangerine.api.compile.buffer()*
 
-(compile-buffer {opts*})
+(tangerine.api.compile.buffer {opts*})
 
 Compiles the current active fennel buffer.
 
@@ -593,7 +593,7 @@ PARAMETERS: ~
 
 compile-vimrc                                  *tangerine.api.compile.vimrc()*
 
-(compile-vimrc {opts*})
+(tangerine.api.compile.vimrc {opts*})
 
 Diff compiles `config.vimrc` to `config.target` dir.
 
@@ -615,7 +615,7 @@ PARAMETERS: ~
 
 compile-rtp                                      *tangerine.api.compile.rtp()*
 
-(compile.rtp {opts*})
+(tangerine.api.compile.rtp {opts*})
 
 Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 
@@ -648,7 +648,7 @@ EXAMPLE: ~
 
 compile-custom                                *tangerine.api.compile.custom()*
 
-(compile.custom {opts*})
+(tangerine.api.compile.custom {opts*})
 
 Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
 
@@ -681,7 +681,7 @@ EXAMPLE: ~
 
 compile-all                                      *tangerine.api.compile.all()*
 
-(compile.all {opts*})
+(tangerine.api.compile.all {opts*})
 
 Diff compiles all indexed fennel files in `config`.
 
@@ -709,7 +709,7 @@ Provides functions to clean stale / orphaned lua files in target dirs.
 
 clean-target                                    *tangerine.api.clean.target()*
 
-(clean.target {source} {target} {opts*})
+(tangerine.api.clean.target {source} {target} {opts*})
 
 Deletes orphaned? {target} after comparing against {source}.
 
@@ -727,7 +727,7 @@ PARAMETERS: ~
 
 clean-rtp                                                          *clean-rtp*
 
-(clean.rtp {opts*})
+(tangerine.api.clean.rtp {opts*})
 
 Deletes all orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
 
@@ -748,7 +748,7 @@ PARAMETERS: ~
 
 clean-orphaned                                *tangerine.api.clean.orphaned()*
 
-(clean.orphaned {opts*})
+(tangerine.api.clean.orphaned {opts*})
 
 Deletes all orphaned lua files indexed inside `target` dirs.
 
@@ -772,7 +772,7 @@ EVALUATION API                                      *tangerine-evaluation-api*
 
 eval-string                                      *tangerine.api.eval.string()*
 
-(eval.string {str} {opts*})
+(tangerine.api.eval.string {str} {opts*})
 
 Evaluates string {str} of fennel, pretty prints the output.
 
@@ -791,7 +791,7 @@ PARAMETERS: ~
 
 eval-file                                          *tangerine.api.eval.file()*
 
-(eval.file {path} {opts*})
+(tangerine.api.eval.file {path} {opts*})
 
 Evaluates {path} of fennel, pretty prints the output.
 
@@ -809,7 +809,7 @@ PARAMETERS: ~
 
 eval-buffer                                      *tangerine.api.eval.buffer()*
 
-(eval.buffer {start} {end} {opts*})
+(tangerine.api.eval.buffer {start} {end} {opts*})
 
 Evaluates lines {start} to {end} in current fennel buffer.
 
@@ -827,7 +827,7 @@ PARAMETERS: ~
 
 eval-peek                                          *tangerine.api.eval.peek()*
 
-(eval.peek {start} {end} {opts*})
+(tangerine.api.eval.peek {start} {end} {opts*})
 
 Peek lua output for lines {start} to {end} inside a scratch buffer.
 
