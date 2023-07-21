@@ -500,7 +500,7 @@ By default tangerine provides the following api:
 <!-- doc=tangerine.api.compile.string() -->
 #### compile-string
 
-<pre lang="fennel"><code>(compile.string {str} {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.string {str} {opts?})
 </pre></code>
 
 Compiles string {str} of fennel, returns string of lua.
@@ -517,7 +517,7 @@ Compiles string {str} of fennel, returns string of lua.
 <!-- doc=tangerine.api.compile.file() -->
 #### compile-file
 
-<pre lang="fennel"><code>(compile.file {source} {target} {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.file {source} {target} {opts?})
 </pre></code>
 
 Compiles fennel {source} and writes output to {target}.
@@ -534,7 +534,7 @@ Compiles fennel {source} and writes output to {target}.
 <!-- doc=tangerine.api.compile.dir() -->
 #### compile-dir
 
-<pre lang="fennel"><code>(compile-dir {source} {target} {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.dir {source} {target} {opts?})
 </pre></code>
 
 Diff compiles files in {source} dir and outputs to {target} dir.
@@ -564,7 +564,7 @@ Diff compiles files in {source} dir and outputs to {target} dir.
 <!-- doc=tangerine.api.compile.buffer() -->
 #### compile-buffer
 
-<pre lang="fennel"><code>(compile-buffer {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.buffer {opts?})
 </pre></code>
 
 Compiles the current active fennel buffer.
@@ -583,7 +583,7 @@ Compiles the current active fennel buffer.
 <!-- doc=tangerine.api.compile.vimrc() -->
 #### compile-vimrc
 
-<pre lang="fennel"><code>(compile-vimrc {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.vimrc {opts?})
 </pre></code>
 
 Diff compiles `config.vimrc` to `config.target` dir.
@@ -605,7 +605,7 @@ Diff compiles `config.vimrc` to `config.target` dir.
 <!-- doc=tangerine.api.compile.rtp() -->
 #### compile-rtp
 
-<pre lang="fennel"><code>(compile.rtp {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.rtp {opts?})
 </pre></code>
 
 Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
@@ -637,7 +637,7 @@ Diff compiles fennel files in `config.rtpdirs` or {opts.rtpdirs}.
 <!-- doc=tangerine.api.compile.custom() -->
 #### compile-custom
 
-<pre lang="fennel"><code>(compile.custom {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.custom {opts?})
 </pre></code>
 
 Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
@@ -669,7 +669,7 @@ Diff compiles fennel files indexed in `config.custom` or {opts.custom}.
 <!-- doc=tangerine.api.compile.all() -->
 #### compile-all
 
-<pre lang="fennel"><code>(compile.all {opts?})
+<pre lang="fennel"><code>(tangerine.api.compile.all {opts?})
 </pre></code>
 
 Diff compiles all indexed fennel files in `config`.
@@ -696,7 +696,7 @@ Provides functions to clean stale / orphaned lua files in target dirs.
 <!-- doc=tangerine.api.clean.target() -->
 #### clean-target
 
-<pre lang="fennel"><code>(clean.target {source} {target} {opts?})
+<pre lang="fennel"><code>(tangerine.api.clean.target {source} {target} {opts?})
 </pre></code>
 
 Deletes orphaned? {target} after comparing against {source}.
@@ -713,7 +713,7 @@ Deletes orphaned? {target} after comparing against {source}.
 
 #### clean-rtp
 
-<pre lang="fennel"><code>(clean.rtp {opts?})
+<pre lang="fennel"><code>(tangerine.api.clean.rtp {opts?})
 </pre></code>
 
 Deletes all orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
@@ -734,7 +734,7 @@ Deletes all orphaned lua files in `config.rtpdirs` or {opts.rtpdirs}.
 <!-- doc=tangerine.api.clean.orphaned() -->
 #### clean-orphaned
 
-<pre lang="fennel"><code>(clean.orphaned {opts?})
+<pre lang="fennel"><code>(tangerine.api.clean.orphaned {opts?})
 </pre></code>
 
 Deletes all orphaned lua files indexed inside `target` dirs.
@@ -757,7 +757,7 @@ Deletes all orphaned lua files indexed inside `target` dirs.
 <!-- doc=tangerine.api.eval.string() -->
 #### eval-string
 
-<pre lang="fennel"><code>(eval.string {str} {opts?})
+<pre lang="fennel"><code>(tangerine.api.eval.string {str} {opts?})
 </pre></code>
 
 Evaluates string {str} of fennel, pretty prints the output.
@@ -776,7 +776,7 @@ Evaluates string {str} of fennel, pretty prints the output.
 <!-- doc=tangerine.api.eval.file() -->
 #### eval-file
 
-<pre lang="fennel"><code>(eval.file {path} {opts?})
+<pre lang="fennel"><code>(tangerine.api.eval.file {path} {opts?})
 </pre></code>
 
 Evaluates {path} of fennel, pretty prints the output.
@@ -794,7 +794,7 @@ Evaluates {path} of fennel, pretty prints the output.
 <!-- doc=tangerine.api.eval.buffer() -->
 #### eval-buffer
 
-<pre lang="fennel"><code>(eval.buffer {start} {end} {opts?})
+<pre lang="fennel"><code>(tangerine.api.eval.buffer {start} {end} {opts?})
 </pre></code>
 
 Evaluates lines {start} to {end} in current fennel buffer.
@@ -812,7 +812,7 @@ Evaluates lines {start} to {end} in current fennel buffer.
 <!-- doc=tangerine.api.eval.peek() -->
 #### eval-peek
 
-<pre lang="fennel"><code>(eval.peek {start} {end} {opts?})
+<pre lang="fennel"><code>(tangerine.api.eval.peek {start} {end} {opts?})
 </pre></code>
 
 Peek lua output for lines {start} to {end} inside a scratch buffer.
