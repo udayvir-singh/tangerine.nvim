@@ -11,7 +11,7 @@ end
 local vimrc_out = (env.get("target") .. "tangerine_vimrc.lua")
 local function esc_regex(str)
   _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/utils/path.fnl:28")
-  return str:gsub("[%%%^%$%(%)%[%]%.%*%+%-%?]", "%%%1")
+  return str:gsub("[%%%^%$%(%)%[%]%{%}%.%*%+%-%?]", "%%%1")
 end
 p["transform-path"] = function(path, _1_, _3_)
   local _arg_2_ = _1_

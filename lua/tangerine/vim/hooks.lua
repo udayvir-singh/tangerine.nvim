@@ -1,15 +1,20 @@
 local env = require("tangerine.utils.env")
 local hooks = {}
+local function esc_file_pattern(path)
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/vim/hooks.fnl:14")
+  local _1_ = path:gsub("[%*%?%[%]%{%}\\,]", "\\%1")
+  return _1_
+end
 local function exec(...)
   return vim.cmd(table.concat({...}, " "))
 end
 local function parse_autocmd(opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/vim/hooks.fnl:18")
+  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/vim/hooks.fnl:23")
   local groups = table.concat(table.remove(opts, 1), " ")
   return "au", groups, table.concat(opts, " ")
 end
 local function augroup(name, ...)
-  _G.assert((nil ~= name), "Missing argument name on fnl/tangerine/vim/hooks.fnl:23")
+  _G.assert((nil ~= name), "Missing argument name on fnl/tangerine/vim/hooks.fnl:28")
   exec("augroup", name)
   exec("au!")
   for idx, val in ipairs({...}) do
@@ -18,7 +23,6 @@ local function augroup(name, ...)
   exec("augroup", "END")
   return true
 end
-local flat = vim.tbl_flatten
 local map = vim.tbl_map
 hooks.run = function()
   if env.get("compiler", "clean") then
@@ -29,19 +33,19 @@ hooks.run = function()
 end
 local run_hooks = "lua require 'tangerine.vim.hooks'.run()"
 hooks.onsave = function()
-  local pat
-  local function _2_(_241)
-    return (_241 .. "*.fnl")
-  end
+  local patterns
   local function _3_(_241)
-    return (_241 .. "*.fnl")
+    return (esc_file_pattern(_241) .. "*.fnl")
   end
-  local function _4_()
+  local function _4_(_241)
+    return (esc_file_pattern(_241) .. "*.fnl")
+  end
+  local function _5_()
     local tbl_15_auto = {}
     local i_16_auto = #tbl_15_auto
-    for _, _5_ in ipairs(env.get("custom")) do
-      local _each_6_ = _5_
-      local s = _each_6_[1]
+    for _, _6_ in ipairs(env.get("custom")) do
+      local _each_7_ = _6_
+      local s = _each_7_[1]
       local val_17_auto = s
       if (nil ~= val_17_auto) then
         i_16_auto = (i_16_auto + 1)
@@ -51,8 +55,8 @@ hooks.onsave = function()
     end
     return tbl_15_auto
   end
-  pat = {env.get("vimrc"), (env.get("source") .. "*.fnl"), map(_2_, env.get("rtpdirs")), map(_3_, _4_())}
-  return augroup("tangerine-onsave", {{"BufWritePost", table.concat(flat(pat), ",")}, run_hooks})
+  patterns = vim.tbl_flatten({esc_file_pattern(env.get("vimrc")), (esc_file_pattern(env.get("source")) .. "*.fnl"), map(_3_, env.get("rtpdirs")), map(_4_, _5_())})
+  return augroup("tangerine-onsave", {{"BufWritePost", table.concat(patterns, ",")}, run_hooks})
 end
 hooks.onload = function()
   return augroup("tangerine-onload", {{"VimEnter", "*"}, run_hooks})
