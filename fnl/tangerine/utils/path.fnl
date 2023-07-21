@@ -27,7 +27,7 @@
 
 (lambda esc-regex [str]
   "escapes magic characters from 'str'."
-  (str:gsub "[%%%^%$%(%)%[%]%.%*%+%-%?]" "%%%1"))
+  (str:gsub "[%%%^%$%(%)%[%]%{%}%.%*%+%-%?]" "%%%1"))
 
 (lambda p.transform-path [path [key1 ext1] [key2 ext2]]
   "changes path's parent dir and extension."
