@@ -211,7 +211,8 @@ local nvim_dir = vim.fn.stdpath [[config]]
     eval = {
         float  = true,      -- show results in floating window
         luafmt = function() -- function that returns formatter with flags for peeked lua
-            return {"/path/lua-format", ...} -- optionally install lua-format by `$ luarocks install --server=https://luarocks.org/dev luaformatter`
+            -- optionally install lua-format by `$ luarocks install --local --server=https://luarocks.org/dev luaformatter`
+            return {"~/.luarocks/bin/lua-format", ...}
         end,
 
         diagnostic = {
