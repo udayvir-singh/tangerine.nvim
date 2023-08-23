@@ -16,7 +16,9 @@
 
 (lambda fs.write [path content]
   "writes string of 'content' to 'path'."
-  (local dir (path:match "(.*/)"))
+  (local dir (if (= _G.jit.os "Windows")
+                 (path:match "(.*[/\\])")
+                 (path:match "(.*/)")))
   (if (= 0 (vim.fn.isdirectory dir))
       (vim.fn.mkdir dir :p))
   (with-open [file (assert (io.open path :w))]

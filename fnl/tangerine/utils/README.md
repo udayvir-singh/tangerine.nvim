@@ -52,12 +52,14 @@ utils[env]
 ```fennel
 :path {
 	:goto-output    (function 1)
-	:resolve        (function 2)
-	:shortname      (function 3)
-	:source         (function 4)
-	:target         (function 5)
-	:transform-path (function 6)
-	:wildcard       (function 7)
+	:gsub           (function 2)
+	:match          (function 3)
+	:resolve        (function 4)
+	:shortname      (function 5)
+	:source         (function 6)
+	:target         (function 7)
+	:transform-path (function 8)
+	:wildcard       (function 9)
 }
 ```
 
