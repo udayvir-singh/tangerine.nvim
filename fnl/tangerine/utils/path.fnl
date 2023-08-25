@@ -5,6 +5,10 @@
 ; ALL() utils[env]
 (local env (require :tangerine.utils.env))
 (local p {})
+
+;; -------------------- ;;
+;;        Utils         ;;
+;; -------------------- ;;
 (local windows? (= _G.jit.os "Windows"))
 
 (lambda p.match [path pattern]
@@ -19,9 +23,6 @@
     (path:gsub (pattern:gsub "/" "[\\/]") repl)
     (path:gsub pattern repl)))
 
-;; -------------------- ;;
-;;        Utils         ;;
-;; -------------------- ;;
 (lambda p.shortname [path]
   "shortens absolute 'path' for better readability."
   (or (p.match path ".+/fnl/(.+)")
