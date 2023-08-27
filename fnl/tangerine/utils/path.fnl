@@ -9,11 +9,25 @@
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
+(local windows? (= _G.jit.os "Windows"))
+
+(lambda p.match [path pattern]
+  "matches 'path' against 'pattern' with support for windows."
+  (if windows?
+    (path:match (pattern:gsub "/" "[\\/]"))
+    (path:match pattern)))
+
+(lambda p.gsub [path pattern repl]
+  "substitutes 'pattern' in 'path' for 'repl' with support for windows."
+  (if windows?
+    (path:gsub (pattern:gsub "/" "[\\/]") repl)
+    (path:gsub pattern repl)))
+
 (lambda p.shortname [path]
   "shortens absolute 'path' for better readability."
-  (or (path:match ".+/fnl/(.+)")
-      (path:match ".+/lua/(.+)")
-      (path:match ".+/(.+/.+)")))
+  (or (p.match path ".+/fnl/(.+)")
+      (p.match path ".+/lua/(.+)")
+      (p.match path ".+/(.+/.+)")))
 
 (lambda p.resolve [path]
   "resolves 'path' to POSIX complaint path."
@@ -36,7 +50,7 @@
         path (path:gsub (.. "%." ext1 "$") (.. "." ext2))]
        (if (path:find from)
            (path:gsub from to)
-           (path:gsub (.. "/" ext1 "/") (.. "/" ext2 "/")))))
+           (p.gsub path (.. "/" ext1 "/") (.. "/" ext2 "/")))))
 
 (lambda p.target [path]
   "converts fnl:'path' to valid target path."

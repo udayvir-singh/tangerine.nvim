@@ -22,7 +22,12 @@ end
 fs.write = function(path, content)
   _G.assert((nil ~= content), "Missing argument content on fnl/tangerine/utils/fs.fnl:17")
   _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:17")
-  local dir = path:match("(.*/)")
+  local dir
+  if (_G.jit.os == "Windows") then
+    dir = path:match("(.*[/\\])")
+  else
+    dir = path:match("(.*/)")
+  end
   if (0 == vim.fn.isdirectory(dir)) then
     vim.fn.mkdir(dir, "p")
   else
@@ -36,13 +41,13 @@ fs.write = function(path, content)
       return error(..., 0)
     end
   end
-  local function _5_()
+  local function _6_()
     return file:write(content)
   end
-  return close_handlers_8_auto(_G.xpcall(_5_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_8_auto(_G.xpcall(_6_, (package.loaded.fennel or debug).traceback))
 end
 fs.remove = function(path, ...)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:25")
+  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/fs.fnl:27")
   for _, path0 in ipairs({path, ...}) do
     for _0, file in ipairs(vim.fn.glob((path0 .. "/*"), 0, 1)) do
       os.remove(file)
