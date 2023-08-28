@@ -31,7 +31,6 @@ Tangerine provides a painless way to add fennel to your config.
 
 FEATURES                                                  *tangerine-features*
 
-
 - _BLAZING_ fast, compile times in milliseconds
 - 100% support for interactive evaluation
 - Control over when and how to compile
@@ -42,12 +41,10 @@ COMPARISON TO OTHER PLUGINS            *tangerine-comparison-to-other-plugins*
 
 HOTPOT
 
-
 - Abstracts too much away from the user.
 - Hooks onto lua package searchers to compile [harder to debug].
 
 ANISEED
-
 
 - Excessively feature rich for use in dotfiles.
 - Blindly compiles all files that it founds, resulting in slow load times.
@@ -55,7 +52,6 @@ ANISEED
 
 ==============================================================================
 2. Installation                                       *tangerine-installation*
-
 
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
@@ -100,7 +96,6 @@ information.
     bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
 <
 
-
 1. Call tangerine `setup()` function, see |tangerine-config| for valid options:
 
 >lua
@@ -108,7 +103,6 @@ information.
     
     require "tangerine".setup {}
 <
-
 
 1. Invoke `:FnlCompile` manually or add hooks in |tangerine-setup|.
 
@@ -158,9 +152,9 @@ Lazy
 Lazy requires some extra setup to get working, because it interferes with
 package.path.
 
-
 1. Move tangerine’s bootstrap code to `~/.config/nvim/init.lua` instead of using
 `plugin/` dir to prevent an infinite loop caused by lazy.
+
 
 2. Disable `reset_packpath` in lazy’s config when calling the setup function:
 
