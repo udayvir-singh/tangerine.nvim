@@ -51,13 +51,14 @@
     ; setup paths
     (set fennel.path       (get-path :fnl false))
     (set fennel.macro-path (get-path :fnl true))
-    :return fennel))
+    :return
+    ((env.get :compiler :adviser) fennel)))
 
 (lambda fennel.patch-path []
   "appends fennel source and target dirs into package.path."
   (let [target (get-path :lua false)
         source (format-path (env.get :target) :lua false)]
-    (tset package :path (.. original-path ";" target ";" source))
+    (set package.path (.. original-path ";" target ";" source))
     :return package.path))
 
 

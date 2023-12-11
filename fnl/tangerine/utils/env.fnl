@@ -91,8 +91,9 @@
     :clean   "boolean"
     :force   "boolean"
     :verbose "boolean"
-    :globals [:string]
     :version [:oneof ["latest" "1-4-0" "1-3-1" "1-3-0" "1-2-1" "1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
+    :adviser "function"
+    :globals [:string]
     :hooks   [:array ["onsave" "onload" "oninit"]]
   }
 
@@ -141,6 +142,7 @@
     :force   false
     :verbose true
     :version "latest"
+    :adviser #$
     :globals (vim.tbl_keys _G)
     :hooks   []
   }

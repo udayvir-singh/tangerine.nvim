@@ -198,8 +198,18 @@ local nvim_dir = vim.fn.stdpath [[config]]
         force   = false,    -- disable diffing (not recommended)
         verbose = true,     -- enable messages showing compiled files
 
-        globals = vim.tbl_keys(_G), -- list of alowedGlobals
-        version = "latest",         -- version of fennel to use, [ latest, 1-4-0, 1-3-1, 1-3-0, 1-2-1, 1-2-0, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
+        globals = vim.tbl_keys(_G), -- list of alowed globals in fennel code
+
+        -- wrapper function that provides access to underlying fennel compiler
+        -- useful if you want to modify fennel API or want to provide your own fennel compiler
+        adviser = function (fennel)
+            -- for example, adding a custom macro path:
+            -- fennel["macro-path"] = fennel["macro-path"] .. ";/custom/path/?.fnl"
+            return fennel
+        end,
+
+        -- version of fennel to use, [ latest, 1-4-0, 1-3-1, 1-3-0, 1-2-1, 1-2-0, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
+        version = "latest",
 
         -- hooks for tangerine to compile on:
         -- "onsave" run every time you save fennel file in {source} dir
@@ -211,8 +221,8 @@ local nvim_dir = vim.fn.stdpath [[config]]
     eval = {
         float  = true,      -- show results in floating window
         luafmt = function() -- function that returns formatter with flags for peeked lua
-            -- optionally install lua-format by `$ luarocks install --local --server=https://luarocks.org/dev luaformatter`
-            return {"~/.luarocks/bin/lua-format", ...}
+            -- optionally install lua-format by running `$ luarocks install --local --server=https://luarocks.org/dev luaformatter`
+            return {"~/.luarocks/bin/lua-format", "--column-limit", "80"}
         end,
 
         diagnostic = {
@@ -453,7 +463,7 @@ utils
 └── packer-macros.fnl
 ```
 
-see [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) for more information
+see [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) and [#30](https://github.com/udayvir-singh/tangerine.nvim/issues/30) for more information
 
 # Api
 
