@@ -11,10 +11,17 @@
 ;; -------------------- ;;
 ;;        Utils         ;;
 ;; -------------------- ;;
+(local windows? (= _G.jit.os "Windows"))
+
 (lambda esc-file-pattern [path]
   "escapes magic characters from 'path'."
   (pick-values 1
     (path:gsub "[%*%?%[%]%{%}\\,]" "\\%1")))
+
+(lambda resolve-file-pattern [path]
+  "resolves 'path' so that it complies with vim's file-pattern."
+  (esc-file-pattern
+    (if windows? (path:gsub "\\" "/") path)))
 
 (lambda exec [...]
   "executes given multi-args as vim command."
@@ -53,14 +60,14 @@
   "runs everytime fennel files in source dirs are saved."
   (local patterns (vim.tbl_flatten [
     ;; vimrc
-    (esc-file-pattern (env.get :vimrc))
+    (resolve-file-pattern (env.get :vimrc))
     ;; source directory
-    (.. (esc-file-pattern (env.get :source)) "*.fnl")
+    (.. (resolve-file-pattern (env.get :source)) "*.fnl")
     ;; rtpdirs
-    (map #(.. (esc-file-pattern $) "*.fnl")
+    (map #(.. (resolve-file-pattern $) "*.fnl")
          (env.get :rtpdirs))
     ;; custom paths
-    (map #(.. (esc-file-pattern $) "*.fnl")
+    (map #(.. (resolve-file-pattern $) "*.fnl")
          (icollect [_ [s] (ipairs (env.get :custom))] s))
   ]))
   (augroup :tangerine-onsave
