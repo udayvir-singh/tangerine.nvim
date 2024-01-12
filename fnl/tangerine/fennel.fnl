@@ -9,7 +9,7 @@
 (local fennel {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda format-path [path ext macro?]
   "converts 'path' into usable fennel.path."
@@ -40,7 +40,7 @@
 
 
 ;; -------------------- ;;
-;;       Fennel         ;;
+;;       FENNEL         ;;
 ;; -------------------- ;;
 (local original-path package.path)
 

@@ -6,7 +6,7 @@
 (local prefix "lua tangerine.api.")
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda odd? [int]
   "checks if 'int' is mathematically of odd parity ;}"
@@ -33,25 +33,20 @@
 ;; -------------------- ;;
 (local bang? "{ force=('<bang>' == '!' or nil) }")
 
-
-; COMMAND |       name       |     func     |  args  |  opts |
 (command! :FnlCompileBuffer  "compile.buffer"  nil         [])
 (command! :FnlCompile        "compile.all"     bang?  [:bang])
 (command! :FnlClean          "clean.orphaned"  bang?  [:bang])
-
 
 (command! :Fnl        "eval.string"          "(<q-args>)"  [:nargs "*"])
 (command! :FnlFile    "eval.file"            "(<q-args>)"  [:nargs 1 :complete "file"])
 (command! :FnlBuffer  "eval.buffer"  "(<line1>, <line2>)"  [:range "%"])
 (command! :FnlPeek    "eval.peek"    "(<line1>, <line2>)"  [:range "%"])
 
-
 (command! :FnlWinKill    "win.killall"  nil                   [])
 (command! :FnlWinClose   "win.close"    nil                   [])
 (command! :FnlWinResize  "win.resize"   "(<args>)"  [:nargs "1"])
 (command! :FnlWinNext    "win.next"     "(<args>)"  [:nargs "?"])
 (command! :FnlWinPrev    "win.prev"     "(<args>)"  [:nargs "?"])
-
 
 (command! :FnlGotoOutput  "goto_output"  nil  [])
 

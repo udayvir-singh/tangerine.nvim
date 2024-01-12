@@ -7,7 +7,7 @@
 (local win {})
 
 ;; -------------------- ;;
-;;        Stack         ;;
+;;        STACK         ;;
 ;; -------------------- ;;
 (local win-stack {
   ; "contains list of active floats in [win conf] chunks"
@@ -52,7 +52,7 @@
 
 
 ;; -------------------- ;;
-;;      Navigation      ;;
+;;      NAVIGATION      ;;
 ;; -------------------- ;;
 (lambda move-stack [start steps]
   "navigate between win-stack from 'start', N 'steps' from current window."
@@ -111,7 +111,7 @@
 
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda lineheight [lines]
   "calculates height occupied by 'lines' relative to window's width."
@@ -143,7 +143,7 @@
 
 
 ;; -------------------- ;;
-;;        Window        ;;
+;;        WINDOW        ;;
 ;; -------------------- ;;
 (lambda win.create-float [lineheight filetype hl-normal ?hl-border]
   "defines a floating window with height 'lineheight'."

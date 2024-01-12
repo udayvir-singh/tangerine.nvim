@@ -10,7 +10,7 @@
 (local M {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda call [func ...]
   "loads 'func' from runner, calls it with {...}."
@@ -18,7 +18,7 @@
 
 
 ;; -------------------- ;;
-;;       Wrappers       ;;
+;;       WRAPPERS       ;;
 ;; -------------------- ;;
 (lambda M.test [name ...]
   (call :test name `(fn [] ,...)))
@@ -45,7 +45,7 @@
 
 
 ;; -------------------- ;;
-;;        Module        ;;
+;;        MODULE        ;;
 ;; -------------------- ;;
 (lambda M.module [name mod]
   "defines test for module 'mod' and assigns return value to 'name'."
@@ -55,7 +55,7 @@
 
 
 ;; -------------------- ;;
-;;        Window        ;;
+;;        WINDOW        ;;
 ;; -------------------- ;;
 (lambda M.with-buf [[name get* set*] ...]
   "creates new buffer and auto closes it after executing {...}."

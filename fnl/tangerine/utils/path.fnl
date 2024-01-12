@@ -7,7 +7,7 @@
 (local p {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (local windows? (= _G.jit.os "Windows"))
 
@@ -35,7 +35,7 @@
 
 
 ;; ------------------------- ;;
-;;     Path Transformers     ;;
+;;     PATH TRANSFORMERS     ;;
 ;; ------------------------- ;;
 (local vimrc-out (-> (env.get :target) (.. "tangerine_vimrc.lua")))
 
@@ -68,7 +68,7 @@
 
 
 ;; -------------------- ;;
-;;         Vim          ;;
+;;         VIM          ;;
 ;; -------------------- ;;
 (lambda p.goto-output []
   "open lua:target of current fennel buffer."
@@ -82,7 +82,7 @@
 
 
 ;; -------------------- ;;
-;;       Indexers       ;;
+;;       INDEXERS       ;;
 ;; -------------------- ;;
 (lambda p.wildcard [dir pat]
   "expands wildcard 'pat' inside of 'dir' and return array of paths."

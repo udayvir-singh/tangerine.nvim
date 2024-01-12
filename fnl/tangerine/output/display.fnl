@@ -9,7 +9,7 @@
 (local dp {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda print [str]
   "wrapper around print that only works if UI is available."
@@ -25,7 +25,7 @@
 
 
 ;; -------------------- ;;
-;;        Output        ;;
+;;        OUTPUT        ;;
 ;; -------------------- ;;
 (lambda dp.show [res opts]
   "displays serialized 'res' inside float if opts.float = true."

@@ -21,7 +21,7 @@
 (local eval {})
 
 ;; -------------------- ;;
-;;         Utils        ;;
+;;         UTILS        ;;
 ;; -------------------- ;;
 (lambda get-lines [start end]
   "returns lines 'start' to 'end' as string in current buffer."
@@ -40,7 +40,7 @@
 
 
 ;; -------------------- ;;
-;;         Eval         ;;
+;;         EVAL         ;;
 ;; -------------------- ;;
 (lambda eval.string [str ?opts]
   "evaluate string 'str' of fennel, pretty prints the output."
@@ -85,7 +85,7 @@
 
 
 ;; -------------------- ;;
-;;       Peeking        ;;
+;;       PEEKING        ;;
 ;; -------------------- ;;
 (lambda eval.peek [start end ?opts]
   "lookup lua output for lines 'start' to 'end' inside scratch buffer."

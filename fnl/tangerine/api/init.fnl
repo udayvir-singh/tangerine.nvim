@@ -5,7 +5,7 @@
 ; :return utils[window]
 
 ;; -------------------- ;;
-;;         Utils        ;;
+;;         UTILS        ;;
 ;; -------------------- ;;
 (lambda lazy [module ?func]
   "lazy require 'module' and optionally calls 'func'."

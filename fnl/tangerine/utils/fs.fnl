@@ -3,7 +3,7 @@
 (local fs {})
 
 ;; -------------------- ;;
-;;         Main         ;;
+;;         MAIN         ;;
 ;; -------------------- ;;
 (lambda fs.readable? [path]
   "checks is 'path' is readable."

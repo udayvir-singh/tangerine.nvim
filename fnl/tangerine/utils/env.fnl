@@ -4,7 +4,7 @@
 ;   Provides getter and setter so that multiple modules can have shared configurations.
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (local config-dir (vim.fn.stdpath :config))
 
@@ -61,7 +61,7 @@
 
 
 ;; -------------------- ;;
-;;        Schema        ;;
+;;        SCHEMA        ;;
 ;; -------------------- ;;
 (local pre-schema {
   ; "pre processors called before setting ENV"
@@ -179,7 +179,7 @@
 
 
 ;; -------------------- ;;
-;;      Validation      ;;
+;;      VALIDATION      ;;
 ;; -------------------- ;;
 (lambda validate-err [key msg ...]
   "shows validation failed error for 'key' with description 'msg'."
@@ -243,7 +243,7 @@
 
 
 ;; -------------------- ;;
-;;        Getters       ;;
+;;        GETTERS       ;;
 ;; -------------------- ;;
 (lambda env-get [...]
   "getter for de' table ENV."
@@ -262,7 +262,7 @@
 
 
 ;; -------------------- ;;
-;;        Setters       ;;
+;;        SETTERS       ;;
 ;; -------------------- ;;
 (lambda env-set [tbl]
   "setter for de' table ENV."

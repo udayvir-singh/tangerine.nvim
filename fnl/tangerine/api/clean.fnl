@@ -21,7 +21,7 @@
 (local clean {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda merge [list1 list2]
   "merges values of 'list2' onto 'list1'."
@@ -35,7 +35,7 @@
 
 
 ;; -------------------- ;;
-;;         Main         ;;
+;;         MAIN         ;;
 ;; -------------------- ;;
 (lambda clean.target [source target ?opts]
   "checks if lua:'target' is Marked and has a readable fnl:'source',

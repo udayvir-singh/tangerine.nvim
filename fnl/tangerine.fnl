@@ -8,7 +8,7 @@
 (local fennel (require :tangerine.fennel))
 
 ;; -------------------- ;;
-;;         Main         ;;
+;;         MAIN         ;;
 ;; -------------------- ;;
 (lambda load-vimrc []
   "safely require vimrc if readable."

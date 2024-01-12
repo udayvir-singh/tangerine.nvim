@@ -14,6 +14,5 @@
 
   (it "patch package.path"
     (fnd (fennel.patch-path) "home/.-/.config/nvim/lua/%?.lua")
-
     (eql (fennel.patch-path)
          (fennel.patch-path))))

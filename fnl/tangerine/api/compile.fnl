@@ -26,7 +26,7 @@
 (local compile {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda compiled [source]
   "prints compiled message for 'source'."
@@ -68,7 +68,7 @@
 
 
 ;; -------------------- ;;
-;;      Low Level       ;;
+;;      LOW LEVEL       ;;
 ;; -------------------- ;;
 (lambda compile.string [str ?opts]
   "compiles given fennel::'str' to lua."
@@ -127,7 +127,7 @@
 
 
 ;; -------------------- ;;
-;;      High Level      ;;
+;;      HIGH LEVEL      ;;
 ;; -------------------- ;;
 (lambda compile.buffer [?opts]
   "compiles the current active vim buffer."

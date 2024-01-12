@@ -13,7 +13,7 @@
 } (env.get :keymaps))
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda nmap! [lhs rhs]
   (vim.api.nvim_set_keymap :n lhs (.. ":" rhs "<CR>") {:noremap true :silent true}))

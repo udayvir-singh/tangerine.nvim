@@ -11,7 +11,7 @@
 (local hl-errors  (env.get :highlight :errors))
 
 ;; -------------------- ;;
-;;       Parsing        ;;
+;;       PARSING        ;;
 ;; -------------------- ;;
 (fn number? [int]
   "checks if 'int' is of number type."
@@ -43,7 +43,7 @@
 
 
 ;; -------------------- ;;
-;;      Diagnostic      ;;
+;;      DIAGNOSTIC      ;;
 ;; -------------------- ;;
 (local timer {:get (vim.loop.new_timer)})
 
@@ -84,7 +84,7 @@
 
 
 ;; -------------------- ;;
-;;        Errors        ;;
+;;        ERRORS        ;;
 ;; -------------------- ;;
 (lambda err.soft [msg]
   "echo 'msg' with Error highlight."

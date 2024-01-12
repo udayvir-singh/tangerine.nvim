@@ -9,7 +9,7 @@
 (local hooks {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (local windows? (= _G.jit.os "Windows"))
 

@@ -8,7 +8,7 @@
 (local M {})
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda indent [str level]
   "appends 'level' of indentation to 'str'."
@@ -31,7 +31,7 @@
 
 
 ;; -------------------- ;;
-;;        Logger        ;;
+;;        LOGGER        ;;
 ;; -------------------- ;;
 (local UI? (< 0 (# (vim.api.nvim_list_uis))))
 
@@ -62,7 +62,7 @@
 
 
 ;; -------------------- ;;
-;;        Runner        ;;
+;;        RUNNER        ;;
 ;; -------------------- ;;
 (local stat {})
 
@@ -94,7 +94,7 @@
 
 
 ;; -------------------- ;;
-;;        Assert        ;;
+;;        ASSERT        ;;
 ;; -------------------- ;;
 (lambda serialize [val]
   "converts 'val' into human readable form."

@@ -13,7 +13,7 @@
 (local hl-float   (env.get :highlight :float))
 
 ;; -------------------- ;;
-;;        Utils         ;;
+;;        UTILS         ;;
 ;; -------------------- ;;
 (lambda empty? [list]
   "checks if 'list' is empty."
@@ -36,7 +36,7 @@
 
 
 ;; -------------------- ;;
-;;       Loggers        ;;
+;;       LOGGERS        ;;
 ;; -------------------- ;;
 (local header-block  ":: ")
 (local success-block "  ==> ")
@@ -78,7 +78,7 @@
 
 
 ;; -------------------- ;;
-;;         Main         ;;
+;;         MAIN         ;;
 ;; -------------------- ;;
 (lambda log.success [title files opts]
   "logs successful list of 'file' with heading 'title'."
