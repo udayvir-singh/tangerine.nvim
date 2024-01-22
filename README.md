@@ -52,8 +52,9 @@
 
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
-> NOTE: if you are using [lazy](https://github.com/folke/lazy.nvim) plugin manager,
-> you should create `/init.lua` instead. see [below](#package-management) for more information.
+> [!IMPORTANT]\
+> If you are using [Lazy](https://github.com/folke/lazy.nvim) plugin manager,
+> you should create `init.lua` instead of `plugin/0-tangerine.lua`. (see #20)
 
 ```lua
 -- ~/.config/nvim/plugin/0-tangerine.lua or ~/.config/nvim/init.lua
@@ -151,23 +152,12 @@ Using [hibiscus](https://github.com/udayvir-singh/hibiscus.nvim) macros:
 <details>
 <summary><b>Lazy</b></summary><br>
 
-Lazy requires some extra setup to get working, because it interferes with package.path.
-
-1. Move tangerine's bootstrap code to `~/.config/nvim/init.lua`
-instead of using `plugin/` dir to prevent an infinite loop caused by lazy.
-
-2. Disable `reset_packpath` in lazy's config when calling the setup function:
-
 ```fennel
 (local lazy (require :lazy))
 
 (lazy.setup [
   :udayvir-singh/tangerine.nvim
-] {
-  :performance {
-    :reset_packpath false
-  }
-})
+])
 ```
 
 </details>
