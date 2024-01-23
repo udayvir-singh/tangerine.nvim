@@ -52,9 +52,10 @@
 
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
-> [!IMPORTANT]\
-> If you are using [Lazy](https://github.com/folke/lazy.nvim) plugin manager,
-> you should create `init.lua` instead of `plugin/0-tangerine.lua`. (see #20)
+> [!IMPORTANT]
+> If you are using [lazy.nvim](https://github.com/folke/lazy.nvim) then you should create `init.lua` instead of `plugin/0-tangerine.lua`.
+>
+> Refer to [#20](https://github.com/udayvir-singh/tangerine.nvim/issues/20) for more information.
 
 ```lua
 -- ~/.config/nvim/plugin/0-tangerine.lua or ~/.config/nvim/init.lua
@@ -453,7 +454,7 @@ utils
 └── packer-macros.fnl
 ```
 
-see [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) and [#30](https://github.com/udayvir-singh/tangerine.nvim/issues/30) for more information
+Refer to [#2](https://github.com/udayvir-singh/tangerine.nvim/issues/2) and [#30](https://github.com/udayvir-singh/tangerine.nvim/issues/30) for more information
 
 # Api
 
@@ -936,7 +937,7 @@ make <git-hooks>
 make <target>
 ```
 
-see `make help` or [below](#make-targets) for information on targets.
+Refer to `make help` or [below](#make-targets) for information on targets.
 
 ## Make Targets
 
