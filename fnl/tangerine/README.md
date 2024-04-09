@@ -36,7 +36,7 @@ utils[env]
 |       [env.fnl](./utils/env.fnl)         | Stores environment used by rest of tangerine                 |
 |        [fs.fnl](./utils/fs.fnl)          | Basic utils around file system handlers.                     |
 |      [path.fnl](./utils/path.fnl)        | Provides path manipulation and indexing functions            |
-|    [srlize.fnl](./utils/srlize.fnl)      | Serializes lua data structures into fennel syntax.           |
+| [serialize.fnl](./utils/serialize.fnl)   | Serializes lua data structures into fennel syntax.           |
 |    [window.fnl](./utils/window.fnl)      | Contains functions to create and control floating windows.   |
 
 # vim/

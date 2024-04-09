@@ -63,12 +63,12 @@ utils[env]
 }
 ```
 
-# srlize.fnl
+# serialize.fnl
 > Serializes lua data structures into fennel syntax.
 
 **EXPORTS**
 ```fennel
-:srlize (function 1)
+:serialize (function 1)
 ```
 
 # window.fnl

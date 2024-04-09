@@ -4,7 +4,7 @@
 **DEPENDS:**
 ```
 utils[env]
-utils[srlize]
+utils[serialize]
 utils[window]
 ```
 
