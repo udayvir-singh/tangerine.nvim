@@ -191,7 +191,7 @@ jobs:
         git diff --color=always
 
     - name: Commit
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: 'auto: run build steps'
         file_pattern: lua fnl doc/tangerine.txt
