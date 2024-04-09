@@ -1,7 +1,7 @@
 ; DEPENDS:
 ; :return api[*]
 ; :return utils[path]
-; :return utils[srlize]
+; :return utils[serialize]
 ; :return utils[window]
 
 ;; -------------------- ;;
@@ -49,5 +49,5 @@
     :killall (lazy :utils.window "killall")
   }
   :goto_output (lazy :utils.path "goto-output")
-  :serialize   (lazy :utils.srlize)
+  :serialize   (lazy :utils.serialize)
 }

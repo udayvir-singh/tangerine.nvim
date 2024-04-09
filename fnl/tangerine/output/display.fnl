@@ -3,7 +3,7 @@
 ;
 ; DEPENDS:
 ; (show)        utils[window]
-; (show)        utils[srlize]
+; (show)        utils[serialize]
 ; (show format) utils[env]
 (local {: env : win : srl} (require :tangerine.utils))
 (local dp {})
