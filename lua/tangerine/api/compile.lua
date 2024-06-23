@@ -62,7 +62,7 @@ compile.dir = function(sourcedir, targetdir, _3fopts)
   for _, source in ipairs(p.wildcard(sourcedir, "**/*.fnl")) do
     local sname = p.shortname(source)
     local opts0 = tbl_merge({filename = sname}, opts)
-    local target = string.gsub(string.gsub(source, "fnl$", "lua"), p.resolve(sourcedir), p.resolve(targetdir))
+    local target = string.gsub(string.gsub(source, "fnl$", "lua"), ("^" .. string.gsub(p.resolve(sourcedir), "[%%%^%$%(%)%[%]%{%}%.%*%+%-%?]", "%%%1")), p.resolve(targetdir))
     if compile_3f(source, target, opts0) then
       table.insert(logs, sname)
       local out_2_auto
