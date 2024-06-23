@@ -84,7 +84,7 @@
        (when (= w# (vim.api.nvim_get_current_win))
          (set out# (vim.api.nvim_buf_get_lines 0 0 -1 true))
          ; close window
-         (vim.api.nvim_win_close w# true)
+         ((. (require :tangerine.utils.window) :killall))
          (lua :break)))
      ; bubble
      (assert out# "current window is not a float.")
