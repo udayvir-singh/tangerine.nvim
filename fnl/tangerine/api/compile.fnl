@@ -108,7 +108,8 @@
         (local target
           (-> source
               (string.gsub :fnl$ :lua)
-              (string.gsub (p.resolve sourcedir) (p.resolve targetdir))))
+              (string.gsub (.. "^" (string.gsub (p.resolve sourcedir) "[%%%^%$%(%)%[%]%{%}%.%*%+%-%?]" "%%%1"))
+                           (p.resolve targetdir))))
         :compile
         (when (compile? source target opts)
           (table.insert logs sname)
