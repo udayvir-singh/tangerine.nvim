@@ -53,9 +53,13 @@
 1. Create file `plugin/0-tangerine.lua` to bootstrap tangerine:
 
 > [!IMPORTANT]
-> If you are using [lazy.nvim](https://github.com/folke/lazy.nvim) then you should create `init.lua` instead of `plugin/0-tangerine.lua`.
 >
-> Refer to [#20](https://github.com/udayvir-singh/tangerine.nvim/issues/20) for more information.
+> - If you are using [lazy.nvim](https://github.com/folke/lazy.nvim) then you should create `init.lua` instead of `plugin/0-tangerine.lua`.
+>   Refer to [#20](https://github.com/udayvir-singh/tangerine.nvim/issues/20) for more information.
+>
+> - If you are using [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim), there is no need to bootstrap this plugin
+>   (unless you want to write your rocks.nvim bootstrap script in Fennel).
+>   Install with `:Rocks install tangerine.nvim` and skip to step 2.
 
 ```lua
 -- ~/.config/nvim/plugin/0-tangerine.lua or ~/.config/nvim/init.lua
