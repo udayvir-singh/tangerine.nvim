@@ -199,7 +199,7 @@ local nvim_dir = vim.fn.stdpath [[config]]
             return fennel
         end,
 
-        -- version of fennel to use, [ latest, 1-4-2, 1-4-1, 1-4-0, 1-3-1, 1-3-0, 1-2-1, 1-2-0, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
+        -- version of fennel to use, [ latest, 1-5-1, 1-5-0, 1-4-2, 1-4-1, 1-4-0, 1-3-1, 1-3-0, 1-2-1, 1-2-0, 1-1-0, 1-0-0, 0-10-0, 0-9-2 ]
         version = "latest",
 
         -- hooks for tangerine to compile on:
@@ -908,7 +908,7 @@ Closes all floating windows created by tangerine.
 
 Provides access to fennel compiler used by tangerine.
 
-{version} can be one of [ `"latest"` `"1-4-2"` `"1-4-1"` `"1-4-0"` `"1-3-1"` `"1-3-0"` `"1-2-1"` `"1-2-0"` `"1-1-0"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
+{version} can be one of [ `"latest"` `"1-5-1"` `"1-5-0"` `"1-4-2"` `"1-4-1"` `"1-4-0"` `"1-3-1"` `"1-3-0"` `"1-2-1"` `"1-2-0"` `"1-1-0"` `"1-0-0"` `"0-10-0"` `"0-9-2"` ]
 
 <!-- ignore-start -->
 

@@ -91,7 +91,7 @@
     :clean   "boolean"
     :force   "boolean"
     :verbose "boolean"
-    :version [:oneof ["latest" "1-4-2" "1-4-1" "1-4-0" "1-3-1" "1-3-0" "1-2-1" "1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
+    :version [:oneof ["latest" "1-5-1" "1-5-0" "1-4-2" "1-4-1" "1-4-0" "1-3-1" "1-3-0" "1-2-1" "1-2-0" "1-1-0" "1-0-0" "0-10-0" "0-9-2"]]
     :adviser "function"
     :globals [:string]
     :hooks   [:array ["onsave" "onload" "oninit"]]

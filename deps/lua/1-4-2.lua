@@ -3534,7 +3534,7 @@ package.preload["fennel.friend"] = package.preload["fennel.friend"] or function(
     end
   end
   local function highlight_line(codeline, col, _3fendcol, opts)
-	-- [[tangerine:patch]]
+    -- [[tangerine:patch]]
     return codeline
   end
   local function friendly_msg(msg, _194_0, source, opts)
