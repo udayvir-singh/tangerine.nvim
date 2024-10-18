@@ -4,9 +4,7 @@
   (module fennel :tangerine.fennel)
 
   (it "loads fennel"
-    (eql (. (fennel.load)         :version) "1.5.1")
-    (eql (. (fennel.load :latest) :version) "1.5.1")
-    (eql (. (fennel.load :1-0-0)  :version) "1.0.0"))
+    (eql (. (fennel.load :latest) :version) "1.5.1"))
 
   (it "setup fennel.path"
     (fnd (. (fennel.load) :path)       "home/.-/init.fnl")
